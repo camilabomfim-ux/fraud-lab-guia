@@ -7,10 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;--surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;--violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-bg:#F3F0FF;--violet-3:#C4B5FD;--red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;--amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;--emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;--shadow-sm:0 1px 3px rgba(0,0,0,.07);--shadow-md:0 4px 16px rgba(0,0,0,.10);--r:14px;}
+:root{--ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;--surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;--violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-bg:#F3F0FF;--violet-3:#C4B5FD;--red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;--amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;--emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;--r:14px;--shadow-sm:0 1px 3px rgba(0,0,0,.07);--shadow-md:0 4px 16px rgba(0,0,0,.10);}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
-.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
+body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;}
+.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
 .g-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:50px;}
 .g-nav-logo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none;}
 .g-nav-logo:hover{color:#C4B5FD;}
@@ -18,70 +18,266 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
 .g-nav-link{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all .15s;}
 .g-nav-link:hover{color:white;background:rgba(255,255,255,.09);}
 .g-nav-link.active{color:#C4B5FD;background:rgba(107,63,228,.3);}
-@media(max-width:480px){.g-nav-inner{padding:0 14px;}.g-nav-link{padding:5px 8px;font-size:11px;}}
-.screen{display:none;min-height:calc(100vh - 50px);}.screen.active{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;}
-.intro-wrap{max-width:520px;width:100%;text-align:center;}
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+.combo-toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,#6B3FE4,#A855F7);color:white;padding:10px 22px;border-radius:99px;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:800;z-index:500;white-space:nowrap;box-shadow:0 4px 24px rgba(107,63,228,.5);transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .25s;opacity:0;}
+.combo-toast.show{transform:translateX(-50%) scale(1);opacity:1;}
+.streak-bar{display:flex;gap:4px;justify-content:center;margin-bottom:16px;}
+.streak-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:all .3s;}
+.streak-dot.lit{background:linear-gradient(135deg,#F59E0B,#F97316);box-shadow:0 0 8px rgba(249,115,22,.6);}
+.screen{display:none;min-height:calc(100vh - 50px);}
+.screen.active{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px 40px;}
+.intro-wrap{max-width:540px;width:100%;text-align:center;}
 .game-badge{display:inline-flex;align-items:center;gap:6px;background:var(--violet-bg);color:var(--violet);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;margin-bottom:20px;border:1px solid var(--violet-3);}
-.intro-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1.15;letter-spacing:-.5px;color:var(--ink);margin-bottom:12px;}.intro-title span{color:var(--violet);}
-.intro-sub{font-size:15px;color:var(--ink-3);max-width:400px;margin:0 auto 28px;line-height:1.6;}
-.rules{background:white;border-radius:var(--r);padding:20px;margin-bottom:28px;border:1px solid var(--border);box-shadow:var(--shadow-sm);text-align:left;}
-.rules-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);margin-bottom:12px;}
-.rule-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink-2);}.rule-item:last-child{border-bottom:none;}.rule-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
-.btn-start{width:100%;padding:15px;background:var(--violet);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(107,63,228,.4);}.btn-start:hover{background:var(--violet-dark);transform:translateY(-2px);}
-.game-wrap{max-width:640px;width:100%;padding-bottom:40px;}
-.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;}
-.progress-wrap{flex:1;}.progress-label{font-size:11px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
-.progress-bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden;}.progress-fill{height:100%;background:linear-gradient(90deg,var(--violet),#A855F7);border-radius:99px;transition:width .4s ease;}
-.score-badge{background:white;border:1px solid var(--border);border-radius:99px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;box-shadow:var(--shadow-sm);}.score-badge span{color:var(--violet);}
-.q-num{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);background:var(--violet-bg);padding:2px 10px;border-radius:99px;margin-bottom:10px;display:inline-block;border:1px solid var(--violet-3);}
-.scenario-card{background:white;border-radius:var(--r);padding:22px;margin-bottom:16px;border:1px solid var(--border);box-shadow:var(--shadow-sm);}
-.scenario-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4);margin-bottom:8px;display:flex;align-items:center;gap:6px;}.scenario-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.scenario-text{font-size:14px;color:var(--ink-2);line-height:1.65;}.scenario-text strong{color:var(--ink);font-weight:600;}
+.intro-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:800;line-height:1.1;letter-spacing:-.5px;color:var(--ink);margin-bottom:10px;}
+.intro-title span{color:var(--violet);}
+.intro-sub{font-size:15px;color:var(--ink-3);max-width:420px;margin:0 auto 24px;line-height:1.6;}
+.intro-stats{display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;}
+.stat-chip{background:white;border:1px solid var(--border);border-radius:99px;padding:7px 16px;font-size:12px;font-weight:700;color:var(--ink-2);display:flex;align-items:center;gap:6px;box-shadow:var(--shadow-sm);}
+.rules{background:white;border-radius:var(--r);padding:20px;margin-bottom:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm);text-align:left;}
+.rules-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4);margin-bottom:12px;}
+.rule-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink-2);}
+.rule-item:last-child{border-bottom:none;}.rule-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.btn-start{width:100%;padding:16px;background:linear-gradient(135deg,var(--violet),#A855F7);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(107,63,228,.4);}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,63,228,.5);}
+.game-wrap{max-width:640px;width:100%;}
+.hud{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.hud-progress{flex:1;}
+.hud-label{font-size:10px;font-weight:800;color:var(--ink-4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.hud-bar{height:7px;background:var(--border);border-radius:99px;overflow:hidden;}
+.hud-fill{height:100%;background:linear-gradient(90deg,var(--violet),#A855F7);border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.hud-score{background:white;border:1px solid var(--border);border-radius:12px;padding:8px 14px;text-align:center;min-width:80px;box-shadow:var(--shadow-sm);}
+.hud-score-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);}
+.hud-score-val{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:var(--violet);line-height:1;}
+.hud-lives{display:flex;gap:3px;}
+.hud-life{font-size:16px;transition:all .3s;}
+.hud-life.lost{opacity:.2;transform:scale(.7);}
+.q-badge{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);background:var(--violet-bg);padding:2px 10px;border-radius:99px;margin-bottom:10px;display:inline-block;border:1px solid var(--violet-3);}
+.scenario-card{background:white;border-radius:var(--r);padding:22px;margin-bottom:14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);}
+.scenario-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.scenario-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.scenario-text{font-size:14px;color:var(--ink-2);line-height:1.65;}
+.scenario-text strong{color:var(--ink);font-weight:600;}
 .analyst-tag{display:inline-flex;align-items:center;gap:5px;background:var(--surface-2);border:1px solid var(--border);border-radius:99px;padding:3px 10px;font-size:11px;color:var(--ink-3);margin-top:10px;font-weight:500;}
-.question-text{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px;line-height:1.4;}
+.question-text{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.4;}
 .options{display:flex;flex-direction:column;gap:8px;}
 .opt-btn{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--r);border:2px solid var(--border);background:white;cursor:pointer;transition:all .15s;text-align:left;font-family:'Inter',sans-serif;box-shadow:var(--shadow-sm);}
-.opt-btn:hover:not(:disabled){border-color:var(--violet-3);background:var(--violet-bg);transform:translateX(3px);}.opt-btn:disabled{cursor:default;}
-.opt-btn.correct{border-color:var(--emerald);background:var(--emerald-bg);animation:pulse-green .4s ease;}.opt-btn.wrong{border-color:var(--red);background:var(--red-bg);}.opt-btn.reveal{border-color:var(--emerald);background:var(--emerald-bg);opacity:.7;}
-.opt-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid var(--border);}
-.opt-btn.correct .opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}.opt-btn.wrong .opt-icon{background:var(--red);border-color:var(--red);color:white;}.opt-btn.reveal .opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
-.opt-label{font-size:14px;font-weight:600;color:var(--ink);}.opt-sub{font-size:12px;color:var(--ink-3);margin-top:1px;}
-.opt-btn.correct .opt-label,.opt-btn.correct .opt-sub{color:var(--emerald);}.opt-btn.wrong .opt-label,.opt-btn.wrong .opt-sub{color:var(--red);}
-@keyframes pulse-green{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
-.feedback-box{border-radius:var(--r);padding:16px;margin-top:12px;display:none;animation:slideUp .2s ease;}.feedback-box.show{display:block;}
-.feedback-box.correct-fb{background:var(--emerald-bg);border:1px solid var(--emerald-border);}.feedback-box.wrong-fb{background:var(--red-bg);border:1px solid var(--red-border);}
-.fb-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;}.fb-icon{font-size:18px;}.fb-title{font-size:14px;font-weight:700;}.correct-fb .fb-title{color:var(--emerald);}.wrong-fb .fb-title{color:var(--red);}
+.opt-btn:hover:not(:disabled){border-color:var(--violet-3);background:var(--violet-bg);transform:translateX(4px);}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.correct{border-color:var(--emerald);background:var(--emerald-bg);animation:pop-correct .4s cubic-bezier(.34,1.56,.64,1);}
+.opt-btn.wrong{border-color:var(--red);background:var(--red-bg);animation:shake .4s ease;}
+.opt-btn.reveal{border-color:var(--emerald);background:var(--emerald-bg);opacity:.6;}
+.opt-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:2px solid var(--border);background:var(--surface-2);transition:all .2s;}
+.opt-btn.correct .opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
+.opt-btn.wrong .opt-icon{background:var(--red);border-color:var(--red);color:white;}
+.opt-btn.reveal .opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
+.opt-label{font-size:14px;font-weight:700;color:var(--ink);}
+.opt-sub{font-size:12px;color:var(--ink-3);margin-top:1px;}
+.opt-btn.correct .opt-label,.opt-btn.correct .opt-sub{color:var(--emerald);}
+.opt-btn.wrong .opt-label,.opt-btn.wrong .opt-sub{color:var(--red);}
+@keyframes pop-correct{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.feedback-box{border-radius:var(--r);padding:16px;margin-top:12px;display:none;animation:slide-up .22s ease;}
+.feedback-box.show{display:block;}
+.feedback-box.correct-fb{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.feedback-box.wrong-fb{background:var(--red-bg);border:1px solid var(--red-border);}
+.fb-header{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.fb-emoji{font-size:20px;}.fb-title{font-size:14px;font-weight:800;}
+.correct-fb .fb-title{color:var(--emerald);}.wrong-fb .fb-title{color:var(--red);}
 .fb-text{font-size:13px;color:var(--ink-2);line-height:1.55;}
-@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.btn-next{width:100%;padding:14px;margin-top:14px;background:var(--violet);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:none;box-shadow:0 4px 16px rgba(107,63,228,.35);}.btn-next.show{display:block;}.btn-next:hover{background:var(--violet-dark);transform:translateY(-1px);}
+@keyframes slide-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.btn-next{width:100%;padding:14px;margin-top:12px;background:var(--violet);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:none;box-shadow:0 4px 16px rgba(107,63,228,.35);}
+.btn-next.show{display:block;}.btn-next:hover{background:var(--violet-dark);transform:translateY(-1px);}
 .result-wrap{max-width:520px;width:100%;text-align:center;}
-.result-emoji{font-size:64px;margin-bottom:16px;display:block;}.result-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:var(--ink);margin-bottom:8px;}
-.result-score{font-size:52px;font-weight:900;font-family:'Space Grotesk',sans-serif;color:var(--violet);line-height:1;}.result-total{font-size:16px;color:var(--ink-3);margin-top:4px;margin-bottom:20px;}
-.result-bar-wrap{background:var(--border);border-radius:99px;height:10px;margin-bottom:24px;overflow:hidden;}.result-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--violet),#A855F7);transition:width 1s ease;}
-.result-msg{font-size:15px;color:var(--ink-2);margin-bottom:28px;line-height:1.6;background:white;border-radius:var(--r);padding:18px;border:1px solid var(--border);}
-.breakdown{background:white;border-radius:var(--r);padding:18px;margin-bottom:24px;border:1px solid var(--border);text-align:left;}.breakdown-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);margin-bottom:12px;}
-.breakdown-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}.breakdown-row:last-child{border-bottom:none;}
-.breakdown-label{display:flex;align-items:center;gap:8px;color:var(--ink-2);}.breakdown-val{font-weight:700;color:var(--ink);}
-.btn-retry{width:100%;padding:14px;background:var(--violet);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(107,63,228,.35);margin-bottom:10px;}.btn-retry:hover{background:var(--violet-dark);transform:translateY(-1px);}
-.btn-guide{width:100%;padding:13px;background:white;color:var(--violet);border:2px solid var(--violet-3);border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;}.btn-guide:hover{background:var(--violet-bg);}
-@media(max-width:600px){.screen{padding:20px 12px;}.intro-title{font-size:28px;}.question-text{font-size:15px;}}
+.result-trophy{font-size:72px;display:block;margin-bottom:8px;animation:bounce-in .6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes bounce-in{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+.result-title{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.result-subtitle{font-size:14px;color:var(--ink-3);margin-bottom:20px;}
+.result-score-wrap{background:linear-gradient(135deg,#1a0533,#6B3FE4);border-radius:var(--r);padding:24px;margin-bottom:16px;position:relative;overflow:hidden;}
+.result-score-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(200,160,255,.2) 0%,transparent 70%);}
+.result-score-num{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:900;color:white;line-height:1;}
+.result-score-label{font-size:13px;color:rgba(255,255,255,.65);margin-top:4px;}
+.result-bar-wrap{background:rgba(255,255,255,.15);border-radius:99px;height:8px;margin-top:14px;overflow:hidden;}
+.result-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,#C4B5FD,white);transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.result-msg{font-size:15px;color:var(--ink-2);margin-bottom:16px;line-height:1.6;background:white;border-radius:var(--r);padding:16px 18px;border:1px solid var(--border);}
+.breakdown{background:white;border-radius:var(--r);padding:16px 18px;margin-bottom:16px;border:1px solid var(--border);text-align:left;}
+.breakdown-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);margin-bottom:10px;}
+.breakdown-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.breakdown-row:last-child{border-bottom:none;}
+.breakdown-label{display:flex;align-items:center;gap:8px;color:var(--ink-2);}
+.breakdown-val{font-weight:800;color:var(--ink);}
+.ranking-wrap{background:white;border-radius:var(--r);padding:16px 18px;margin-bottom:16px;border:1px solid var(--border);text-align:left;}
+.ranking-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);margin-bottom:10px;}
+.ranking-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.ranking-row:last-child{border-bottom:none;}
+.ranking-pos{width:22px;height:22px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--ink-3);flex-shrink:0;}
+.ranking-pos.gold{background:#FEF3C7;color:#D97706;}.ranking-pos.silver{background:#F3F4F6;color:#6B7280;}.ranking-pos.bronze{background:#FFF7ED;color:#EA580C;}
+.ranking-name{flex:1;font-weight:600;color:var(--ink);}
+.ranking-name.you-name{color:var(--violet);}
+.ranking-score{font-weight:800;color:var(--ink);}
+.ranking-badge{font-size:11px;background:var(--violet-bg);color:var(--violet);padding:1px 7px;border-radius:99px;font-weight:700;}
+.name-screen-wrap{max-width:400px;width:100%;text-align:center;}
+.name-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.name-sub{font-size:14px;color:var(--ink-3);margin-bottom:20px;}
+.name-input{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--ink);background:white;outline:none;margin-bottom:12px;transition:border-color .15s;}
+.name-input:focus{border-color:var(--violet-3);}
+.btn-play{width:100%;padding:15px;background:linear-gradient(135deg,var(--violet),#A855F7);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(107,63,228,.4);}
+.btn-play:hover{transform:translateY(-2px);}
+.btn-skip{background:none;border:none;color:var(--ink-4);font-size:13px;cursor:pointer;margin-top:8px;font-family:'Inter',sans-serif;}
+.btn-skip:hover{color:var(--ink-3);}
+.result-btns{display:flex;flex-direction:column;gap:8px;}
+.btn-retry{padding:14px;background:linear-gradient(135deg,var(--violet),#A855F7);color:white;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(107,63,228,.35);}
+.btn-retry:hover{transform:translateY(-1px);}
+.btn-guide{padding:13px;background:white;color:var(--violet);border:2px solid var(--violet-3);border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-guide:hover{background:var(--violet-bg);}
+@media(max-width:600px){.screen{padding:20px 12px 32px;}.result-score-num{font-size:52px;}}
 </style>
 </head>
 <body>
+<canvas id="confetti-canvas"></canvas>
+<div class="combo-toast" id="combo-toast"></div>
 <nav class="g-nav"><div class="g-nav-inner"><a href="sobre.html" class="g-nav-logo">🔬 Fraud Lab</a><div class="g-nav-links"><a href="sobre.html" class="g-nav-link">O Processo</a><a href="index.html" class="g-nav-link">Guia</a><a href="quiz.html" class="g-nav-link active">🎮 Quiz</a></div></div></nav>
-<div id="screen-intro" class="screen active"><div class="intro-wrap"><div class="game-badge">🎮 Fraud Lab · Quiz</div><h1 class="intro-title">Você sabe classificar<br><span>um apontamento?</span></h1><p class="intro-sub">Leia o cenário, identifique o erro e escolha o nível de criticidade correto. 10 casos reais de Mule Account.</p><div class="rules"><div class="rules-title">Como funciona</div><div class="rule-item"><span class="rule-icon">📋</span><span>Você verá um cenário com um erro cometido pelo analista</span></div><div class="rule-item"><span class="rule-icon">🎯</span><span>Escolha se o erro é <strong>Crítico</strong>, <strong>Médio</strong> ou <strong>Baixo</strong></span></div><div class="rule-item"><span class="rule-icon">💡</span><span>Após cada resposta, você verá o feedback explicando o porquê</span></div><div class="rule-item"><span class="rule-icon">🏆</span><span>10 questões · 10 pontos cada · máximo de 100 pts</span></div></div><button class="btn-start" onclick="startGame()">Começar o quiz →</button></div></div>
-<div id="screen-game" class="screen"><div class="game-wrap"><div class="top-bar"><div class="progress-wrap"><div class="progress-label">Questão <span id="q-current">1</span> de 10</div><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:10%"></div></div></div><div class="score-badge">Pontos: <span id="score-display">0</span></div></div><div id="q-num-badge" class="q-num">Questão 1</div><div class="scenario-card"><div class="scenario-label">🗂️ Cenário</div><div class="scenario-text" id="scenario-text"></div><div class="analyst-tag">👤 Analista de Mule Account</div></div><div class="question-text" id="question-text"></div><div class="options" id="options-wrap"></div><div class="feedback-box" id="feedback-box"><div class="fb-header"><span class="fb-icon" id="fb-icon"></span><span class="fb-title" id="fb-title"></span></div><div class="fb-text" id="fb-text"></div></div><button class="btn-next" id="btn-next" onclick="nextQuestion()">Próximo →</button></div></div>
-<div id="screen-result" class="screen"><div class="result-wrap"><span class="result-emoji" id="result-emoji"></span><div class="result-title" id="result-title"></div><div class="result-score" id="result-score"></div><div class="result-total">de 100 pontos</div><div class="result-bar-wrap"><div class="result-bar" id="result-bar" style="width:0%"></div></div><div class="result-msg" id="result-msg"></div><div class="breakdown"><div class="breakdown-title">Seu desempenho</div><div class="breakdown-row"><span class="breakdown-label">✅ Acertos</span><span class="breakdown-val" id="bd-correct"></span></div><div class="breakdown-row"><span class="breakdown-label">❌ Erros</span><span class="breakdown-val" id="bd-wrong"></span></div><div class="breakdown-row"><span class="breakdown-label">🔴 Críticos identificados</span><span class="breakdown-val" id="bd-crit"></span></div><div class="breakdown-row"><span class="breakdown-label">🟡 Médios identificados</span><span class="breakdown-val" id="bd-med"></span></div><div class="breakdown-row"><span class="breakdown-label">🟢 Baixos identificados</span><span class="breakdown-val" id="bd-low"></span></div></div><button class="btn-retry" onclick="startGame()">🔄 Jogar novamente</button><button class="btn-guide" onclick="location.href='index.html'">📖 Revisar o guia</button></div></div>
+
+<div id="screen-intro" class="screen active">
+  <div class="intro-wrap">
+    <div class="game-badge">🎮 Fraud Lab · Quiz</div>
+    <h1 class="intro-title">Você sabe classificar<br><span>um apontamento?</span></h1>
+    <p class="intro-sub">10 cenários reais. Cada erro classificado errado dói na pontuação. Boa sorte — você vai precisar. 👀</p>
+    <div class="intro-stats">
+      <div class="stat-chip">📋 10 cenários</div>
+      <div class="stat-chip">🔴🟡🟢 3 níveis</div>
+      <div class="stat-chip">❤️ 3 vidas</div>
+      <div class="stat-chip">🔥 Combo bônus</div>
+    </div>
+    <div class="rules">
+      <div class="rules-title">Como funciona</div>
+      <div class="rule-item"><span class="rule-icon">📋</span><span>Leia o cenário e identifique o nível do erro: Crítico, Médio ou Baixo</span></div>
+      <div class="rule-item"><span class="rule-icon">🔥</span><span><strong>Combo:</strong> acertos consecutivos dão bônus de pontos (+5, +10, +15...)</span></div>
+      <div class="rule-item"><span class="rule-icon">❤️</span><span><strong>Vidas:</strong> você tem 3. Cada erro custa uma. Zere as vidas e o quiz acaba!</span></div>
+      <div class="rule-item"><span class="rule-icon">🏆</span><span>Seu nome entra no ranking do time — quem chega ao topo?</span></div>
+    </div>
+    <button class="btn-start" onclick="goToName()">Vamos jogar! →</button>
+  </div>
+</div>
+
+<div id="screen-name" class="screen">
+  <div class="name-screen-wrap">
+    <div style="font-size:48px;margin-bottom:16px;">👤</div>
+    <div class="name-title">Como aparecer no ranking?</div>
+    <div class="name-sub">Seu nome vai aparecer para o time no final do quiz.</div>
+    <input class="name-input" id="player-name-input" type="text" placeholder="Seu nome ou apelido..." maxlength="20" onkeydown="if(event.key==='Enter')startGame()">
+    <button class="btn-play" onclick="startGame()">Começar →</button><br>
+    <button class="btn-skip" onclick="skipName()">Jogar anônimo</button>
+  </div>
+</div>
+
+<div id="screen-game" class="screen">
+  <div class="game-wrap">
+    <div class="hud">
+      <div class="hud-progress">
+        <div class="hud-label">Questão <span id="q-current">1</span> de 10</div>
+        <div class="hud-bar"><div class="hud-fill" id="hud-fill" style="width:10%"></div></div>
+      </div>
+      <div class="hud-score">
+        <div class="hud-score-label">Pontos</div>
+        <div class="hud-score-val" id="score-display">0</div>
+      </div>
+      <div class="hud-lives" id="lives-wrap">
+        <span class="hud-life">❤️</span><span class="hud-life">❤️</span><span class="hud-life">❤️</span>
+      </div>
+    </div>
+    <div class="streak-bar" id="streak-bar">
+      <div class="streak-dot" id="s0"></div><div class="streak-dot" id="s1"></div><div class="streak-dot" id="s2"></div><div class="streak-dot" id="s3"></div><div class="streak-dot" id="s4"></div>
+    </div>
+    <div id="q-badge" class="q-badge">Questão 1</div>
+    <div class="scenario-card">
+      <div class="scenario-label">📂 Cenário</div>
+      <div class="scenario-text" id="scenario-text"></div>
+      <div class="analyst-tag">👤 Analista de Mule Account</div>
+    </div>
+    <div class="question-text" id="question-text"></div>
+    <div class="options" id="options-wrap"></div>
+    <div class="feedback-box" id="feedback-box">
+      <div class="fb-header"><span class="fb-emoji" id="fb-emoji"></span><span class="fb-title" id="fb-title"></span></div>
+      <div class="fb-text" id="fb-text"></div>
+    </div>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()">Próximo →</button>
+  </div>
+</div>
+
+<div id="screen-result" class="screen">
+  <div class="result-wrap">
+    <span class="result-trophy" id="result-trophy"></span>
+    <div class="result-title" id="result-title"></div>
+    <div class="result-subtitle" id="result-subtitle"></div>
+    <div class="result-score-wrap">
+      <div class="result-score-num" id="result-score">0</div>
+      <div class="result-score-label">pontos no total</div>
+      <div class="result-bar-wrap"><div class="result-bar" id="result-bar" style="width:0%"></div></div>
+    </div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="breakdown">
+      <div class="breakdown-title">Seu desempenho</div>
+      <div class="breakdown-row"><span class="breakdown-label">✅ Acertos</span><span class="breakdown-val" id="bd-correct"></span></div>
+      <div class="breakdown-row"><span class="breakdown-label">❌ Erros</span><span class="breakdown-val" id="bd-wrong"></span></div>
+      <div class="breakdown-row"><span class="breakdown-label">🔥 Maior combo</span><span class="breakdown-val" id="bd-combo"></span></div>
+    </div>
+    <div class="ranking-wrap">
+      <div class="ranking-title">🏆 Ranking do time</div>
+      <div id="ranking-list"></div>
+    </div>
+    <div class="result-btns">
+      <button class="btn-retry" onclick="goToName()">🔄 Jogar de novo</button>
+      <button class="btn-guide" onclick="location.href='index.html'">📖 Revisar o guia</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const QUESTIONS=[{scenario:"Durante a análise de um report reativo, o analista identificou que o cliente tinha <strong>3 registros no DICT</strong> vinculando sua conta a transferências contestadas por outras vítimas. Mesmo assim, o analista respondeu a calculadora sem considerar esses indícios e <strong>arquivou o caso como suspect archived</strong> (cliente OK).",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Não validar DICT/Rufra e arquivar um fraudador como OK é um erro Crítico. O cliente permanece ativo podendo continuar evadindo valores de outras vítimas. Esse tipo de erro zera o scorecard (Fail Section).",feedback_wrong:"Esse erro é Crítico. O DICT é uma fonte de indícios diretos de participação em fraude. Ignorá-lo e arquivar como OK libera um fraudador ativo — impacto direto e imediato no negócio e nas vítimas."},{scenario:"O analista finalizou corretamente um case como <strong>fraudster</strong> em um report proativo. Porém, ao encerrar a análise, <strong>não realizou o apontamento de cliente UV</strong> nem executou o <strong>fluxo de postpone UV + Jira</strong>, mesmo sendo um caso elegível para esse fluxo.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! O fluxo de postpone UV + Jira é Crítico. Não executá-lo compromete o rastreamento do caso e pode prejudicar investigações futuras e o controle de riscos do distrito.",feedback_wrong:"Esse erro é Crítico. O apontamento UV e o fluxo de postpone no Jira são obrigatórios para casos elegíveis. A ausência desse registro compromete investigações futuras e o controle de riscos."},{scenario:"O analista enviou a comunicação ao cliente pelo Zendesk, mas <strong>não verificou se o e-mail cadastrado no Zendesk era o mesmo do BKO</strong>. Os dois sistemas tinham endereços diferentes. Como resultado, o cliente não recebeu a comunicação e ficou sem saber o que estava acontecendo com sua conta.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Não conferir os e-mails do BKO e Zendesk é um erro Médio. Impacta diretamente a experiência do cliente, que fica sem clareza do que está acontecendo — mas não gera perda financeira imediata.",feedback_wrong:"Esse erro é Médio. A falta de conferência dos e-mails resulta em falha de comunicação com o cliente — impacta a experiência, mas não gera perdas financeiras diretas. Por isso, é classificado como Médio e desconta 1,5 pts."},{scenario:"O analista fechou o case de um fraudador corretamente, cancelou a conta e os cartões, mas <strong>não verificou se havia saldo retido na caixinha</strong>. O cliente fraudador manteve acesso ao saldo guardado nesse produto adicional após o cancelamento.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Não liquidar produtos adicionais (caixinha, limbo, cripto) é Médio. O fraudador pode resgatar valores que deveriam estar bloqueados — há risco financeiro, mas a decisão principal estava correta.",feedback_wrong:"Esse erro é Médio. Não resgatar produtos adicionais pode prolongar a resolução e permitir que o fraudador acesse valores retidos. A decisão de fraude estava correta, então não é Crítico, mas desconta 1,5 pts."},{scenario:"O analista finalizou um case como <strong>fraudster</strong>, mas <strong>não registrou nenhum texto na análise</strong> — o campo ficou completamente em branco. A decisão estava correta, baseada nos indícios encontrados, mas não há como saber o que levou o analista a tomar essa decisão.",question:"Qual o nível de criticidade desse erro?",correct:"baixo",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Análise sem registro é Baixo. A decisão correta foi tomada, então não há impacto direto no cliente ou no negócio. Porém, dificulta auditorias, contestações e estudos futuros. Desconta apenas 0,5 pts.",feedback_wrong:"Esse erro é Baixo. A decisão estava correta — não há impacto no cliente nem perda financeira. O problema é que sem o registro, não dá para auditar, contestar ou estudar o caso. Por isso é classificado como informativo."},{scenario:"O analista utilizou a <strong>versão antiga da Matriz Mule</strong> para analisar um report do tipo Boleto. A matriz desatualizada não contemplava os novos critérios de pejotização. Com base na matriz antiga, o analista <strong>arquivou como suspect archived</strong> — mas com a matriz correta (Matriz Boleto 2.0), a decisão seria fraudster.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Usar a ferramenta de análise incorreta ou desatualizada é Crítico quando leva a uma decisão errada. O método incorreto resultou em um fraudador sendo liberado. Scorecard zerado.",feedback_wrong:"Esse erro é Crítico. Utilizar matriz desatualizada é considerado 'método incorreto de análise' — e quando isso leva à decisão errada, o impacto é máximo. Um fraudador foi liberado por conta de uma ferramenta errada."},{scenario:"O analista identificou corretamente que o cliente era vítima de uma transferência PIX fraudulenta e registrou a análise. Porém, mesmo com uma <strong>contestação válida no sistema</strong>, o analista <strong>não realizou a contestação da transação dentro do Tristram</strong> antes de finalizar o case.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Não contestar a transação no Tristram é Médio. Sem a contestação, o valor pode não ser devolvido para a vítima — impacto na experiência e potencial perda, mas a decisão principal estava correta.",feedback_wrong:"Esse erro é Médio. A contestação no Tristram é necessária para que o valor seja devolvido à vítima. Deixar de fazer isso tem impacto direto na resolução do caso, mas não é Crítico porque a decisão de identificar a vítima estava correta."},{scenario:"O analista fechou um case de fraudster com esquema de <strong>pejotização claramente identificado</strong>. A decisão estava correta e a análise bem registrada. Porém, ao finalizar, o analista <strong>não adicionou a tag correspondente</strong> ao tipo de esquema identificado.",question:"Qual o nível de criticidade desse erro?",correct:"baixo",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Tag incorreta ou ausente é Baixo. A decisão estava certa e não há impacto no cliente. O prejuízo se limita a estudos e monitoramentos que perdem precisão na classificação dos casos. Desconta 0,5 pts.",feedback_wrong:"Esse erro é Baixo. A tag não afeta a decisão nem o cliente diretamente. Ela alimenta bases de dados e estudos internos — importante, mas sem impacto imediato. Desconto de apenas 0,5 pts."},{scenario:"O analista estava analisando um case proativo de Mule Account. Ao revisar as informações do Chimera, <strong>não mapeou os contatos suspeitos do cliente</strong> — remetentes e beneficiários com histórico de fraude. A calculadora foi respondida sem considerar essas conexões e o analista <strong>arquivou como suspect archived</strong>.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Não validar os contatos no Tristram/Chimera e arquivar um fraudador é Crítico. As conexões com fraudadores são indícios centrais na análise de Mule Account — ignorá-las e liberar o cliente é um erro de decisão grave.",feedback_wrong:"Esse erro é Crítico. Os contatos com fraudadores no Chimera são indícios fundamentais na análise de Mule Account. Não validá-los e arquivar como OK configura erro de decisão — o cliente fraudador foi liberado indevidamente."},{scenario:"O analista concluiu corretamente que o cliente era fraudador após análise completa. Ao finalizar, <strong>registrou na análise: 'fechar como fraudster'</strong>. Porém, por engano, <strong>clicou em 'suspect archived'</strong> na hora de finalizar. A análise registrada e a ação tomada são completamente opostas.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Mesmo sendo um Miss Click, o impacto é Crítico — um fraudador foi liberado indevidamente. A boa notícia: como a análise registrada contradiz a ação, o qualiter pode identificar que foi erro operacional (não de julgamento) e tratar de forma diferente.",feedback_wrong:"Esse erro é Crítico. Mesmo sendo Miss Click (sem erro de julgamento), o resultado é o mesmo: um fraudador foi liberado. O scorecard é afetado. A distinção com erro de decisão existe, mas o nível de criticidade do impacto é o mesmo."}];
-let currentQ=0,score=0,answered=false,results={correct:0,wrong:0,crit:0,med:0,low:0},shuffled=[];
-function shuffle(arr){return[...arr].sort(()=>Math.random()-.5);}
-function startGame(){currentQ=0;score=0;answered=false;results={correct:0,wrong:0,crit:0,med:0,low:0};shuffled=shuffle(QUESTIONS);showScreen('screen-game');renderQuestion();}
+const QUESTIONS=[
+{scenario:"Durante a análise de um report reativo, o analista identificou que o cliente tinha <strong>3 registros no DICT</strong> vinculando sua conta a transferências contestadas por outras vítimas. Mesmo assim, respondeu a calculadora sem considerar esses indícios e <strong>arquivou o caso como suspect archived</strong>.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Isso aí! 🎯 Ignorar o DICT e arquivar um fraudador como OK zera o scorecard. O cliente continua ativo evadindo valores de outras vítimas. Fail Section.",feedback_wrong:"Esse é Crítico! 😬 O DICT é prova direta de participação em fraude. Ignorar e arquivar como OK libera um fraudador ativo — impacto imediato no negócio e nas vítimas."},
+{scenario:"O analista finalizou corretamente um case como <strong>fraudster</strong> em report proativo. Porém, ao encerrar, <strong>não realizou o apontamento de cliente UV</strong> nem executou o <strong>fluxo de postpone UV + Jira</strong>, mesmo sendo elegível.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Perfeito! ✨ O fluxo UV + Jira é obrigatório para casos elegíveis. Pular esse passo compromete o rastreamento e prejudica investigações futuras.",feedback_wrong:"Esse é Crítico! O apontamento UV e o postpone + Jira são obrigatórios. A ausência compromete investigações futuras — desconto máximo."},
+{scenario:"O analista enviou a comunicação ao cliente pelo Zendesk, mas <strong>não verificou se o e-mail era o mesmo do BKO</strong>. Os sistemas tinham endereços diferentes e o cliente não recebeu nada.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Exato! 👏 Falha de comunicação é Médio — impacta a experiência do cliente, mas sem perda financeira direta. Desconto de 1,5 pts.",feedback_wrong:"Esse é Médio! A falha impacta a experiência do cliente, mas não gera perda financeira direta. Sempre conferir o e-mail no BKO antes de enviar."},
+{scenario:"O analista fechou o case como fraudster, cancelou a conta e os cartões, mas <strong>não verificou o saldo retido na caixinha</strong>. O fraudador manteve acesso ao saldo nesse produto.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Isso! 🎯 Não liquidar a caixinha é Médio — o fraudador pode acessar valores bloqueados, mas a decisão principal estava certa. −1,5 pts.",feedback_wrong:"Esse é Médio. A decisão de fraude estava certa, então não é Crítico. Mas o fraudador pode acessar a caixinha — sempre resgatar produtos adicionais."},
+{scenario:"O analista finalizou o case como fraudster, mas <strong>não registrou nenhum texto na análise</strong>. O campo ficou em branco. A decisão estava correta, mas sem registro.",question:"Qual o nível de criticidade desse erro?",correct:"baixo",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Isso mesmo! 😌 Sem registro é Baixo — a decisão estava certa, sem impacto direto. Mas dificulta auditorias e contestações futuras. −0,5 pts.",feedback_wrong:"Esse é Baixo. A decisão estava correta, então não há impacto direto. O problema é que sem registro não dá para auditar ou contestar o caso."},
+{scenario:"O analista usou a <strong>versão antiga da Matriz Mule</strong> para analisar um report de Boleto. A matriz desatualizada não tinha os novos critérios de pejotização e a decisão saiu errada — seria fraudster com a matriz correta.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Certíssimo! 🔥 Método incorreto = Crítico quando leva à decisão errada. Um fraudador foi liberado por ferramenta desatualizada. Scorecard zerado.",feedback_wrong:"Esse é Crítico! Usar a matriz errada é 'método incorreto de análise'. Quando isso leva à decisão errada, o impacto é máximo."},
+{scenario:"O analista identificou corretamente a vítima e registrou bem a análise. Mas, mesmo com <strong>contestação válida no sistema</strong>, <strong>não contestou a transação no Tristram</strong> antes de finalizar.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! ✅ Não contestar no Tristram é Médio — a vítima pode não receber o valor de volta. A decisão estava certa, mas o passo faltou.",feedback_wrong:"Esse é Médio. Sem a contestação no Tristram, o valor pode não ser devolvido à vítima. A decisão estava correta — por isso não é Crítico."},
+{scenario:"O analista fechou o case com pejotização claramente identificada. Decisão e análise corretas. Mas <strong>não adicionou a tag</strong> correspondente ao tipo de esquema.",question:"Qual o nível de criticidade desse erro?",correct:"baixo",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Isso aí! 👌 Tag ausente é Baixo — não afeta a decisão nem o cliente. Mas prejudica estudos e monitoramentos. −0,5 pts.",feedback_wrong:"Esse é Baixo. A decisão estava certa. A tag alimenta estudos internos — importante, mas sem impacto imediato no caso."},
+{scenario:"Em um case proativo de Mule Account, o analista <strong>não mapeou os contatos suspeitos no Chimera</strong> — remetentes e beneficiários com histórico de fraude. Respondeu a calculadora sem essas conexões e arquivou como suspect archived.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Exato! 💪 Contatos no Chimera são indícios centrais em Mule Account. Ignorá-los e arquivar como OK é erro de decisão grave.",feedback_wrong:"Esse é Crítico! Contatos com fraudadores no Chimera são fundamentais em Mule Account. Ignorá-los e arquivar como OK libera um fraudador."},
+{scenario:"O analista concluiu que o cliente era fraudador, registrou na análise <em>'fechar como fraudster'</em>, mas por engano <strong>clicou em 'suspect archived'</strong>. Análise e ação completamente opostas.",question:"Qual o nível de criticidade desse erro?",correct:"critico",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Certo! Mesmo sendo Miss Click, o resultado é Crítico — um fraudador foi liberado. O registro salva o analista: o qualiter consegue identificar o erro operacional.",feedback_wrong:"Esse é Crítico! Mesmo sendo Miss Click, o resultado é o mesmo: um fraudador solto. A distinção existe, mas o impacto é máximo."},
+{scenario:"O analista recebeu um report reativo com histórico de Colisões visíveis. Ao analisar, <strong>não validou as Informações Pessoais</strong> para checar inconsistências como uso de dados de terceiros. Arquivou como suspect archived.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Isso! Validar Informações Pessoais em reativo é Médio — pode influenciar a decisão, mas não a determina sozinha. −1,5 pts.",feedback_wrong:"Esse é Médio. Informações Pessoais são um item de verificação importante, mas não é o único fator. O impacto é parcial, não crítico."},
+{scenario:"Em um report proativo, o analista identificou pejotização clara, porém <strong>não apontou o Coverage Loss Range</strong> corretamente, colocando um valor fora da faixa real da operação investigada.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Correto! Coverage Loss Range incorreto é Médio — impacta o dimensionamento do caso, mas não muda a decisão principal.",feedback_wrong:"Esse é Médio. O Coverage Loss Range ajuda a dimensionar o caso. Se errado, distorce análises de risco, mas não determina sozinho a decisão."},
+{scenario:"O analista analisou um case pelo Método PAS e identificou corretamente o fraudador. Porém <strong>não comunicou o cliente</strong> conforme protocolo para casos de bloqueio acima de R$200k via PAS.",question:"Qual o nível de criticidade desse erro?",correct:"medio",options:[{id:"critico",label:"🔴 Crítico",sub:"Erro de decisão — impacto direto no negócio"},{id:"medio",label:"🟡 Médio",sub:"Afeta o cliente, mas sem perda financeira direta"},{id:"baixo",label:"🟢 Baixo",sub:"Informativo — afeta estudos e monitoramentos"}],feedback_correct:"Exato! Comunicação é Médio — a decisão estava certa, mas o cliente ficou sem retorno. Impacta a experiência, não o negócio diretamente.",feedback_wrong:"Esse é Médio. A decisão PAS estava correta. Mas não comunicar o cliente em bloqueios grandes é uma falha operacional que impacta a experiência."}
+];
+
+let currentQ=0,score=0,lives=3,streak=0,maxStreak=0,answered=false,results={correct:0,wrong:0},shuffled=[],playerName='Anônimo';
+const TOTAL=10;
+
+function getRanking(){try{const r=JSON.parse(localStorage.getItem('fl_ranking')||'[]');return Array.isArray(r)?r:[];}catch{return[];}}
+function saveRanking(e){let r=getRanking();const i=r.findIndex(x=>x.name===e.name);if(i>=0){if(e.score>r[i].score)r[i]=e;}else r.push(e);r.sort((a,b)=>b.score-a.score);r=r.slice(0,10);try{localStorage.setItem('fl_ranking',JSON.stringify(r));}catch{}return r;}
+
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
-function renderQuestion(){answered=false;const q=shuffled[currentQ];const total=shuffled.length;document.getElementById('q-current').textContent=currentQ+1;document.getElementById('q-num-badge').textContent=`Questão ${currentQ+1}`;document.getElementById('progress-fill').style.width=`${((currentQ+1)/total)*100}%`;document.getElementById('score-display').textContent=score;document.getElementById('scenario-text').innerHTML=q.scenario;document.getElementById('question-text').textContent=q.question;const wrap=document.getElementById('options-wrap');wrap.innerHTML='';q.options.forEach(opt=>{const btn=document.createElement('button');btn.className='opt-btn';btn.dataset.id=opt.id;btn.innerHTML=`<div class="opt-icon">${opt.id==='critico'?'🔴':opt.id==='medio'?'🟡':'🟢'}</div><div><div class="opt-label">${opt.label}</div><div class="opt-sub">${opt.sub}</div></div>`;btn.onclick=()=>answer(opt.id);wrap.appendChild(btn);});const fb=document.getElementById('feedback-box');fb.className='feedback-box';fb.classList.remove('show');document.getElementById('btn-next').classList.remove('show');}
-function answer(chosen){if(answered)return;answered=true;const q=shuffled[currentQ];const isCorrect=chosen===q.correct;document.querySelectorAll('.opt-btn').forEach(btn=>{btn.disabled=true;if(btn.dataset.id===q.correct)btn.classList.add(isCorrect&&btn.dataset.id===chosen?'correct':'reveal');if(btn.dataset.id===chosen&&!isCorrect)btn.classList.add('wrong');});if(isCorrect){score+=10;results.correct++;if(q.correct==='critico')results.crit++;else if(q.correct==='medio')results.med++;else results.low++;}else{results.wrong++;}const fb=document.getElementById('feedback-box');fb.className=`feedback-box ${isCorrect?'correct-fb':'wrong-fb'} show`;document.getElementById('fb-icon').textContent=isCorrect?'✅':'❌';document.getElementById('fb-title').textContent=isCorrect?'Correto!':'Não é esse...';document.getElementById('fb-text').textContent=isCorrect?q.feedback_correct:q.feedback_wrong;document.getElementById('score-display').textContent=score;document.getElementById('btn-next').classList.add('show');document.getElementById('btn-next').textContent=currentQ<shuffled.length-1?'Próxima questão →':'Ver resultado →';}
-function nextQuestion(){currentQ++;if(currentQ>=shuffled.length){showResult();}else{renderQuestion();}}
-function showResult(){showScreen('screen-result');const pct=score;let emoji,title,msg;if(pct>=90){emoji='🏆';title='Expert em Apontamentos!';msg='Excelente! Você domina os critérios de classificação. Seu entendimento do scorecard está muito acima da média — ótima base para ajudar o time a calibrar as análises.';}else if(pct>=70){emoji='🎯';title='Muito bom!';msg='Você tem um bom entendimento dos critérios. Algumas classificações escaparam, mas a base está sólida. Vale revisar os casos que errou no guia.';}else if(pct>=50){emoji='📚';title='Quase lá!';msg='Você acertou metade — bom começo! Mas ainda há confusão entre os níveis, especialmente entre Crítico e Médio. Uma revisão no guia vai ajudar muito.';}else{emoji='💡';title='Hora de revisar!';msg='Os critérios de classificação ainda geram dúvidas. Não tem problema — o guia foi feito exatamente para isso. Leia os exemplos práticos e tente novamente!';}document.getElementById('result-emoji').textContent=emoji;document.getElementById('result-title').textContent=title;document.getElementById('result-score').textContent=score;document.getElementById('result-msg').textContent=msg;document.getElementById('bd-correct').textContent=`${results.correct}/10`;document.getElementById('bd-wrong').textContent=`${results.wrong}/10`;document.getElementById('bd-crit').textContent=`${results.crit} caso(s)`;document.getElementById('bd-med').textContent=`${results.med} caso(s)`;document.getElementById('bd-low').textContent=`${results.low} caso(s)`;setTimeout(()=>{document.getElementById('result-bar').style.width=`${pct}%`;},300);}
+function goToName(){showScreen('screen-name');setTimeout(()=>document.getElementById('player-name-input').focus(),300);}
+function skipName(){playerName='Anônimo';startGame();}
+function startGame(){const v=document.getElementById('player-name-input').value.trim();playerName=v||'Anônimo';currentQ=0;score=0;lives=3;streak=0;maxStreak=0;answered=false;results={correct:0,wrong:0};shuffled=shuffle(QUESTIONS).slice(0,TOTAL);updateLives();showScreen('screen-game');renderQuestion();}
+function shuffle(a){return[...a].sort(()=>Math.random()-.5);}
+
+function updateLives(){const w=document.getElementById('lives-wrap');w.innerHTML='';for(let i=0;i<3;i++){const s=document.createElement('span');s.className='hud-life'+(i>=lives?' lost':'');s.textContent=i<lives?'❤️':'🖤';w.appendChild(s);}}
+
+function updateStreakBar(){for(let i=0;i<5;i++){const d=document.getElementById('s'+i);if(d)d.className='streak-dot'+(i<streak?' lit':'');}}
+
+function showCombo(s,b){const t=document.getElementById('combo-toast');const m={2:'🔥 Combo x2!',3:'⚡ Combo x3!',4:'🚀 Combo x4!',5:'💥 COMBO x5!'};t.textContent=(m[s]||`🌟 Combo x${s}!`)+(b>0?` +${b} bônus`:'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+
+function renderQuestion(){answered=false;const q=shuffled[currentQ];document.getElementById('q-current').textContent=currentQ+1;document.getElementById('q-badge').textContent=`Questão ${currentQ+1} de ${TOTAL}`;document.getElementById('hud-fill').style.width=`${((currentQ+1)/TOTAL)*100}%`;document.getElementById('score-display').textContent=score;document.getElementById('scenario-text').innerHTML=q.scenario;document.getElementById('question-text').textContent=q.question;const w=document.getElementById('options-wrap');w.innerHTML='';q.options.forEach(o=>{const b=document.createElement('button');b.className='opt-btn';b.dataset.id=o.id;b.innerHTML=`<div class="opt-icon">${o.id==='critico'?'🔴':o.id==='medio'?'🟡':'🟢'}</div><div><div class="opt-label">${o.label}</div><div class="opt-sub">${o.sub}</div></div>`;b.onclick=()=>answer(o.id);w.appendChild(b);});document.getElementById('feedback-box').className='feedback-box';document.getElementById('btn-next').classList.remove('show');updateStreakBar();}
+
+function answer(chosen){if(answered)return;answered=true;const q=shuffled[currentQ];const ok=chosen===q.correct;document.querySelectorAll('.opt-btn').forEach(b=>{b.disabled=true;if(b.dataset.id===q.correct)b.classList.add(ok&&b.dataset.id===chosen?'correct':'reveal');if(b.dataset.id===chosen&&!ok)b.classList.add('wrong');});if(ok){streak++;if(streak>maxStreak)maxStreak=streak;results.correct++;const bonus=Math.min((streak-1)*5,25);score+=10+bonus;document.getElementById('score-display').textContent=score;if(streak>=2)showCombo(streak,bonus);}else{streak=0;results.wrong++;lives--;updateLives();}updateStreakBar();const fb=document.getElementById('feedback-box');const ec=['🎯','✨','🔥','💪','👏','😎'];const ew=['😬','😅','🤔','💀'];fb.className=`feedback-box ${ok?'correct-fb':'wrong-fb'} show`;document.getElementById('fb-emoji').textContent=ok?ec[Math.floor(Math.random()*ec.length)]:ew[Math.floor(Math.random()*ew.length)];document.getElementById('fb-title').textContent=ok?'Isso aí!':'Quase!';document.getElementById('fb-text').textContent=ok?q.feedback_correct:q.feedback_wrong;const bn=document.getElementById('btn-next');bn.classList.add('show');bn.textContent=(currentQ>=shuffled.length-1||lives<=0)?'Ver resultado →':'Próxima →';}
+
+function nextQuestion(){currentQ++;if(currentQ>=shuffled.length||lives<=0)showResult();else renderQuestion();}
+
+function showResult(){showScreen('screen-result');let trophy,title,sub,msg;if(score>=100){trophy='🏆';title='Lenda do Fraud Lab!';sub='Você é praticamente um qualiter honorário.';msg='Absurdo. Você classificou tudo certinho e ainda com combo. O time precisa de você avaliando apontamentos ao vivo.';launchConfetti();}else if(score>=70){trophy='🎯';title='Muito bom!';sub='Você sabe do que está fazendo.';msg='Ótimo desempenho! A base está sólida. Uns deslizes com os níveis, mas nada que uma revisada rápida no guia não resolva.';}else if(score>=40){trophy='📚';title='Quase lá!';sub='Dá pra melhorar com uma revisada.';msg='Você pegou a lógica geral, mas ainda confunde alguns níveis — especialmente Crítico x Médio. O guia tem exemplos práticos que vão ajudar bastante.';}else{trophy='💡';title='O guia está esperando.';sub='Começa a revisar e tenta de novo!';msg='Sem julgamento — o scorecard é complexo mesmo. A boa notícia: o guia tem todos os exemplos explicados. Lê, tenta de novo e arrasa.';}document.getElementById('result-trophy').textContent=trophy;document.getElementById('result-title').textContent=title;document.getElementById('result-subtitle').textContent=sub;document.getElementById('result-msg').textContent=msg;document.getElementById('result-score').textContent=score;document.getElementById('bd-correct').textContent=`${results.correct}/${TOTAL}`;document.getElementById('bd-wrong').textContent=`${results.wrong}/${TOTAL}`;document.getElementById('bd-combo').textContent=maxStreak>0?`x${maxStreak}`:'Nenhum 😅';setTimeout(()=>{document.getElementById('result-bar').style.width=`${Math.min(Math.round(score/1.3),100)}%`;},300);const ranking=saveRanking({name:playerName,score});renderRanking(ranking);}
+
+function renderRanking(r){const l=document.getElementById('ranking-list');if(!r.length){l.innerHTML='<div style="font-size:13px;color:var(--ink-4);text-align:center;padding:8px;">Sem entradas ainda.</div>';return;}const m=['gold','silver','bronze'];l.innerHTML=r.map((e,i)=>{const isYou=e.name===playerName&&e.score===score;return`<div class="ranking-row"><div class="ranking-pos ${m[i]||''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div><div class="ranking-name ${isYou?'you-name':''}">${e.name}${isYou?' <span class="ranking-badge">Você</span>':''}</div><div class="ranking-score">${e.score} pts</div></div>`;}).join('');}
+
+function launchConfetti(){const c=document.getElementById('confetti-canvas');const ctx=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;const cols=['#6B3FE4','#A855F7','#C4B5FD','#F59E0B','#10B981','#EF4444','#3B82F6'];const ps=Array.from({length:120},()=>({x:Math.random()*c.width,y:-10,w:6+Math.random()*8,h:10+Math.random()*8,col:cols[Math.floor(Math.random()*cols.length)],vx:(Math.random()-.5)*4,vy:2+Math.random()*3,rot:Math.random()*360,vr:(Math.random()-.5)*6,op:1}));let f=0;(function draw(){ctx.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;if(f>80)p.op-=0.015;ctx.save();ctx.globalAlpha=Math.max(0,p.op);ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});f++;if(f<140)requestAnimationFrame(draw);else ctx.clearRect(0,0,c.width,c.height);})();}
 </script>
 </body>
 </html>
