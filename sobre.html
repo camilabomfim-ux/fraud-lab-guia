@@ -1,1 +1,225 @@
-SEE_NEXT_CALL
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fraud Lab — O Processo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;
+  --surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;
+  --violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-bg:#F3F0FF;--violet-3:#C4B5FD;
+  --blue:#2563EB;--blue-bg:#EFF6FF;--blue-border:#BFDBFE;
+  --emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;
+  --amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;
+  --red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow-md:0 4px 16px rgba(0,0,0,.09);
+  --r:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.global-nav{background:rgba(13,13,26,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.07);}
+.global-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:white;text-decoration:none;letter-spacing:-.2px;}
+.nav-logo:hover{color:#C4B5FD;}
+.nav-links{display:flex;gap:4px;align-items:center;}
+.nav-link{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;}
+.nav-link:hover{color:white;background:rgba(255,255,255,.08);}
+.nav-link-quiz{background:rgba(107,63,228,.35);color:#C4B5FD;border:1px solid rgba(107,63,228,.4);}
+.nav-link-quiz:hover{background:rgba(107,63,228,.55);color:white;}
+.global-footer{text-align:center;padding:28px 20px;font-size:12px;color:var(--ink-4);border-top:1px solid var(--border);}
+.global-footer a{color:var(--violet);text-decoration:none;font-weight:600;}
+.global-footer a:hover{text-decoration:underline;}
+.hero{background:linear-gradient(135deg,#1a0533 0%,#3b0d8a 40%,#6B3FE4 75%,#9b6ef0 100%);color:white;padding:60px 24px 56px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(200,160,255,.18) 0%,transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-bottom:16px;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:28px;height:1px;background:rgba(255,255,255,.4);}
+.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,6vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hero-title span{color:#C4B5FD;}
+.hero-desc{font-size:16px;opacity:.8;max-width:560px;margin:0 auto 28px;line-height:1.65;}
+.hero-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.hero-btn{display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:99px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;}
+.hero-btn-primary{background:white;color:var(--violet);}
+.hero-btn-primary:hover{background:#F3F0FF;transform:translateY(-2px);}
+.hero-btn-secondary{background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);}
+.hero-btn-secondary:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
+.section{max-width:860px;margin:0 auto;padding:56px 20px;}
+.section+.section{padding-top:0;}
+.section-eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:8px;}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--ink);margin-bottom:10px;letter-spacing:-.3px;}
+.section-desc{font-size:15px;color:var(--ink-3);max-width:560px;line-height:1.65;margin-bottom:32px;}
+.section-desc strong{color:var(--ink);}
+.divider{max-width:860px;margin:0 auto;height:1px;background:var(--border);}
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:640px){.hub-grid{grid-template-columns:1fr;}}
+.hub-card{border-radius:var(--r);padding:26px;border:1px solid transparent;position:relative;overflow:hidden;}
+.hub-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;opacity:.08;}
+.hub-perf{background:var(--blue-bg);border-color:var(--blue-border);}
+.hub-perf::before{background:var(--blue);}
+.hub-dec{background:var(--violet-bg);border-color:var(--violet-3);}
+.hub-dec::before{background:var(--violet);}
+.hub-icon{font-size:28px;margin-bottom:10px;display:block;}
+.hub-name{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;}
+.hub-perf .hub-name{color:#1E40AF;}
+.hub-dec .hub-name{color:var(--violet-dark);}
+.hub-desc{font-size:13px;line-height:1.6;color:var(--ink-2);margin-bottom:14px;}
+.hub-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
+.hub-perf .hub-badge{background:#DBEAFE;color:#1E40AF;}
+.hub-dec .hub-badge{background:var(--violet-bg);color:var(--violet-dark);border:1px solid var(--violet-3);}
+.hub-bullets{margin-top:14px;display:flex;flex-direction:column;gap:6px;}
+.hub-bullet{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink-2);}
+.hub-bullet-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.hub-perf .hub-bullet-dot{background:var(--blue);}
+.hub-dec .hub-bullet-dot{background:var(--violet);}
+.flow{display:flex;flex-direction:column;gap:0;}
+.flow-step{display:flex;gap:20px;position:relative;}
+.flow-step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:-8px;width:2px;background:linear-gradient(to bottom,var(--violet-3),transparent);}
+.flow-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.flow-num{width:40px;height:40px;border-radius:50%;background:var(--violet);color:white;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 12px rgba(107,63,228,.35);}
+.flow-body{padding-bottom:32px;flex:1;}
+.flow-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:5px;margin-top:8px;}
+.flow-text{font-size:13px;color:var(--ink-3);line-height:1.6;}
+.flow-tag{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:11px;font-weight:600;padding:2px 9px;border-radius:99px;}
+.tag-perf{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border);}
+.tag-dec{background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-3);}
+.tag-both{background:var(--surface);color:var(--ink-3);border:1px solid var(--border);}
+.score-table{width:100%;border-collapse:collapse;font-size:14px;background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);}
+.score-table th{background:var(--surface);padding:12px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);border-bottom:2px solid var(--border);text-align:left;}
+.score-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--ink-2);vertical-align:top;}
+.score-table tr:last-child td{border-bottom:none;}
+.score-table tr:hover td{background:var(--surface);}
+.level-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
+.level-crit{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
+.level-med{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.level-low{background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-border);}
+.level-fail{background:#1C1917;color:white;}
+.district-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+.district-card{background:white;border-radius:var(--r);padding:16px;text-align:center;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:all .15s;}
+.district-card:hover{border-color:var(--violet-3);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.district-emoji{font-size:28px;display:block;margin-bottom:8px;}
+.district-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.district-count{font-size:11px;color:var(--ink-4);}
+.cta-section{background:linear-gradient(135deg,#1a0533 0%,#3b0d8a 40%,#6B3FE4 100%);padding:56px 24px;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;}
+.cta-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:800;color:white;margin-bottom:10px;letter-spacing:-.3px;}
+.cta-desc{font-size:15px;color:rgba(255,255,255,.75);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:var(--r);font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:var(--shadow-md);}
+.cta-btn-guide{background:white;color:var(--violet);}
+.cta-btn-guide:hover{background:#F3F0FF;transform:translateY(-2px);}
+.cta-btn-quiz{background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3);}
+.cta-btn-quiz:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
+@media(max-width:600px){.hero{padding:44px 16px 40px;}.section{padding:40px 16px;}}
+</style>
+</head>
+<body>
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="sobre.html" class="nav-logo">🔬 Fraud Lab</a>
+    <div class="nav-links">
+      <a href="sobre.html" class="nav-link" style="color:white;">O Processo</a>
+      <a href="index.html" class="nav-link">Guia</a>
+      <a href="quiz.html" class="nav-link nav-link-quiz">🎮 Quiz</a>
+    </div>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-eyebrow">Fraud Quality Team</div>
+  <h1 class="hero-title">Fraud Lab<br><span>Como funciona o processo</span></h1>
+  <p class="hero-desc">Uma visão completa de como o time de qualidade monitora as análises de fraude — do caso monitorado ao feedback entregue ao analista.</p>
+  <div class="hero-links">
+    <a href="index.html" class="hero-btn hero-btn-primary">📖 Guia da Operação</a>
+    <a href="quiz.html" class="hero-btn hero-btn-secondary">🎮 Quiz de Apontamentos</a>
+  </div>
+</div>
+<div class="section">
+  <div class="section-eyebrow">Visão Geral</div>
+  <h2 class="section-title">O que é o Fraud Lab?</h2>
+  <p class="section-desc">O Fraud Lab é o time de qualidade responsável por garantir a confiabilidade das investigações de fraude. Ele atua em dois núcleos complementares — um focado no analista, outro focado no processo estratégico.</p>
+  <div class="hub-grid">
+    <div class="hub-card hub-perf">
+      <span class="hub-icon">🎯</span>
+      <div class="hub-name">Performance Hub</div>
+      <p class="hub-desc">Monitora o desempenho individual de cada analista. Valida se as decisões e ações seguem os protocolos estabelecidos pelos distritos.</p>
+      <span class="hub-badge">✅ Impacta a nota do analista</span>
+      <div class="hub-bullets">
+        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Casos via Complaints, Money Movements e sinalizações de distritos</div>
+        <div class="hub-bullet"><span class="hub-bullet-dot"></span>100% dos casos recebidos são monitorados</div>
+        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Gera feedback direto para o analista e sua liderança</div>
+      </div>
+    </div>
+    <div class="hub-card hub-dec">
+      <span class="hub-icon">🔬</span>
+      <div class="hub-name">Decision Hub</div>
+      <p class="hub-desc">Monitora a integridade dos processos estratégicos. Extrai inteligência para que os distritos melhorem protocolos e calibrem decisões.</p>
+      <span class="hub-badge">🔍 Não impacta a nota do analista</span>
+      <div class="hub-bullets">
+        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Amostragem aleatória semanal de casos por distrito</div>
+        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Foco na calibração do protocolo, não do analista</div>
+        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Gera insumos para planos de ação estratégicos</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="section-eyebrow">Fluxo de Monitoria</div>
+  <h2 class="section-title">Do caso ao feedback</h2>
+  <p class="section-desc">Entenda o caminho completo de uma monitoria — desde a seleção do caso até o retorno para o analista ou distrito.</p>
+  <div class="flow">
+    <div class="flow-step"><div class="flow-left"><div class="flow-num">1</div></div><div class="flow-body"><div class="flow-title">Seleção do caso</div><div class="flow-text">Os casos chegam ao Fraud Lab por dois caminhos: via canais externos (complaints, money movements, distritos) para o Performance Hub — ou por amostragem aleatória para o Decision Hub.</div><span class="flow-tag tag-both">Performance Hub + Decision Hub</span></div></div>
+    <div class="flow-step"><div class="flow-left"><div class="flow-num">2</div></div><div class="flow-body"><div class="flow-title">Reanálise pelo qualiter</div><div class="flow-text">O qualiter revisa o case usando os scorecards do distrito correspondente. Verifica se a decisão foi correta e se todas as ações complementares foram executadas conforme protocolo.</div><span class="flow-tag tag-both">Todos os distritos</span></div></div>
+    <div class="flow-step"><div class="flow-left"><div class="flow-num">3</div></div><div class="flow-body"><div class="flow-title">Classificação do erro (Performance Hub)</div><div class="flow-text">Cada ação incorreta é classificada por nível de impacto. No scorecard de Apontamentos Externos: Crítico desconta 3 pts, Médio 1,5 pts e Baixo 0,5 pts. No Catch &amp; Release: vale 0 ou 5 pts — depende apenas se a decisão estava correta.</div><span class="flow-tag tag-perf">Somente Performance Hub</span></div></div>
+    <div class="flow-step"><div class="flow-left"><div class="flow-num">4</div></div><div class="flow-body"><div class="flow-title">Deep Dive (Decision Hub)</div><div class="flow-text">Para monitorias do Decision Hub, o qualiter aprofunda a análise respondendo perguntas sobre a matriz utilizada, evidências consideradas e oportunidades de melhoria no protocolo do distrito.</div><span class="flow-tag tag-dec">Somente Decision Hub</span></div></div>
+    <div class="flow-step"><div class="flow-left"><div class="flow-num">5</div></div><div class="flow-body"><div class="flow-title">Feedback para o analista</div><div class="flow-text">Sempre que há erro no Performance Hub, o analista recebe um feedback estruturado com a ação realizada e o processo esperado. O analista pode contestar se discordar da avaliação.</div><span class="flow-tag tag-perf">Somente Performance Hub</span></div></div>
+    <div class="flow-step"><div class="flow-left"><div class="flow-num">6</div></div><div class="flow-body"><div class="flow-title">Feedback para o distrito</div><div class="flow-text">Quando há oportunidade de melhoria no processo — identificada no Performance Hub ou no Decision Hub — o distrito recebe um feedback com o problema identificado e a sugestão de melhoria.</div><span class="flow-tag tag-both">Performance Hub + Decision Hub</span></div></div>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="section-eyebrow">Como a nota funciona</div>
+  <h2 class="section-title">Estrutura de pontuação</h2>
+  <p class="section-desc">A pontuação abaixo refere-se ao scorecard de <strong>Apontamentos Externos</strong>. O <strong>Catch &amp; Release</strong> é diferente: vale 0 ou 5 pts conforme a decisão esteja correta ou não.</p>
+  <table class="score-table">
+    <thead><tr><th>Nível</th><th>O que representa</th><th>Impacto na nota</th><th>Exemplos</th></tr></thead>
+    <tbody>
+      <tr><td><span class="level-badge level-fail">🚨 Fail Section</span></td><td>Erro de decisão — decisão completamente incorreta</td><td><strong>Zera o scorecard inteiro</strong></td><td>Fechar fraudador como OK, fechar OK como fraudador, Miss Click</td></tr>
+      <tr><td><span class="level-badge level-crit">🔴 Crítico</span></td><td>Ação que afeta diretamente o cliente ou gera perdas</td><td><strong>−3,0 pts</strong></td><td>DICT não validado, UV não apontado, fluxo postpone não executado</td></tr>
+      <tr><td><span class="level-badge level-med">🟡 Médio</span></td><td>Ação que pode afetar o cliente, sem perda financeira direta</td><td><strong>−1,5 pts</strong></td><td>E-mail incorreto, caixinha não liquidada, Tristram não contestado</td></tr>
+      <tr><td><span class="level-badge level-low">🟢 Baixo</span></td><td>Ação que influencia estudos e processos internos</td><td><strong>−0,5 pts</strong></td><td>Análise sem registro, tag incorreta, priorização de report errada</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <div class="section-eyebrow">Cobertura</div>
+  <h2 class="section-title">Distritos monitorados</h2>
+  <p class="section-desc">O Fraud Lab cobre todos os distritos de investigação de fraude, cada um com scorecards adaptados às particularidades do seu MO.</p>
+  <div class="district-grid">
+    <div class="district-card"><span class="district-emoji">🫏</span><div class="district-name">Mule Account</div><div class="district-count">5 scorecards</div></div>
+    <div class="district-card"><span class="district-emoji">🪪</span><div class="district-name">Identity Fraud</div><div class="district-count">7 scorecards</div></div>
+    <div class="district-card"><span class="district-emoji">💳</span><div class="district-name">Transactional</div><div class="district-count">7 scorecards</div></div>
+    <div class="district-card"><span class="district-emoji">🎮</span><div class="district-name">Gamers</div><div class="district-count">3 scorecards</div></div>
+    <div class="district-card"><span class="district-emoji">🛡️</span><div class="district-name">Victim Prevention</div><div class="district-count">2 scorecards</div></div>
+  </div>
+</div>
+<div class="cta-section">
+  <h2 class="cta-title">Explore os materiais do Fraud Lab</h2>
+  <p class="cta-desc">Acesse o guia completo com todos os scorecards e critérios, ou teste seu conhecimento com o quiz de apontamentos.</p>
+  <div class="cta-btns">
+    <a href="index.html" class="cta-btn cta-btn-guide">📖 Guia da Operação</a>
+    <a href="quiz.html" class="cta-btn cta-btn-quiz">🎮 Quiz de Apontamentos</a>
+  </div>
+</div>
+<div class="global-footer">
+  Fraud Quality Team &nbsp;·&nbsp;
+  <a href="sobre.html">O Processo</a> &nbsp;·&nbsp;
+  <a href="index.html">Guia da Operação</a> &nbsp;·&nbsp;
+  <a href="quiz.html">Quiz de Apontamentos</a>
+</div>
+</body>
+</html>
