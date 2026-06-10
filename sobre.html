@@ -7,32 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;
-  --surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;
-  --violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-bg:#F3F0FF;--violet-3:#C4B5FD;
-  --blue:#2563EB;--blue-bg:#EFF6FF;--blue-border:#BFDBFE;
-  --emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;
-  --amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;
-  --red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
-  --shadow-md:0 4px 16px rgba(0,0,0,.09);
-  --r:14px;
-}
+:root{--ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;--surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;--violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-bg:#F3F0FF;--violet-3:#C4B5FD;--blue:#2563EB;--blue-bg:#EFF6FF;--blue-border:#BFDBFE;--emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;--amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;--red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.09);--r:14px;}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
-.global-nav{background:rgba(13,13,26,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.07);}
-.global-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;}
-.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:white;text-decoration:none;letter-spacing:-.2px;}
-.nav-logo:hover{color:#C4B5FD;}
-.nav-links{display:flex;gap:4px;align-items:center;}
-.nav-link{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;}
-.nav-link:hover{color:white;background:rgba(255,255,255,.08);}
-.nav-link-quiz{background:rgba(107,63,228,.35);color:#C4B5FD;border:1px solid rgba(107,63,228,.4);}
-.nav-link-quiz:hover{background:rgba(107,63,228,.55);color:white;}
-.global-footer{text-align:center;padding:28px 20px;font-size:12px;color:var(--ink-4);border-top:1px solid var(--border);}
-.global-footer a{color:var(--violet);text-decoration:none;font-weight:600;}
-.global-footer a:hover{text-decoration:underline;}
+.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
+.g-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:50px;}
+.g-nav-logo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none;}
+.g-nav-logo:hover{color:#C4B5FD;}
+.g-nav-links{display:flex;gap:2px;}
+.g-nav-link{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all .15s;}
+.g-nav-link:hover{color:white;background:rgba(255,255,255,.09);}
+.g-nav-link.active{color:#C4B5FD;background:rgba(107,63,228,.3);}
+@media(max-width:480px){.g-nav-inner{padding:0 14px;}.g-nav-link{padding:5px 8px;font-size:11px;}}
 .hero{background:linear-gradient(135deg,#1a0533 0%,#3b0d8a 40%,#6B3FE4 75%,#9b6ef0 100%);color:white;padding:60px 24px 56px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(200,160,255,.18) 0%,transparent 70%);pointer-events:none;}
 .hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
@@ -43,29 +29,22 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
 .hero-desc{font-size:16px;opacity:.8;max-width:560px;margin:0 auto 28px;line-height:1.65;}
 .hero-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 .hero-btn{display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:99px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;}
-.hero-btn-primary{background:white;color:var(--violet);}
-.hero-btn-primary:hover{background:#F3F0FF;transform:translateY(-2px);}
-.hero-btn-secondary{background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);}
-.hero-btn-secondary:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
-.section{max-width:860px;margin:0 auto;padding:56px 20px;}
-.section+.section{padding-top:0;}
+.hero-btn-primary{background:white;color:var(--violet);}.hero-btn-primary:hover{background:#F3F0FF;transform:translateY(-2px);}
+.hero-btn-secondary{background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);}.hero-btn-secondary:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
+.section{max-width:860px;margin:0 auto;padding:56px 20px;}.section+.section{padding-top:0;}
 .section-eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:8px;}
 .section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--ink);margin-bottom:10px;letter-spacing:-.3px;}
-.section-desc{font-size:15px;color:var(--ink-3);max-width:560px;line-height:1.65;margin-bottom:32px;}
-.section-desc strong{color:var(--ink);}
+.section-desc{font-size:15px;color:var(--ink-3);max-width:560px;line-height:1.65;margin-bottom:32px;}.section-desc strong{color:var(--ink);}
 .divider{max-width:860px;margin:0 auto;height:1px;background:var(--border);}
 .hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media(max-width:640px){.hub-grid{grid-template-columns:1fr;}}
 .hub-card{border-radius:var(--r);padding:26px;border:1px solid transparent;position:relative;overflow:hidden;}
 .hub-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;opacity:.08;}
-.hub-perf{background:var(--blue-bg);border-color:var(--blue-border);}
-.hub-perf::before{background:var(--blue);}
-.hub-dec{background:var(--violet-bg);border-color:var(--violet-3);}
-.hub-dec::before{background:var(--violet);}
+.hub-perf{background:var(--blue-bg);border-color:var(--blue-border);}.hub-perf::before{background:var(--blue);}
+.hub-dec{background:var(--violet-bg);border-color:var(--violet-3);}.hub-dec::before{background:var(--violet);}
 .hub-icon{font-size:28px;margin-bottom:10px;display:block;}
 .hub-name{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;}
-.hub-perf .hub-name{color:#1E40AF;}
-.hub-dec .hub-name{color:var(--violet-dark);}
+.hub-perf .hub-name{color:#1E40AF;}.hub-dec .hub-name{color:var(--violet-dark);}
 .hub-desc{font-size:13px;line-height:1.6;color:var(--ink-2);margin-bottom:14px;}
 .hub-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
 .hub-perf .hub-badge{background:#DBEAFE;color:#1E40AF;}
@@ -73,8 +52,7 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
 .hub-bullets{margin-top:14px;display:flex;flex-direction:column;gap:6px;}
 .hub-bullet{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink-2);}
 .hub-bullet-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;}
-.hub-perf .hub-bullet-dot{background:var(--blue);}
-.hub-dec .hub-bullet-dot{background:var(--violet);}
+.hub-perf .hub-bullet-dot{background:var(--blue);}.hub-dec .hub-bullet-dot{background:var(--violet);}
 .flow{display:flex;flex-direction:column;gap:0;}
 .flow-step{display:flex;gap:20px;position:relative;}
 .flow-step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:-8px;width:2px;background:linear-gradient(to bottom,var(--violet-3),transparent);}
@@ -90,8 +68,7 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
 .score-table{width:100%;border-collapse:collapse;font-size:14px;background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);}
 .score-table th{background:var(--surface);padding:12px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-4);border-bottom:2px solid var(--border);text-align:left;}
 .score-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--ink-2);vertical-align:top;}
-.score-table tr:last-child td{border-bottom:none;}
-.score-table tr:hover td{background:var(--surface);}
+.score-table tr:last-child td{border-bottom:none;}.score-table tr:hover td{background:var(--surface);}
 .level-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
 .level-crit{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
 .level-med{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
@@ -109,24 +86,13 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
 .cta-desc{font-size:15px;color:rgba(255,255,255,.75);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;}
 .cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 .cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:var(--r);font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;box-shadow:var(--shadow-md);}
-.cta-btn-guide{background:white;color:var(--violet);}
-.cta-btn-guide:hover{background:#F3F0FF;transform:translateY(-2px);}
-.cta-btn-quiz{background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3);}
-.cta-btn-quiz:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
+.cta-btn-guide{background:white;color:var(--violet);}.cta-btn-guide:hover{background:#F3F0FF;transform:translateY(-2px);}
+.cta-btn-quiz{background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3);}.cta-btn-quiz:hover{background:rgba(255,255,255,.25);transform:translateY(-2px);}
 @media(max-width:600px){.hero{padding:44px 16px 40px;}.section{padding:40px 16px;}}
 </style>
 </head>
 <body>
-<nav class="global-nav">
-  <div class="global-nav-inner">
-    <a href="sobre.html" class="nav-logo">🔬 Fraud Lab</a>
-    <div class="nav-links">
-      <a href="sobre.html" class="nav-link" style="color:white;">O Processo</a>
-      <a href="index.html" class="nav-link">Guia</a>
-      <a href="quiz.html" class="nav-link nav-link-quiz">🎮 Quiz</a>
-    </div>
-  </div>
-</nav>
+<nav class="g-nav"><div class="g-nav-inner"><a href="sobre.html" class="g-nav-logo">🔬 Fraud Lab</a><div class="g-nav-links"><a href="sobre.html" class="g-nav-link active">O Processo</a><a href="index.html" class="g-nav-link">Guia</a><a href="quiz.html" class="g-nav-link">🎮 Quiz</a></div></div></nav>
 <div class="hero">
   <div class="hero-eyebrow">Fraud Quality Team</div>
   <h1 class="hero-title">Fraud Lab<br><span>Como funciona o processo</span></h1>
@@ -141,28 +107,8 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
   <h2 class="section-title">O que é o Fraud Lab?</h2>
   <p class="section-desc">O Fraud Lab é o time de qualidade responsável por garantir a confiabilidade das investigações de fraude. Ele atua em dois núcleos complementares — um focado no analista, outro focado no processo estratégico.</p>
   <div class="hub-grid">
-    <div class="hub-card hub-perf">
-      <span class="hub-icon">🎯</span>
-      <div class="hub-name">Performance Hub</div>
-      <p class="hub-desc">Monitora o desempenho individual de cada analista. Valida se as decisões e ações seguem os protocolos estabelecidos pelos distritos.</p>
-      <span class="hub-badge">✅ Impacta a nota do analista</span>
-      <div class="hub-bullets">
-        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Casos via Complaints, Money Movements e sinalizações de distritos</div>
-        <div class="hub-bullet"><span class="hub-bullet-dot"></span>100% dos casos recebidos são monitorados</div>
-        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Gera feedback direto para o analista e sua liderança</div>
-      </div>
-    </div>
-    <div class="hub-card hub-dec">
-      <span class="hub-icon">🔬</span>
-      <div class="hub-name">Decision Hub</div>
-      <p class="hub-desc">Monitora a integridade dos processos estratégicos. Extrai inteligência para que os distritos melhorem protocolos e calibrem decisões.</p>
-      <span class="hub-badge">🔍 Não impacta a nota do analista</span>
-      <div class="hub-bullets">
-        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Amostragem aleatória semanal de casos por distrito</div>
-        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Foco na calibração do protocolo, não do analista</div>
-        <div class="hub-bullet"><span class="hub-bullet-dot"></span>Gera insumos para planos de ação estratégicos</div>
-      </div>
-    </div>
+    <div class="hub-card hub-perf"><span class="hub-icon">🎯</span><div class="hub-name">Performance Hub</div><p class="hub-desc">Monitora o desempenho individual de cada analista. Valida se as decisões e ações seguem os protocolos estabelecidos pelos distritos.</p><span class="hub-badge">✅ Impacta a nota do analista</span><div class="hub-bullets"><div class="hub-bullet"><span class="hub-bullet-dot"></span>Casos via Complaints, Money Movements e sinalizações de distritos</div><div class="hub-bullet"><span class="hub-bullet-dot"></span>100% dos casos recebidos são monitorados</div><div class="hub-bullet"><span class="hub-bullet-dot"></span>Gera feedback direto para o analista e sua liderança</div></div></div>
+    <div class="hub-card hub-dec"><span class="hub-icon">🔬</span><div class="hub-name">Decision Hub</div><p class="hub-desc">Monitora a integridade dos processos estratégicos. Extrai inteligência para que os distritos melhorem protocolos e calibrem decisões.</p><span class="hub-badge">🔍 Não impacta a nota do analista</span><div class="hub-bullets"><div class="hub-bullet"><span class="hub-bullet-dot"></span>Amostragem aleatória semanal de casos por distrito</div><div class="hub-bullet"><span class="hub-bullet-dot"></span>Foco na calibração do protocolo, não do analista</div><div class="hub-bullet"><span class="hub-bullet-dot"></span>Gera insumos para planos de ação estratégicos</div></div></div>
   </div>
 </div>
 <div class="divider"></div>
@@ -214,12 +160,6 @@ body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink)
     <a href="index.html" class="cta-btn cta-btn-guide">📖 Guia da Operação</a>
     <a href="quiz.html" class="cta-btn cta-btn-quiz">🎮 Quiz de Apontamentos</a>
   </div>
-</div>
-<div class="global-footer">
-  Fraud Quality Team &nbsp;·&nbsp;
-  <a href="sobre.html">O Processo</a> &nbsp;·&nbsp;
-  <a href="index.html">Guia da Operação</a> &nbsp;·&nbsp;
-  <a href="quiz.html">Quiz de Apontamentos</a>
 </div>
 </body>
 </html>
