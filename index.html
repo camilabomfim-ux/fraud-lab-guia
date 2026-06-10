@@ -8,21 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;
-  --surface:#FAFAFF;--surface-2:#F0EFF8;--surface-3:#E4E2F5;--border:#E0DEEE;
-  --violet:#6B3FE4;--violet-2:#8B5CF6;--violet-3:#C4B5FD;--violet-bg:#F3F0FF;
-  --red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;
-  --amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;
-  --emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;
-  --orange:#EA580C;--orange-bg:#FFF7ED;--orange-border:#FED7AA;
-  --blue:#2563EB;--blue-bg:#EFF6FF;
-  --r-sm:6px;--r-md:12px;--r-lg:18px;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-}
+:root{--ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;--surface:#FAFAFF;--surface-2:#F0EFF8;--surface-3:#E4E2F5;--border:#E0DEEE;--violet:#6B3FE4;--violet-2:#8B5CF6;--violet-3:#C4B5FD;--violet-bg:#F3F0FF;--red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;--amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;--emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;--orange:#EA580C;--orange-bg:#FFF7ED;--orange-border:#FED7AA;--blue:#2563EB;--blue-bg:#EFF6FF;--r-sm:6px;--r-md:12px;--r-lg:18px;--shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
+.g-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:50px;}
+.g-nav-logo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none;}
+.g-nav-logo:hover{color:#C4B5FD;}
+.g-nav-links{display:flex;gap:2px;}
+.g-nav-link{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all .15s;}
+.g-nav-link:hover{color:white;background:rgba(255,255,255,.09);}
+.g-nav-link.active{color:#C4B5FD;background:rgba(107,63,228,.3);}
+@media(max-width:480px){.g-nav-inner{padding:0 14px;}.g-nav-link{padding:5px 8px;font-size:11px;}}
 .hero{background:linear-gradient(135deg,#1a0533 0%,#3b0d8a 40%,#6B3FE4 75%,#9b6ef0 100%);color:white;padding:40px 24px 36px;text-align:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(200,160,255,.18) 0%,transparent 70%);pointer-events:none;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-bottom:16px;}
@@ -31,7 +28,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--surface-2);color:
 .hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
 .hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;backdrop-filter:blur(4px);transition:background .15s;}
 .hero-pill:hover{background:rgba(255,255,255,.2);}
-.top-nav{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;position:sticky;top:0;z-index:200;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.top-nav{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;position:sticky;top:50px;z-index:200;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .top-nav::-webkit-scrollbar{display:none}
 .top-nav button{padding:14px 20px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--ink-3);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s;letter-spacing:.01em;}
 .top-nav button:hover{color:var(--violet);}
@@ -145,6 +142,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--surface-2);color:
 </style>
 </head>
 <body>
+<nav class="g-nav"><div class="g-nav-inner"><a href="sobre.html" class="g-nav-logo">🔬 Fraud Lab</a><div class="g-nav-links"><a href="sobre.html" class="g-nav-link">O Processo</a><a href="index.html" class="g-nav-link active">Guia</a><a href="quiz.html" class="g-nav-link">🎮 Quiz</a></div></div></nav>
 <div class="hero">
   <div class="hero-eyebrow">Fraud Quality Team</div>
   <div class="hero-tagline">Critérios, pesos e exemplos práticos do scorecard de qualidade.</div>
