@@ -3,423 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fraud Lab — Guia da Operação</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<title>Entendendo a Monitoria — Fraud Quality</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & TOKENS ──────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --ink:       #0D0D1A;
-  --ink-2:     #3D3D56;
-  --ink-3:     #7A7A96;
-  --ink-4:     #B8B8CC;
-  --surface:   #FAFAFF;
-  --surface-2: #F0EFF8;
-  --surface-3: #E4E2F5;
-  --border:    #E0DEEE;
-
-  --violet:    #6B3FE4;
-  --violet-2:  #8B5CF6;
-  --violet-3:  #C4B5FD;
-  --violet-bg: #F3F0FF;
-
-  --red:       #E02A2A;
-  --red-bg:    #FFF0F0;
-  --red-border:#FECACA;
-
-  --amber:     #D97706;
-  --amber-bg:  #FFFBEB;
-  --amber-border:#FDE68A;
-
-  --emerald:   #059669;
-  --emerald-bg:#ECFDF5;
-  --emerald-border:#A7F3D0;
-
-  --orange:    #EA580C;
-  --orange-bg: #FFF7ED;
-  --orange-border:#FED7AA;
-
-  --blue:      #2563EB;
-  --blue-bg:   #EFF6FF;
-
-  --r-sm:6px; --r-md:12px; --r-lg:18px; --r-xl:24px;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.10),0 2px 8px rgba(0,0,0,.06);
+  --ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;
+  --surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;
+  --violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-3:#C4B5FD;--violet-bg:#F3F0FF;
+  --red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;
+  --amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;
+  --emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;
+  --blue:#2563EB;--blue-bg:#EFF6FF;
+  --r:14px;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.09);
 }
-
 html{scroll-behavior:smooth}
-body{
-  font-family:'Inter',system-ui,sans-serif;
-  background:var(--surface-2);
-  color:var(--ink);
-  font-size:15px;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
+body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
 
-/* ── HERO ────────────────────────────────────────── */
-.hero{
-  background: linear-gradient(135deg, #1a0533 0%, #3b0d8a 40%, #6B3FE4 75%, #9b6ef0 100%);
-  color:white;
-  padding:40px 24px 36px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.hero::before{
-  content:'';
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 120%, rgba(200,160,255,.18) 0%, transparent 70%);
-  pointer-events:none;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  opacity:.65;margin-bottom:16px;
-}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:28px;height:1px;background:rgba(255,255,255,.4);}
-.hero-tagline{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(15px,3vw,18px);
-  font-weight:500;
-  opacity:.82;
-  max-width:500px;
-  margin:0 auto 20px;
-  line-height:1.5;
-}
-.hero-pills{
-  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
-}
-.hero-pill{
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.22);
-  border-radius:99px;
-  padding:5px 14px;
-  font-size:11px;font-weight:600;
-  backdrop-filter:blur(4px);
-  transition:background .15s;
-}
-.hero-pill:hover{background:rgba(255,255,255,.2);}
-
-/* ── STICKY NAV ──────────────────────────────────── */
-.top-nav{
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  display:flex;
-  overflow-x:auto;
-  position:sticky;top:0;z-index:200;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-}
-.top-nav::-webkit-scrollbar{display:none}
-.top-nav button{
-  padding:14px 20px;
-  font-family:'Inter',sans-serif;
-  font-size:13px;font-weight:600;
-  color:var(--ink-3);
-  background:none;border:none;
-  border-bottom:2.5px solid transparent;
-  cursor:pointer;white-space:nowrap;
-  transition:color .15s,border-color .15s;
-  letter-spacing:.01em;
-}
-.top-nav button:hover{color:var(--violet);}
-.top-nav button.active{color:var(--violet);border-bottom-color:var(--violet);}
-
-/* ── LAYOUT ──────────────────────────────────────── */
-.main{max-width:820px;margin:0 auto;padding:28px 16px 72px;}
-.page{display:none;}
-.page.visible{display:block;animation:fadeUp .22s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── LEGEND BAR ──────────────────────────────────── */
-.legend-bar{
-  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
-  background:white;border-radius:var(--r-lg);
-  padding:12px 18px;margin-bottom:16px;
-  box-shadow:var(--shadow-sm);border:1px solid var(--border);
-  font-size:12px;color:var(--ink-2);
-}
-.legend-bar span{display:inline-flex;align-items:center;gap:5px;font-weight:500;}
-.legend-sep{color:var(--ink-4);margin:0 4px;}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.dot-crit{background:var(--red);}
-.dot-med{background:var(--amber);}
-.dot-low{background:var(--emerald);}
-.legend-note{margin-left:auto;font-size:11px;color:var(--ink-3);font-style:italic;}
-
-/* ── DISTRICT TABS ───────────────────────────────── */
-.dtabs{
-  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;
-}
-.dtab{
-  padding:7px 16px;border-radius:99px;
-  border:1.5px solid var(--border);
-  background:white;color:var(--ink-2);
-  font-size:12px;font-weight:600;cursor:pointer;
-  transition:all .15s;font-family:'Inter',sans-serif;
-  box-shadow:var(--shadow-sm);
-}
-.dtab:hover{border-color:var(--violet-3);color:var(--violet);}
-.dtab.active{background:var(--violet);color:white;border-color:var(--violet);box-shadow:0 2px 12px rgba(107,63,228,.3);}
-.dpanel{display:none;}
-.dpanel.visible{display:block;}
-
-/* ── DISTRICT HEADER ─────────────────────────────── */
-.district-header{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 16px;margin-bottom:12px;
-  background:white;border-radius:var(--r-md);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow-sm);
-  font-size:13px;color:var(--ink-2);
-}
-.district-header strong{color:var(--ink);font-size:14px;}
-
-/* ── SCORECARD BLOCK ─────────────────────────────── */
-.sc-block{
-  background:white;
-  border-radius:var(--r-lg);
-  margin-bottom:10px;
-  overflow:hidden;
-  box-shadow:var(--shadow-sm);
-  border:1px solid var(--border);
-  transition:box-shadow .15s;
-}
-.sc-block:hover{box-shadow:var(--shadow-md);}
-.sc-head{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-  padding:16px 18px;cursor:pointer;
-  transition:background .1s;
-}
-.sc-head:hover{background:var(--surface);}
-.sc-block.open .sc-head{border-bottom:1px solid var(--border);}
-.sc-num{
-  display:inline-block;
-  font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--violet);background:var(--violet-bg);
-  padding:2px 8px;border-radius:99px;margin-bottom:5px;
-}
-.sc-name{font-size:15px;font-weight:700;color:var(--ink);font-family:'Space Grotesk',sans-serif;letter-spacing:-.2px;}
-.sc-desc{font-size:13px;color:var(--ink-3);margin-top:4px;line-height:1.55;}
-.sc-chev{
-  width:26px;height:26px;border-radius:50%;
-  background:var(--surface-2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--ink-3);font-size:13px;flex-shrink:0;margin-top:2px;
-  transition:transform .2s,background .15s;
-}
-.sc-block.open .sc-chev{transform:rotate(180deg);background:var(--violet-bg);color:var(--violet);}
-.sc-body{display:none;padding:14px 18px 16px;}
-.sc-block.open .sc-body{display:block;}
-
-/* ── SUB-SECTION LABEL ───────────────────────────── */
-.sub-section{
-  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-4);margin:16px 0 8px;padding-top:12px;
-  border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;
-}
-.sub-section:first-child{border-top:none;margin-top:0;padding-top:0;}
-.sub-section::after{content:'';flex:1;height:1px;background:var(--border);}
-
-/* ── QUESTION ITEMS ──────────────────────────────── */
-.q-list{display:flex;flex-direction:column;gap:5px;}
-.q-item{
-  display:flex;align-items:flex-start;gap:10px;
-  padding:9px 12px;border-radius:var(--r-sm);
-  font-size:13px;color:var(--ink-2);line-height:1.5;
-  border:1px solid transparent;
-  transition:background .1s;
-}
-.q-item:hover{filter:brightness(.97);}
-.q-item.crit-q{background:var(--red-bg);border-color:var(--red-border);}
-.q-item.med-q {background:var(--amber-bg);border-color:var(--amber-border);}
-.q-item.low-q {background:var(--emerald-bg);border-color:var(--emerald-border);}
-.q-item.main-q{background:var(--violet-bg);border-color:var(--violet-3);}
-.q-item:not(.crit-q):not(.med-q):not(.low-q):not(.main-q){background:var(--surface);}
-
-.q-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;}
-.q-dot-crit{background:var(--red);}
-.q-dot-med {background:var(--amber);}
-.q-dot-low {background:var(--emerald);}
-.q-dot-sub {background:var(--ink-4);}
-.q-dot-main{background:var(--violet);}
-
-.q-text-wrap{flex:1;display:flex;flex-wrap:wrap;align-items:center;gap:5px;}
-.crit-badge{
-  font-size:10px;font-weight:700;padding:1px 7px;border-radius:99px;white-space:nowrap;
-}
-.badge-crit{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
-.badge-med {background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
-.badge-low {background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-border);}
-.proto-badge{
-  font-size:10px;font-weight:600;padding:1px 7px;border-radius:99px;
-  background:var(--surface-3);color:var(--ink-3);white-space:nowrap;
-}
-
-/* ── INFO CALLOUT ────────────────────────────────── */
-.callout{
-  border-radius:0 var(--r-md) var(--r-md) 0;
-  padding:12px 16px;font-size:13px;line-height:1.55;
-  margin-bottom:14px;
-}
-.callout > strong:first-child{display:block;margin-bottom:3px;font-size:13px;font-weight:700;}
-.callout strong{font-weight:700;}
-.callout-violet{background:var(--violet-bg);border-left:3px solid var(--violet);color:#3B2098;}
-.callout-blue  {background:var(--blue-bg);border-left:3px solid var(--blue);color:#1E40AF;}
-.callout-amber {background:var(--amber-bg);border-left:3px solid var(--amber);color:#92400E;}
-.callout-red   {background:var(--red-bg);border-left:3px solid var(--red);color:#991B1B;}
-.callout-green {background:var(--emerald-bg);border-left:3px solid var(--emerald);color:#065F46;}
-
-/* ── CARD ────────────────────────────────────────── */
-.card{
-  background:white;border-radius:var(--r-lg);
-  padding:22px;margin-bottom:14px;
-  box-shadow:var(--shadow-sm);border:1px solid var(--border);
-}
-.card h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;color:var(--ink);}
-.card p{font-size:14px;color:var(--ink-2);line-height:1.65;}
-.card p+p{margin-top:8px;}
-.card p strong,td strong,.sc-desc strong,.q-item strong{display:inline;font-size:inherit;}
-
-/* ── MISS CLICK GRID ─────────────────────────────── */
-.miss-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
-@media(max-width:600px){.miss-grid{grid-template-columns:1fr;}}
-.miss-card{border-radius:var(--r-lg);padding:20px;border:1px solid transparent;}
-.miss-click{background:var(--orange-bg);border-color:var(--orange-border);}
-.miss-dec  {background:var(--red-bg);border-color:var(--red-border);}
-.miss-icon {font-size:26px;margin-bottom:8px;}
-.miss-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;margin-bottom:6px;}
-.miss-click .miss-title{color:var(--orange);}
-.miss-dec   .miss-title{color:var(--red);}
-.miss-card p{font-size:13px;line-height:1.55;color:var(--ink-2);}
-.miss-badge{
-  display:inline-block;margin-top:10px;
-  font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;
-}
-.miss-click .miss-badge{background:var(--orange-border);color:var(--orange);}
-.miss-dec   .miss-badge{background:var(--red-border);color:var(--red);}
-
-/* ── EXAMPLE FILTER ──────────────────────────────── */
-.ex-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
-.ex-filter-btn{
-  padding:7px 16px;border-radius:99px;
-  border:1.5px solid var(--border);background:white;
-  color:var(--ink-2);font-size:12px;font-weight:600;
-  cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;
-  box-shadow:var(--shadow-sm);
-}
-.ex-filter-btn:hover{border-color:var(--violet-3);color:var(--violet);}
-.ex-filter-btn.active{background:var(--violet);color:white;border-color:var(--violet);box-shadow:0 2px 12px rgba(107,63,228,.3);}
-
-/* ── EXAMPLE CARDS ───────────────────────────────── */
-.ex-list{display:flex;flex-direction:column;gap:10px;}
-.ex-card{
-  background:white;border-radius:var(--r-lg);overflow:hidden;
-  box-shadow:var(--shadow-sm);border:1px solid var(--border);
-  transition:box-shadow .15s;
-}
-.ex-card:hover{box-shadow:var(--shadow-md);}
-.ex-head{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-  padding:14px 18px;cursor:pointer;transition:background .1s;
-  border-bottom:1px solid transparent;
-}
-.ex-head:hover{background:var(--surface);}
-.ex-card.open .ex-head{border-bottom-color:var(--border);}
-.ex-label{display:flex;align-items:center;gap:10px;flex:1;flex-wrap:wrap;}
-.ex-tipo{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;white-space:nowrap;letter-spacing:.03em;}
-.ex-tipo-crit{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
-.ex-tipo-med {background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
-.ex-tipo-low {background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-border);}
-.ex-tipo-miss{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border);}
-.ex-titulo{font-size:14px;font-weight:600;color:var(--ink);}
-.ex-chev{
-  width:26px;height:26px;border-radius:50%;
-  background:var(--surface-2);display:flex;align-items:center;justify-content:center;
-  color:var(--ink-3);font-size:13px;flex-shrink:0;
-  transition:transform .2s,background .15s;
-}
-.ex-card.open .ex-chev{transform:rotate(180deg);background:var(--violet-bg);color:var(--violet);}
-.ex-body{display:none;padding:16px 18px;}
-.ex-card.open .ex-body{display:block;}
-.ex-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:560px){.ex-row{grid-template-columns:1fr;}}
-.ex-col{border-radius:var(--r-md);padding:12px 14px;}
-.ex-col-fez{background:var(--red-bg);border:1px solid var(--red-border);}
-.ex-col-dev{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
-.ex-col-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-.ex-col-fez .ex-col-label{color:var(--red);}
-.ex-col-dev .ex-col-label{color:var(--emerald);}
-.ex-col p{font-size:13px;color:var(--ink-2);line-height:1.55;}
-.ex-impact{
-  margin-top:12px;padding:10px 14px;
-  background:var(--surface);border-radius:var(--r-sm);
-  border:1px solid var(--border);
-  font-size:12px;color:var(--ink-2);display:flex;align-items:flex-start;gap:6px;line-height:1.5;
-}
-.ex-impact strong{color:var(--ink);font-size:12px;}
-
-/* ── FEEDBACK TEMPLATE ───────────────────────────── */
-.feedback-tpl{
-  background:var(--surface);border-radius:var(--r-md);
-  padding:16px 18px;font-size:13px;color:var(--ink-2);
-  line-height:1.9;font-family:'SF Mono','Fira Code',monospace;
-  border:1px solid var(--border);
-}
-.fph{color:var(--violet);font-weight:700;}
-
-/* ── DIFF TABLE ──────────────────────────────────── */
-.diff-table{width:100%;border-collapse:collapse;font-size:13px;}
-.diff-table th{
-  background:var(--surface);padding:10px 14px;
-  font-weight:700;font-size:10px;text-transform:uppercase;
-  letter-spacing:.07em;color:var(--ink-3);
-  border-bottom:2px solid var(--border);text-align:left;
-}
-.diff-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink-2);}
-.diff-table tr:last-child td{border-bottom:none;}
-.tag-sim{background:var(--emerald-bg);color:var(--emerald);font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;}
-.tag-nao{background:var(--red-bg);color:var(--red);font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;}
-
-/* ── SEC LABEL ───────────────────────────────────── */
-.sec-label{
-  font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink-4);margin:20px 0 10px;display:flex;align-items:center;gap:8px;
-}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
-
-/* ── RESPONSIVE ──────────────────────────────────── */
-@media(max-width:600px){
-  .hero{padding:28px 16px 24px;}
-  .top-nav button{padding:12px 14px;font-size:12px;}
-  .main{padding:16px 12px 56px;}
-  .sc-head,.ex-head{padding:13px 14px;}
-  .sc-body,.ex-body{padding:12px 14px 14px;}
-}
-
-/* ── GLOBAL NAV ── */
-.global-nav{background:rgba(13,13,26,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.07);}
-.global-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:52px;}
-.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:white;text-decoration:none;letter-spacing:-.2px;}
-.nav-logo:hover{color:#C4B5FD;}
-.nav-links{display:flex;gap:4px;align-items:center;}
-.nav-link{font-size:13px;font-weight:600;color:rgba(255,255,255,.65);text-decoration:none;padding:6px 12px;border-radius:8px;transition:all .15s;}
-.nav-link:hover{color:white;background:rgba(255,255,255,.08);}
-.nav-link-quiz{background:rgba(107,63,228,.35);color:#C4B5FD;border:1px solid rgba(107,63,228,.4);}
-.nav-link-quiz:hover{background:rgba(107,63,228,.55);color:white;}
-/* ── GLOBAL FOOTER ── */
-.global-footer{text-align:center;padding:28px 20px;font-size:12px;color:var(--ink-4);border-top:1px solid var(--border);}
-.global-footer a{color:var(--violet);text-decoration:none;font-weight:600;}
-.global-footer a:hover{text-decoration:underline;}
-
-
-.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
+/* NAV */
+.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
 .g-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:50px;}
 .g-nav-logo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none;}
 .g-nav-logo:hover{color:#C4B5FD;}
@@ -427,1081 +29,945 @@ body{
 .g-nav-link{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all .15s;}
 .g-nav-link:hover{color:white;background:rgba(255,255,255,.09);}
 .g-nav-link.active{color:#C4B5FD;background:rgba(107,63,228,.3);}
-@media(max-width:480px){.g-nav-inner{padding:0 14px;}.g-nav-link{padding:5px 8px;font-size:11px;}}
 
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a0533,#3b0d8a 50%,#6B3FE4);padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 110%,rgba(196,181,253,.18),transparent 70%);pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;margin-bottom:20px;}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,5vw,42px);font-weight:800;color:white;line-height:1.15;letter-spacing:-.5px;margin-bottom:12px;}
+.hero h1 em{font-style:normal;color:#C4B5FD;}
+.hero p{font-size:16px;color:rgba(255,255,255,.75);max-width:500px;margin:0 auto 28px;line-height:1.6;}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;font-size:11px;font-weight:600;padding:5px 14px;border-radius:99px;}
 
-.tl-track-wrap{margin:0 0 16px;}
-.tl-visual{position:relative;padding:48px 0 56px;}
-.tl-bar-row{display:flex;height:8px;border-radius:99px;overflow:hidden;margin-bottom:0;}
-.tl-seg{display:flex;align-items:center;justify-content:center;position:relative;height:8px;}
-.tl-seg-label{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap;text-transform:uppercase;}
-.tl-seg-a{background:rgba(107,63,228,.2);}.tl-seg-a .tl-seg-label{color:var(--violet);}
-.tl-seg-b{background:rgba(224,42,42,.15);}.tl-seg-b .tl-seg-label{color:var(--red);}
-.tl-seg-teal{background:rgba(5,150,105,.15);}.tl-seg-teal .tl-seg-label{color:var(--emerald);}
-.tl-seg-amber{background:rgba(217,119,6,.15);}.tl-seg-amber .tl-seg-label{color:var(--amber);}
-.tl-events-row{position:absolute;left:0;right:0;top:0;bottom:0;}
+/* ANCHOR NAV */
+.anchor-nav{background:white;border-bottom:1px solid var(--border);position:sticky;top:50px;z-index:200;overflow-x:auto;}
+.anchor-nav-inner{max-width:900px;margin:0 auto;display:flex;padding:0 20px;}
+.anav-btn{padding:12px 16px;font-size:12px;font-weight:600;color:var(--ink-3);white-space:nowrap;border:none;background:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.anav-btn:hover{color:var(--violet);}
+.anav-btn.active{color:var(--violet);border-bottom-color:var(--violet);}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:40px 20px 80px;}
+.section{margin-bottom:60px;}
+.section-eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:8px;}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,4vw,28px);font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px;}
+.section-desc{font-size:14px;color:var(--ink-3);margin-bottom:24px;line-height:1.65;max-width:600px;}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:20px;}
+.card{background:white;border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow-sm);}
+.card-icon{font-size:24px;margin-bottom:10px;}
+.card-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.card-text{font-size:12px;color:var(--ink-3);line-height:1.55;}
+
+/* CALLOUT */
+.callout{border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:16px;}
+.callout strong{font-weight:700;}
+.callout-violet{background:var(--violet-bg);border-left:3px solid var(--violet);color:#3B2098;}
+.callout-amber{background:var(--amber-bg);border-left:3px solid var(--amber);color:#92400E;}
+.callout-green{background:var(--emerald-bg);border-left:3px solid var(--emerald);color:#065F46;}
+.callout-blue{background:var(--blue-bg);border-left:3px solid var(--blue);color:#1E40AF;}
+.callout-red{background:var(--red-bg);border-left:3px solid var(--red);color:#991B1B;}
+
+/* TIMELINE */
+.tl-wrap{margin-bottom:24px;}
+.tl-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tl-tab{padding:7px 16px;border-radius:99px;border:1.5px solid var(--border);background:white;color:var(--ink-3);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.tl-tab.active{background:var(--violet);color:white;border-color:var(--violet);}
+.tl-panel{display:none;}.tl-panel.active{display:block;}
+.tl-card{background:white;border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow-sm);}
+.tl-desc{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:18px;}
+.tl-track{position:relative;padding:52px 0 48px;}
+.tl-bar{display:flex;height:6px;border-radius:99px;overflow:hidden;margin-bottom:0;}
+.tl-seg{height:6px;position:relative;display:flex;align-items:center;justify-content:center;}
+.tl-seg-label{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+.tl-events{position:absolute;left:0;right:0;top:0;bottom:0;}
 .tl-ev{position:absolute;top:50%;transform:translate(-50%,-50%);}
-.tl-ev-dot{width:14px;height:14px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px rgba(0,0,0,.1);position:absolute;left:50%;top:4px;transform:translateX(-50%);}
-.tl-dot-violet{background:var(--violet);}.tl-dot-amber{background:var(--amber);}.tl-dot-red{background:var(--red);}.tl-dot-teal{background:var(--emerald);}
-.tl-ev-top{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.45;color:var(--ink-2);white-space:nowrap;}
+.tl-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid var(--surface-2);box-shadow:0 0 0 1px rgba(0,0,0,.08);position:absolute;left:50%;top:3px;transform:translateX(-50%);}
+.tl-ev-top{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.4;color:var(--ink-2);white-space:nowrap;}
 .tl-ev-top strong{display:block;font-size:12px;color:var(--ink);font-weight:700;}
-.tl-ev-bot{position:absolute;top:32px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.45;color:var(--ink-2);white-space:nowrap;}
+.tl-ev-bot{position:absolute;top:22px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.4;color:var(--ink-2);white-space:nowrap;}
 .tl-ev-bot strong{display:block;font-size:12px;color:var(--ink);font-weight:700;}
-.tl-ev-day{position:absolute;top:22px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--ink-4);white-space:nowrap;}
-.tl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
-@media(max-width:560px){.tl-stats{grid-template-columns:1fr 1fr;}}
-.tl-stat-card{background:white;border:1px solid var(--border);border-radius:var(--r-md);padding:12px 14px;box-shadow:var(--shadow-sm);}
-.tl-stat-highlight{border-color:var(--violet-3);background:var(--violet-bg);}
-.tl-stat-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--ink);line-height:1.2;}
-.tl-stat-highlight .tl-stat-num{color:var(--violet);}
-.tl-stat-lbl{font-size:11px;color:var(--ink-3);margin-top:3px;}
+.tl-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:20px 0 16px;position:relative;}
+.tl-steps::before{content:'';position:absolute;top:22px;left:10%;right:10%;height:1.5px;background:var(--border);z-index:0;}
+.tl-step{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:1;}
+.tl-step-icon{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:var(--shadow-sm);}
+.tl-step-icon.hl{background:var(--violet-bg);border-color:var(--violet-3);}
+.tl-step-label{font-size:10px;font-weight:600;color:var(--ink);text-align:center;line-height:1.3;}
+.tl-step-sub{font-size:9px;color:var(--ink-3);text-align:center;}
+.tl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.tl-stat{background:var(--surface-2);border-radius:10px;padding:10px 12px;}
+.tl-stat.hl{background:var(--violet-bg);border:1px solid var(--violet-3);}
+.tl-stat-num{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--ink);line-height:1.2;}
+.tl-stat.hl .tl-stat-num{color:var(--violet);}
+.tl-stat-lbl{font-size:10px;color:var(--ink-3);margin-top:2px;}
+@media(max-width:560px){.tl-steps{grid-template-columns:repeat(3,1fr);}.tl-stats{grid-template-columns:1fr 1fr;}}
 
+/* ORIGENS */
+.origem-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.origem-card{background:white;border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start;}
+.origem-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.origem-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin-bottom:4px;}
+.origem-tag-c{background:var(--violet-bg);color:var(--violet);}
+.origem-tag-mm{background:var(--emerald-bg);color:var(--emerald);}
+.origem-tag-d{background:var(--amber-bg);color:var(--amber);}
+.origem-tag-cr{background:var(--blue-bg);color:var(--blue);}
+.origem-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.origem-text{font-size:13px;color:var(--ink-3);line-height:1.55;}
+.origem-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--surface-2);border:1px solid var(--border);color:var(--ink-3);padding:2px 8px;border-radius:99px;margin-top:5px;}
 
-.tl-track-wrap{margin:0 0 16px}
-.tl-visual{position:relative;padding:56px 0 60px}
-.tl-bar-row{display:flex;height:6px;border-radius:99px;overflow:hidden}
-.tl-seg{display:flex;align-items:center;justify-content:center;position:relative;height:6px}
-.tl-seg-label{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;letter-spacing:.04em;white-space:nowrap;text-transform:uppercase}
-.tl-seg-v{background:rgba(107,63,228,.2)}.tl-seg-v .tl-seg-label{color:var(--violet)}
-.tl-seg-g{background:rgba(122,122,150,.15)}.tl-seg-g .tl-seg-label{color:var(--ink-3)}
-.tl-seg-r{background:rgba(224,42,42,.15)}.tl-seg-r .tl-seg-label{color:var(--red)}
-.tl-seg-t{background:rgba(5,150,105,.13)}.tl-seg-t .tl-seg-label{color:var(--emerald)}
-.tl-seg-a{background:rgba(217,119,6,.13)}.tl-seg-a .tl-seg-label{color:var(--amber)}
-.tl-events-row{position:absolute;left:0;right:0;top:0;bottom:0}
-.tl-ev{position:absolute;top:50%;transform:translate(-50%,-50%)}
-.tl-ev-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid var(--surface-2);box-shadow:0 0 0 1px rgba(0,0,0,.08);position:absolute;left:50%;top:3px;transform:translateX(-50%)}
-.tl-dot-v{background:var(--violet)}.tl-dot-a{background:var(--amber)}.tl-dot-r{background:var(--red)}.tl-dot-t{background:var(--emerald)}.tl-dot-g{background:var(--ink-4)}
-.tl-ev-top{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.4;color:var(--ink-2);white-space:nowrap}
-.tl-ev-top strong{display:block;font-size:12px;color:var(--ink);font-weight:700}
-.tl-ev-bot{position:absolute;top:24px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.4;color:var(--ink-2);white-space:nowrap}
-.tl-ev-bot strong{display:block;font-size:12px;color:var(--ink);font-weight:700}
-.tl-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:20px 0;position:relative}
-.tl-steps::before{content:'';position:absolute;top:26px;left:10%;right:10%;height:1.5px;background:var(--border);z-index:0}
-.tl-step{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1}
-.tl-step-icon{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--shadow-sm)}
-.tl-step-icon.tl-hl{background:var(--violet-bg);border-color:var(--violet-3)}
-.tl-step-label{font-size:11px;font-weight:600;color:var(--ink);text-align:center;line-height:1.3}
-.tl-step-sub{font-size:10px;color:var(--ink-3);text-align:center;line-height:1.3}
-.tl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-@media(max-width:560px){.tl-stats{grid-template-columns:1fr 1fr}.tl-steps{grid-template-columns:repeat(3,1fr)}}
-.tl-stat{background:white;border:1px solid var(--border);border-radius:var(--r-md);padding:10px 14px;box-shadow:var(--shadow-sm)}
-.tl-stat.tl-hl{border-color:var(--violet-3);background:var(--violet-bg)}
-.tl-stat-num{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--ink);line-height:1.2}
-.tl-stat.tl-hl .tl-stat-num{color:var(--violet)}
-.tl-stat-lbl{font-size:11px;color:var(--ink-3);margin-top:2px}
+/* CRITICIDADE */
+.crit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;}
+.crit-card{border-radius:var(--r);padding:18px;}
+.crit-card-red{background:var(--red-bg);border:1px solid var(--red-border);}
+.crit-card-amber{background:var(--amber-bg);border:1px solid var(--amber-border);}
+.crit-card-green{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.crit-emoji{font-size:22px;margin-bottom:8px;}
+.crit-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.crit-card-red .crit-title{color:var(--red);}
+.crit-card-amber .crit-title{color:var(--amber);}
+.crit-card-green .crit-title{color:var(--emerald);}
+.crit-pts{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-bottom:6px;display:inline-block;}
+.crit-card-red .crit-pts{background:var(--red-border);color:var(--red);}
+.crit-card-amber .crit-pts{background:var(--amber-border);color:var(--amber);}
+.crit-card-green .crit-pts{background:var(--emerald-border);color:var(--emerald);}
+.crit-text{font-size:12px;color:var(--ink-2);line-height:1.55;}
+.crit-list{margin-top:8px;display:flex;flex-direction:column;gap:3px;}
+.crit-item{font-size:11px;color:var(--ink-2);display:flex;align-items:flex-start;gap:6px;line-height:1.4;}
+.crit-item::before{content:'·';color:var(--ink-4);flex-shrink:0;margin-top:0px;}
 
+/* EXEMPLOS */
+.ex-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.ex-card{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
+.ex-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .1s;}
+.ex-head:hover{background:var(--surface-2);}
+.ex-card.open .ex-head{border-bottom:1px solid var(--border);}
+.ex-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;white-space:nowrap;}
+.ex-badge-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
+.ex-badge-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.ex-badge-green{background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-border);}
+.ex-title{font-size:13px;font-weight:600;color:var(--ink);flex:1;}
+.ex-chev{font-size:12px;color:var(--ink-4);transition:transform .2s;}
+.ex-card.open .ex-chev{transform:rotate(180deg);}
+.ex-body{display:none;padding:16px 18px;}
+.ex-card.open .ex-body{display:block;}
+.ex-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.ex-row{grid-template-columns:1fr;}}
+.ex-col{border-radius:10px;padding:12px 14px;}
+.ex-col-fez{background:var(--red-bg);border:1px solid var(--red-border);}
+.ex-col-dev{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.ex-col-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.ex-col-fez .ex-col-label{color:var(--red);}
+.ex-col-dev .ex-col-label{color:var(--emerald);}
+.ex-col p{font-size:13px;color:var(--ink-2);line-height:1.55;}
+.ex-impact{margin-top:10px;padding:9px 12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--ink-2);line-height:1.5;}
+.ex-impact strong{color:var(--ink);}
+.ex-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-filter-btn{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:white;color:var(--ink-3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.ex-filter-btn:hover{border-color:var(--violet-3);color:var(--violet);}
+.ex-filter-btn.active{background:var(--violet);color:white;border-color:var(--violet);}
+
+/* COMO É EXTRAÍDO */
+.flow-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.flow-step{background:white;border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow-sm);}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--violet-bg);border:1.5px solid var(--violet-3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--violet);flex-shrink:0;margin-top:1px;}
+.flow-content-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.flow-content-text{font-size:12px;color:var(--ink-3);line-height:1.5;}
+.flow-arrow{text-align:center;font-size:16px;color:var(--ink-4);margin:-4px 0;}
+
+/* QUIZ */
+.quiz-wrap{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
+.quiz-header{background:linear-gradient(135deg,#1a0533,#6B3FE4);padding:20px 24px;}
+.quiz-header h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:white;margin-bottom:4px;}
+.quiz-header p{font-size:13px;color:rgba(255,255,255,.7);}
+.quiz-hud{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--surface-2);border-bottom:1px solid var(--border);}
+.quiz-prog-wrap{flex:1;}
+.quiz-prog-label{font-size:10px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.quiz-prog-bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--violet),#A855F7);border-radius:99px;transition:width .4s;}
+.quiz-score-box{background:white;border:1px solid var(--border);border-radius:10px;padding:6px 12px;text-align:center;min-width:70px;}
+.quiz-score-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);}
+.quiz-score-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:var(--violet);line-height:1;}
+.quiz-lives{display:flex;gap:2px;font-size:16px;}
+.quiz-body{padding:20px 24px;}
+.quiz-scenario{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+.quiz-scenario-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.quiz-scenario-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.quiz-scenario-text{font-size:13px;color:var(--ink-2);line-height:1.6;}
+.quiz-scenario-text strong{color:var(--ink);}
+.quiz-question{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.4;}
+.quiz-opts{display:flex;flex-direction:column;gap:7px;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:2px solid var(--border);background:white;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.quiz-opt:hover:not(:disabled){border-color:var(--violet-3);background:var(--violet-bg);transform:translateX(3px);}
+.quiz-opt:disabled{cursor:default;}
+.quiz-opt.correct{border-color:var(--emerald);background:var(--emerald-bg);animation:pop .35s cubic-bezier(.34,1.56,.64,1);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-bg);animation:shake .35s ease;}
+.quiz-opt.reveal{border-color:var(--emerald);background:var(--emerald-bg);opacity:.55;}
+.quiz-opt-icon{width:30px;height:30px;border-radius:50%;background:var(--surface-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:all .2s;}
+.quiz-opt.correct .quiz-opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
+.quiz-opt.wrong .quiz-opt-icon{background:var(--red);border-color:var(--red);color:white;}
+.quiz-opt.reveal .quiz-opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
+.quiz-opt-label{font-size:13px;font-weight:600;color:var(--ink);}
+.quiz-opt-sub{font-size:11px;color:var(--ink-3);margin-top:1px;}
+.quiz-opt.correct .quiz-opt-label,.quiz-opt.correct .quiz-opt-sub{color:var(--emerald);}
+.quiz-opt.wrong .quiz-opt-label,.quiz-opt.wrong .quiz-opt-sub{color:var(--red);}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.quiz-feedback{border-radius:10px;padding:12px 14px;margin-top:12px;display:none;animation:slide-up .2s ease;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback-correct{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.quiz-feedback-wrong{background:var(--red-bg);border:1px solid var(--red-border);}
+.quiz-feedback-header{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+.quiz-feedback-emoji{font-size:18px;}
+.quiz-feedback-title{font-size:13px;font-weight:700;}
+.quiz-feedback-correct .quiz-feedback-title{color:var(--emerald);}
+.quiz-feedback-wrong .quiz-feedback-title{color:var(--red);}
+.quiz-feedback-text{font-size:12px;color:var(--ink-2);line-height:1.55;}
+@keyframes slide-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.btn-next-quiz{width:100%;padding:12px;margin-top:10px;background:var(--violet);color:white;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;display:none;}
+.btn-next-quiz.show{display:block;}
+.btn-next-quiz:hover{background:var(--violet-dark);}
+.quiz-streak{display:flex;gap:3px;justify-content:center;margin-bottom:12px;}
+.streak-dot{width:9px;height:9px;border-radius:50%;background:var(--border);transition:all .25s;}
+.streak-dot.lit{background:linear-gradient(135deg,#F59E0B,#F97316);box-shadow:0 0 6px rgba(249,115,22,.5);}
+
+/* COMBO TOAST */
+.combo-toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,var(--violet),#A855F7);color:white;padding:8px 20px;border-radius:99px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;z-index:500;white-space:nowrap;box-shadow:0 4px 20px rgba(107,63,228,.5);transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .25s;opacity:0;}
+.combo-toast.show{transform:translateX(-50%) scale(1);opacity:1;}
+
+/* RESULTADO QUIZ */
+.quiz-result{padding:28px 24px;text-align:center;display:none;}
+.quiz-result-trophy{font-size:60px;display:block;margin-bottom:8px;animation:bounce-in .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes bounce-in{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+.quiz-result-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.quiz-result-sub{font-size:13px;color:var(--ink-3);margin-bottom:20px;}
+.quiz-result-score{background:linear-gradient(135deg,#1a0533,#6B3FE4);border-radius:var(--r);padding:20px;margin-bottom:16px;position:relative;overflow:hidden;}
+.quiz-result-score-num{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:900;color:white;line-height:1;}
+.quiz-result-score-lbl{font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;}
+.quiz-result-bar-wrap{height:6px;background:rgba(255,255,255,.15);border-radius:99px;margin-top:12px;overflow:hidden;}
+.quiz-result-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,#C4B5FD,white);transition:width 1s cubic-bezier(.4,0,.2,1);}
+.quiz-result-msg{font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:14px 16px;margin-bottom:16px;line-height:1.6;border:1px solid var(--border);}
+.quiz-result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.quiz-result-stat{background:white;border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+.quiz-result-stat-num{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--ink);}
+.quiz-result-stat-lbl{font-size:10px;color:var(--ink-3);margin-top:1px;}
+.btn-retry{width:100%;padding:13px;background:linear-gradient(135deg,var(--violet),#A855F7);color:white;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(107,63,228,.35);}
+.btn-retry:hover{opacity:.9;}
+
+/* CANVAS */
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+
+/* FOOTER */
+footer{background:rgba(13,13,26,.9);color:rgba(255,255,255,.45);text-align:center;padding:20px;font-size:12px;}
+footer a{color:rgba(255,255,255,.6);text-decoration:none;}
+footer a:hover{color:rgba(255,255,255,.9);}
+
+@media(max-width:600px){.main{padding:24px 14px 60px;}.quiz-body,.quiz-header{padding:16px;}.hero{padding:36px 16px 32px;}}
 </style>
 </head>
 <body>
-<nav class="g-nav"><div class="g-nav-inner"><a href="sobre.html" class="g-nav-logo">🔬 Fraud Lab</a><div class="g-nav-links"><a href="sobre.html" class="g-nav-link">O Processo</a><a href="index.html" class="g-nav-link active">Guia</a><a href="quiz.html" class="g-nav-link">🎮 Quiz</a></div></div></nav>
-<nav class="global-nav">
-  <div class="global-nav-inner">
-    <a href="sobre.html" class="nav-logo">🔬 Fraud Lab</a>
-    <div class="nav-links"><a href="sobre.html" class="nav-link">O Processo</a><a href="index.html" class="nav-link" style="color:white;">Guia</a><a href="quiz.html" class="nav-link nav-link-quiz">🎮 Quiz</a></div>
+
+<canvas id="confetti-canvas"></canvas>
+<div class="combo-toast" id="combo-toast"></div>
+
+<nav class="g-nav">
+  <div class="g-nav-inner">
+    <a href="sobre.html" class="g-nav-logo">🔬 Fraud Lab</a>
+    <div class="g-nav-links">
+      <a href="sobre.html" class="g-nav-link">O Processo</a>
+      <a href="index.html" class="g-nav-link">Guia</a>
+      <a href="quiz.html" class="g-nav-link">🎮 Quiz</a>
+      <a href="#origens" class="g-nav-link">Origens</a>
+      <a href="#criticidade" class="g-nav-link">Criticidade</a>
+      <a href="#exemplos" class="g-nav-link">Exemplos</a>
+      <a href="#quiz" class="g-nav-link">🎮 Quiz</a>
+    </div>
   </div>
 </nav>
 
-<!-- ── HERO ── -->
 <div class="hero">
-  <div class="hero-eyebrow">Fraud Quality Team</div>
-  <div class="hero-tagline">Critérios, pesos e exemplos práticos do scorecard de qualidade.</div>
+  <div class="hero-tag">🔍 Fraud Quality Team</div>
+  <h1>Tudo sobre a sua <em>monitoria</em></h1>
+  <p>Como suas análises são selecionadas, o que cada apontamento significa e por que ele pode chegar semanas depois da sua decisão.</p>
   <div class="hero-pills">
-    <span class="hero-pill">🫏 Mule Account</span>
-    <span class="hero-pill">🪪 Identity Fraud</span>
-    <span class="hero-pill">💳 Transactional</span>
-    <span class="hero-pill">🎮 Gamers</span>
-    <span class="hero-pill">🛡️ Victim Prevention</span>
+    <span class="hero-pill">📋 Como é extraído</span>
+    <span class="hero-pill">⏱ Linha do tempo</span>
+    <span class="hero-pill">🔴🟡🟢 Criticidade</span>
+    <span class="hero-pill">🎮 Quiz</span>
   </div>
 </div>
 
-<!-- ── NAV ── -->
-<div class="top-nav">
-  <button class="active" onclick="goTo('distritos',this)">Scorecards por Distrito</button>
-  <button onclick="goTo('exemplos',this)">Exemplos Práticos</button>
-  <button onclick="goTo('feedback',this)">Feedback</button>
-  <button onclick="goTo('timeline',this)">⏱ Linha do Tempo</button>
+<div class="anchor-nav">
+  <div class="anchor-nav-inner">
+    <button class="anav-btn active" onclick="scrollTo('como')">Como funciona</button>
+    <button class="anav-btn" onclick="scrollTo('timeline')">Linha do tempo</button>
+    <button class="anav-btn" onclick="scrollTo('origens')">Origens</button>
+    <button class="anav-btn" onclick="scrollTo('criticidade')">Criticidade</button>
+    <button class="anav-btn" onclick="scrollTo('exemplos')">Exemplos</button>
+    <button class="anav-btn" onclick="scrollTo('quiz')">🎮 Quiz</button>
+  </div>
 </div>
 
 <main class="main">
 
-<!-- ══════════════════════════════════════
-     SCORECARDS POR DISTRITO
-══════════════════════════════════════ -->
-<div id="distritos" class="page visible">
+  <!-- ══ COMO É EXTRAÍDO ══ -->
+  <div class="section" id="como">
+    <div class="section-eyebrow">Como funciona</div>
+    <div class="section-title">Como sua análise é selecionada para monitoria</div>
+    <div class="section-desc">Nem toda análise é monitorada — o time de qualidade usa uma combinação de amostragem e gatilhos específicos para revisar os cases.</div>
 
-  <div class="legend-bar">
-    <span><span class="dot dot-crit"></span> <strong>Crítico</strong> — peso máximo</span>
-    <span class="legend-sep">·</span>
-    <span><span class="dot dot-med"></span> <strong>Médio</strong> — desconta parcialmente</span>
-    <span class="legend-sep">·</span>
-    <span><span class="dot dot-low"></span> <strong>Baixo</strong> — informativo</span>
-    <span class="legend-note">Grace Period: avaliado, sem pontuação</span>
-  </div>
-
-  <div class="dtabs">
-    <button class="dtab active" onclick="showD('ma',this)">🫏 Mule Account</button>
-    <button class="dtab" onclick="showD('id',this)">🪪 Identity Fraud</button>
-    <button class="dtab" onclick="showD('tr',this)">💳 Transactional</button>
-    <button class="dtab" onclick="showD('gm',this)">🎮 Gamers</button>
-    <button class="dtab" onclick="showD('vp',this)">🛡️ Victim Prevention</button>
-  </div>
-
-  <!-- ─── MULE ACCOUNT ─── -->
-  <div id="d-ma" class="dpanel visible">
-    <div class="sc-block" id="ma1">
-      <div class="sc-head" onclick="tog('ma1')">
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
         <div>
-          <div class="sc-num">Scorecard 1</div>
-          <div class="sc-name">Catch &amp; Release</div>
-          <div class="sc-desc">Casos finalizados como "suspect archived" que viraram fraudster em até 30 dias. Avalia se houve erro operacional ou se os indícios não eram suficientes naquele momento.</div>
-        </div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Decisão de arquivar é correta e fundamentada? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item low-q"><span class="q-dot q-dot-low"></span><span class="q-text-wrap">Motivo do Catch and Release <span class="crit-badge badge-low">🟢 Baixo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Comunicou o cliente corretamente, quando aplicável? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Report e tipo de cliente validados corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Apontamento de cliente UV foi feito corretamente? <span class="crit-badge badge-crit">🔴 Crítico</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Validou corretamente Colisões, Informações Pessoais e Pejotização? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Validou corretamente colisões e informações pessoais? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Dados de DICT/Rufra registrados corretamente? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Contestações atuais e contestações arquivadas ou recusadas foram validadas corretamente? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Histórico de contestação e histórico de reports foram validados corretamente? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Os contatos do cliente no Tristram foram validados corretamente? (Remetente e Beneficiário) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Os contatos do cliente no Tristram e Chimera foram validados corretamente? (Transações com fraudadores, Beneficiário, Remetente, Boletos e Cobranças) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">As características transacionais no Tristram e Chimera foram interpretadas corretamente? (Cash in, Cash out, Transações com fraudadores e Boletos) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">As características transacionais no Tristram e Chimera foram interpretadas corretamente? (Idade de conta, Pejotização, Cash out, Cash in) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item low-q"><span class="q-dot q-dot-low"></span><span class="q-text-wrap">Intervalo entre o cash in e a contestação <span class="crit-badge badge-low">🟢 Baixo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Intervalo entre Cash in e Cash out da transação contestada (fast transfer) <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Foi utilizado o método correto de análise? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">A frequência de uso da conta foi interpretada corretamente? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">As evidências externas foram identificadas e consideradas? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item low-q"><span class="q-dot q-dot-low"></span><span class="q-text-wrap">Quais indícios positivos foram identificados pelo analista no momento do arquivamento? <span class="crit-badge badge-low">🟢 Baixo</span></span></div>
-          <div class="q-item low-q"><span class="q-dot q-dot-low"></span><span class="q-text-wrap">Quais indícios negativos foram identificados pelo analista no momento do arquivamento? <span class="crit-badge badge-low">🟢 Baixo</span></span></div>
-          <div class="q-item low-q"><span class="q-dot q-dot-low"></span><span class="q-text-wrap">Qual evidência o protocolo poderia considerar de forma adicional para identificar a fraude? <span class="crit-badge badge-low">🟢 Baixo</span></span></div>
-          <div class="q-item low-q"><span class="q-dot q-dot-low"></span><span class="q-text-wrap">O reporte arquivado aconteceu antes da transação contestada? <span class="crit-badge badge-low">🟢 Baixo</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Havia indícios suficientes para definir fraudador no report preventivo? <span class="crit-badge badge-crit">🔴 Crítico</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Coverage Loss Range <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Fluxo de postpone UV + Jira foi executado corretamente, se aplicável? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
+          <div class="flow-content-title">Amostragem por scorecard</div>
+          <div class="flow-content-text">Cada distrito tem scorecards diferentes. O time de qualidade extrai uma amostra periódica de cases finalizados para revisar a assertividade das decisões — Catch & Release, decisões de fraudador, reversões.</div>
         </div>
       </div>
-    </div>
-
-    <div class="sc-block" id="ma2">
-      <div class="sc-head" onclick="tog('ma2')">
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
         <div>
-          <div class="sc-num">Scorecard 2</div>
-          <div class="sc-name">Deep Dive Reversed Cases</div>
-          <div class="sc-desc">Casos já revertidos (fraudster_archived). Foco em entender <em>por que</em> foi revertido — buscando padrões para melhorar protocolos.</div>
-        </div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Era possível identificar que o cliente era uma vítima/cliente OK antes da complaint/appeal? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Motivo da Reversão <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Protocolo de análise cobre esse cenário? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Qual evidência externa/documento usado para reversão <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Reversão foi correta? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Cliente possui Killer Evidence? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Calculadora/Matriz usada no momento do fechamento de fraudster <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Quais indícios negativos foram indicados de forma errada no momento do fechamento? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Quais as evidências positivas o cliente possuía no momento do fechamento? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
+          <div class="flow-content-title">Gatilhos automáticos</div>
+          <div class="flow-content-text">Alguns cases entram na fila de monitoria automaticamente — quando o sistema de Money Movements detecta movimentações suspeitas em contas que foram arquivadas como OK, ou quando um cliente que foi tratado retorna com nova reclamação.</div>
         </div>
       </div>
-    </div>
-
-    <div class="sc-block" id="ma3">
-      <div class="sc-head" onclick="tog('ma3')">
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
         <div>
-          <div class="sc-num">Scorecard 3</div>
-          <div class="sc-name">Decisão — Somente Fraudadores</div>
-          <div class="sc-desc">Amostra aleatória de casos marcados como fraudador. Valida a assertividade e investiga erros operacionais e evidências mal interpretadas.</div>
-        </div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Decisão de fraude correta e fundamentada? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Comunicou o cliente corretamente, quando aplicável? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Report e tipo de cliente validados corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Apontamento de cliente UV foi feito corretamente? <span class="crit-badge badge-crit">🔴 Crítico</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Validou corretamente colisões e informações pessoais? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Validou corretamente Colisões, Informações Pessoais e Pejotização? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Dados de DICT/Rufra registrados corretamente? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Histórico de contestação e reports anteriores foram validados corretamente? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Contestações atuais e contestações arquivadas ou recusadas foram validadas corretamente? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Os contatos do cliente no Tristram e Chimera foram validados corretamente? (Transações com fraudadores, Beneficiário, Remetente, Boletos e Cobranças) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Os contatos do cliente no Tristram foram validados corretamente? (Remetente e Beneficiário) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">As características transacionais no Tristram e Chimera foram interpretadas corretamente? (Idade de conta, Pejotização, Cash out, Cash in) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">As características transacionais no Tristram e Chimera foram interpretadas corretamente? (Cash in, Cash out, Transações com fraudadores e Boletos) <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">As evidências externas foram identificadas e consideradas? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Proativo</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">A frequência de uso da conta foi interpretada corretamente? <span class="crit-badge badge-med">🟡 Médio</span> <span class="proto-badge">Reativo</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Foi utilizado o método correto de análise? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Cliente possui Killer Evidence? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
+          <div class="flow-content-title">Sinalizações internas</div>
+          <div class="flow-content-text">A liderança do distrito ou pares podem sinalizar um case para revisão ao identificar uma decisão inconsistente durante calibrações, QA interno ou revisão de pares.</div>
         </div>
       </div>
-    </div>
-
-    <div class="sc-block" id="ma4">
-      <div class="sc-head" onclick="tog('ma4')">
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
         <div>
-          <div class="sc-num">Scorecard 4</div>
-          <div class="sc-name">Análise Método PAS</div>
-          <div class="sc-desc">Casos analisados fora do protocolo padrão via Método PAS — cenários sensíveis como bloqueios acima de R$200k. Verifica calibração dos parâmetros usados.</div>
-        </div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Decisão tomada é correta e fundamentada? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Comunicou o cliente corretamente, quando aplicável? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Cliente Vítima + Interações foram checados corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Perfil do cliente / Idade e tamanho da conta / Relacionamento com demais produtos e Cartão de Crédito foram analisados corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Indícios diretos de Fraude (DICT, RUFRA e Colisões) foram validados corretamente? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Perfil da conta (cash in, cash out, beneficiários e remetentes) / Análise de Contas respectivas (PF/PJ) foram analisados corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Informações pessoais foram validadas corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Histórico de Reports foi validado corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Boletos / Cobranças foram validadas corretamente? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Cliente possui Killer Evidence? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Fluxo de postpone UV + Jira foi executado corretamente, se aplicável? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
+          <div class="flow-content-title">Segunda checagem pelo time de qualidade</div>
+          <div class="flow-content-text">Em todos os casos, um qualiter revisa o case original com base no scorecard do seu distrito. Só avança para o próximo passo se o apontamento for considerado válido.</div>
         </div>
       </div>
-    </div>
-
-    <div class="sc-block" id="ma5">
-      <div class="sc-head" onclick="tog('ma5')">
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
         <div>
-          <div class="sc-num">Scorecard 5</div>
-          <div class="sc-name">Decision Disagreement</div>
-          <div class="sc-desc">Casos onde o analista discordou da decisão sugerida pelo protocolo. Canal importante para melhorias no processo — discordar não é erro, desde que bem justificado.</div>
-        </div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item crit-q"><span class="q-dot q-dot-crit"></span><span class="q-text-wrap">Discordância faz sentido e foi bem justificada? <span class="crit-badge badge-crit">🔴 Crítico</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Protocolo de análise cobre esse cenário? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
-          <div class="q-item med-q"><span class="q-dot q-dot-med"></span><span class="q-text-wrap">Qual item(s) do protocolo discorda? <span class="crit-badge badge-med">🟡 Médio</span></span></div>
+          <div class="flow-content-title">Feedback e dashboard</div>
+          <div class="flow-content-text">Se o apontamento for válido, você recebe um feedback estruturado e o case aparece no seu dashboard. Se não for, o ticket é encerrado sem impacto na sua nota.</div>
         </div>
       </div>
+    </div>
+
+    <div class="callout callout-violet">
+      <strong>💡 Só chega no seu dashboard se for confirmado.</strong> A segunda checagem existe justamente para garantir que apontamentos indevidos não afetem sua nota. Discordou? Conteste pelo formulário indicado no próprio feedback.
     </div>
   </div>
 
-  <!-- ─── IDENTITY FRAUD ─── -->
-  <div id="d-id" class="dpanel">
-    <div class="sc-block" id="id1">
-      <div class="sc-head" onclick="tog('id1')">
-        <div><div class="sc-num">Scorecard 1 · Internos</div><div class="sc-name">Amostra de Decisão — Fraudadores e Arquivados</div><div class="sc-desc">Valida a assertividade das análises internas em relação às diretrizes do time estratégico.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão do caso está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Caso a decisão esteja incorreta, qual deveria ser a decisão final?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="id2">
-      <div class="sc-head" onclick="tog('id2')">
-        <div><div class="sc-num">Scorecard 2 · Internos</div><div class="sc-name">Deep Dive Reversed Cases</div><div class="sc-desc">Casos revertidos. Identifica padrões na causa raiz para subsidiar melhorias nos protocolos.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A reversão era, de fato, necessária?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Qual a causa raiz da necessidade de reversão?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>A reversão foi feita corretamente?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="id3">
-      <div class="sc-head" onclick="tog('id3')">
-        <div><div class="sc-num">Scorecard 3 · Internos</div><div class="sc-name">Catch &amp; Release</div><div class="sc-desc">Casos de ID liberados que depois foram marcados como fraude de identidade em até 30 dias.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>No momento da análise inicial, era possível ter encerrado como fraude?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Qual foi a causa raiz da fraude não ter sido identificada?</div>
-        </div>
-      </div>
-    </div>
+  <!-- ══ LINHA DO TEMPO ══ -->
+  <div class="section" id="timeline">
+    <div class="section-eyebrow">Linha do Tempo</div>
+    <div class="section-title">Por que o apontamento pode chegar tarde?</div>
+    <div class="section-desc">Você trata um case hoje. O apontamento pode aparecer no seu dashboard semanas depois. Isso é normal — cada origem tem uma janela diferente.</div>
 
-    <div class="sub-section">Provider · HSPrevent (Brasil)</div>
+    <div class="tl-wrap">
+      <div class="tl-tabs">
+        <button class="tl-tab active" onclick="showTl('c',this)">Complaints</button>
+        <button class="tl-tab" onclick="showTl('m',this)">Money Movements</button>
+        <button class="tl-tab" onclick="showTl('d',this)">Distrito</button>
+      </div>
 
-    <div class="sc-block" id="idp1">
-      <div class="sc-head" onclick="tog('idp1')">
-        <div><div class="sc-num">Scorecard 1 · Provider</div><div class="sc-name">Decisão — Fraudadores e Arquivados</div><div class="sc-desc">Valida se as decisões da HSPrevent estão corretas, incluindo a classificação de submotivo.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão tomada pela HSP está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>A classificação (submotivo) está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>No caso de submotivo errado, qual seria o correto?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="idp2">
-      <div class="sc-head" onclick="tog('idp2')">
-        <div><div class="sc-num">Scorecard 2 · Provider</div><div class="sc-name">Decisão — Inconclusivos Full Job</div><div class="sc-desc">Valida se o uso de "Inconclusivo" está sendo aplicado corretamente pela HSPrevent.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A marcação como "Inconclusivo" está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>No caso de uso incorreto, qual seria a decisão correta?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="idp3">
-      <div class="sc-head" onclick="tog('idp3')">
-        <div><div class="sc-num">Scorecard 3 · Provider</div><div class="sc-name">Decisão — Pré-Job</div><div class="sc-desc">Valida as decisões de Pré-Job da HSPrevent, incluindo a classificação de submotivo.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão do caso está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>A classificação (submotivo) está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>No caso de submotivo errado, qual seria o correto?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="idp4">
-      <div class="sc-head" onclick="tog('idp4')">
-        <div><div class="sc-num">Scorecard 4 · Provider</div><div class="sc-name">Catch &amp; Release — Provider</div><div class="sc-desc">Casos liberados pela HSPrevent que viraram fraude de identidade em até 30 dias.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>Na análise inicial era possível ter encerrado o caso como fraude?</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── TRANSACTIONAL ─── -->
-  <div id="d-tr" class="dpanel">
-    <div class="sub-section" style="margin-top:0;padding-top:0;border-top:none;">Acquirer</div>
-    <div class="sc-block" id="tr1">
-      <div class="sc-head" onclick="tog('tr1')">
-        <div><div class="sc-num">Scorecard 1</div><div class="sc-name">Decisão — Fraudadores, Arquivados e Descredenciados</div><div class="sc-desc">Avalia as três decisões possíveis em Acquirer: liberação, marcação de fraude e descredenciamento.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão foi correta com base no protocolo vigente na data da análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício negativo que deveria ser selecionado não foi incluído na análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício positivo foi assinalado equivocadamente na análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Inseriu a tag de descredenciamento corretamente?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="tr2">
-      <div class="sc-head" onclick="tog('tr2')">
-        <div><div class="sc-num">Scorecard 2</div><div class="sc-name">Catch &amp; Release — Acquirer</div><div class="sc-desc">Clientes liberados ou descredenciados em Acquirer que foram fechados por qualquer tipo de fraude em até 30 dias — inclusive em outros MOs.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>Qual tipo de fraude foi fechado posteriormente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>No momento da análise de Acquirer, houve algum erro?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício negativo que deveria ser selecionado não foi incluído?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício positivo foi assinalado equivocadamente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O cliente tem indícios de outros MOs que não fazem parte da investigação de Acquirer?</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sub-section">Self Financing</div>
-    <div class="sc-block" id="tr3">
-      <div class="sc-head" onclick="tog('tr3')">
-        <div><div class="sc-num">Scorecard 1</div><div class="sc-name">Decisão — All Clear</div><div class="sc-desc">Casos 100% liberados. Garante que a base para advertências subsequentes (Strike 1, Strike 2) parte de um entendimento inicial correto.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão foi correta com base no protocolo vigente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício foi assinalado equivocadamente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>A tag foi inserida de forma correta?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="tr4">
-      <div class="sc-head" onclick="tog('tr4')">
-        <div><div class="sc-num">Scorecard 2</div><div class="sc-name">Decisão — Strike 1</div><div class="sc-desc">Casos de primeira advertência. Monitorar o Strike 1 garante que advertências subsequentes partem de uma identificação inicial correta.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão foi correta com base no protocolo vigente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício foi assinalado equivocadamente?</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sub-section">Authorization</div>
-    <div class="sc-block" id="tr5">
-      <div class="sc-head" onclick="tog('tr5')">
-        <div><div class="sc-num">Scorecard 1</div><div class="sc-name">Decisão — Fraudadores e Arquivados</div><div class="sc-desc">Amostra de casos marcados como fraudador e com suspeita descartada em Authorization. Valida assertividade e identifica erros.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão foi correta com base no protocolo vigente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício negativo foi assinalado equivocadamente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício positivo que deveria ser selecionado não foi incluído?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Enviou o e-mail de cancelamento corretamente?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="tr6">
-      <div class="sc-head" onclick="tog('tr6')">
-        <div><div class="sc-num">Scorecard 2</div><div class="sc-name">Catch &amp; Release — Authorization</div><div class="sc-desc">Clientes com suspeita de Authorization descartada que foram marcados como fraudadores em até 30 dias.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>No momento da análise anterior, houve algum erro?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício negativo que deveria ser selecionado não foi incluído?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Algum indício positivo foi assinalado equivocadamente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O cliente tem indícios de outros MOs que não fazem parte da investigação de Auth?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>As informações disponíveis são suficientes para identificação do MO de Auth como conhecemos atualmente?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="tr7">
-      <div class="sc-head" onclick="tog('tr7')">
-        <div><div class="sc-num">Scorecard 3</div><div class="sc-name">Decisão — Liberados com múltiplos reports</div><div class="sc-desc">Clientes reportados mais de uma vez em menos de 30 dias com todas as suspeitas descartadas. Investiga gatilhos de falso-positivos recorrentes.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>Quantas vezes o cliente foi reportado antes do fechamento?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Os reports anteriores foram gerados por motivos legítimos?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O que faltou para o fechamento? Faltou indícios? Ajustes de pesos no protocolo?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>As informações disponíveis são suficientes para entender a materialidade da fraude?</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── GAMERS ─── -->
-  <div id="d-gm" class="dpanel">
-    <div class="sc-block" id="gm1">
-      <div class="sc-head" onclick="tog('gm1')">
-        <div><div class="sc-num">Scorecard 1</div><div class="sc-name">Catch &amp; Release</div><div class="sc-desc">Casos liberados que viraram fraudster em até 30 dias. Investiga se os pesos das evidências no protocolo eram suficientes para encerrar na primeira análise.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão do caso está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Houve erro de análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais evidências negativas o cliente possuía no momento do primeiro reporte?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O protocolo indicou liberação mesmo com evidências negativas?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Os pesos das evidências negativas seriam suficientes para encerrar o cliente na primeira análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais evidências negativas você acredita que estão descalibradas?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais evidências positivas o cliente possuía no momento do primeiro reporte?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Existe alguma evidência que poderia compor a primeira análise e permitir o encerramento do cliente?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="gm2">
-      <div class="sc-head" onclick="tog('gm2')">
-        <div><div class="sc-num">Scorecard 2</div><div class="sc-name">Decisão — Fraudadores</div><div class="sc-desc">Amostra de casos marcados como fraudador. Valida assertividade e identifica indícios marcados incorretamente.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão do caso está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Houve erro de análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais indícios foram determinantes para o fechamento?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais indícios foram marcados incorretamente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Houve erro do protocolo/calculadora que permitiu o fechamento indevido?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais indícios foram determinantes para eventual reversão?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O cliente poderia ter sido encerrado anteriormente? (tem reporte anterior?)</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais evidências poderiam ter encerrado o cliente anteriormente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Houve recebimento de Transfer Deposit pelas transações contestadas no momento do report?</div>
-        </div>
-      </div>
-    </div>
-    <div class="sc-block" id="gm3">
-      <div class="sc-head" onclick="tog('gm3')">
-        <div><div class="sc-num">Scorecard 3</div><div class="sc-name">Decisão — Liberados com múltiplos reports</div><div class="sc-desc">Clientes reportados mais de uma vez em menos de 30 dias com todas as suspeitas descartadas. Investiga falso-positivos recorrentes.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão de liberação é indevida?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Houve erro de análise?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Houve erro do protocolo/calculadora que permitiu a liberação indevida?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais indícios foram determinantes para a mudança de decisão?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais evidências poderiam ter encerrado o cliente anteriormente?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O histórico de reports é referente às mesmas disputas?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Os reports são manuais (atendimento) ou gerados por regras preventivas?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais regras geraram reports duplicados?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Quais indícios foram determinantes para as liberações?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>O cliente apresenta mudança de comportamento que justifique os múltiplos reports?</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── VICTIM PREVENTION ─── -->
-  <div id="d-vp" class="dpanel">
-    <div class="sub-section" style="margin-top:0;padding-top:0;border-top:none;">Scam — Foco em casos Postponed</div>
-    <div class="sc-block" id="vp1">
-      <div class="sc-head" onclick="tog('vp1')">
-        <div><div class="sc-num">Scorecard 1</div><div class="sc-name">Decisão — Somente Postponed</div><div class="sc-desc">Valida se manter o cliente bloqueado (postponed) foi de fato a decisão mais adequada.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão de postponed confirmada está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Qual evidência o analista considerou para tomar essa decisão?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Caso seja uma decisão incorreta, qual evidência indicaria que o cliente não era vítima?</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sub-section">ATO — Foco em vítimas confirmadas</div>
-    <div class="sc-block" id="vp2">
-      <div class="sc-head" onclick="tog('vp2')">
-        <div><div class="sc-num">Scorecard 1</div><div class="sc-name">Decisão — Somente Vítimas</div><div class="sc-desc">Valida se a decisão de vítima confirmada foi correta e se as informações disponíveis eram suficientes.</div></div>
-        <span class="sc-chev">▾</span>
-      </div>
-      <div class="sc-body">
-        <div class="q-list">
-          <div class="q-item main-q"><span class="q-dot q-dot-main"></span>A decisão de vítima confirmada está correta?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Qual evidência o analista considerou para tomar essa decisão?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>Caso incorreta, qual evidência poderia levar à decisão "NOT ATO"?</div>
-          <div class="q-item"><span class="q-dot q-dot-sub"></span>No momento da decisão, o analista tinha todas as evidências presentes no momento da análise de qualidade?</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /distritos -->
-
-<!-- ══════════════════════════════════════
-     EXEMPLOS PRÁTICOS
-══════════════════════════════════════ -->
-<div id="exemplos" class="page">
-
-  <div class="sec-label">Miss Click vs Erro de Decisão</div>
-  <div class="miss-grid">
-    <div class="miss-card miss-click">
-      <div class="miss-icon">🖱️</div>
-      <div class="miss-title">Miss Click — Erro Operacional</div>
-      <p>O analista <strong>fez a análise correta</strong> e chegou à conclusão certa, mas a <strong>ação final registrada foi diferente</strong> do que pretendia. O julgamento estava correto — o erro foi mecânico, na hora de finalizar.</p>
-      <p style="margin-top:8px;"><strong>Exemplo:</strong> Concluiu que era fraudador, mas clicou em "suspect archived" por engano. A análise registrada confirma a fraude, mas a ação foi oposta.</p>
-      <span class="miss-badge">⚠️ Ação diverge da análise</span>
-    </div>
-    <div class="miss-card miss-dec">
-      <div class="miss-icon">🧠</div>
-      <div class="miss-title">Erro de Decisão — Erro de Julgamento</div>
-      <p>O analista <strong>interpretou incorretamente</strong> os indícios disponíveis e chegou a uma <strong>conclusão errada</strong>. A ação registrada reflete o que ele realmente decidiu — mas a decisão em si estava equivocada.</p>
-      <p style="margin-top:8px;"><strong>Exemplo:</strong> Não identificou os indícios de fraude no DICT/Rufra e arquivou como cliente OK. A análise é consistente com a decisão — mas a decisão estava errada.</p>
-      <span class="miss-badge">🚨 Conclusão incorreta</span>
-    </div>
-  </div>
-
-  <div class="callout callout-amber">
-    <strong>⚖️ Por que isso importa para a sua nota?</strong>
-    Miss Click e erro de decisão têm <strong>pesos diferentes</strong>. Um miss click evidenciado pela análise registrada pode ser tratado diferente de um erro de julgamento real — por isso é fundamental que a análise esteja sempre bem registrada. Sem registro, não há como distinguir os dois.
-  </div>
-
-  <div class="sec-label">Exemplos por nível de criticidade</div>
-
-  <div class="ex-filter">
-    <button class="ex-filter-btn active" onclick="filtrarEx('todos',this)">Todos</button>
-    <button class="ex-filter-btn" onclick="filtrarEx('critico',this)">🔴 Crítico</button>
-    <button class="ex-filter-btn" onclick="filtrarEx('medio',this)">🟡 Médio</button>
-    <button class="ex-filter-btn" onclick="filtrarEx('baixo',this)">🟢 Baixo</button>
-    <button class="ex-filter-btn" onclick="filtrarEx('missclick',this)">🖱️ Miss Click</button>
-  </div>
-
-  <div class="ex-list">
-    <div class="ex-card" data-tipo="critico" id="ex1">
-      <div class="ex-head" onclick="togEx('ex1')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-crit">🔴 Crítico</span><span class="ex-titulo">Fechou como OK um fraudador — indícios de DICT ignorados</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Havia 3 registros no DICT vinculando a conta a transferências de valores contestados por outras vítimas. O analista não checou o DICT, respondeu a calculadora sem considerar esses indícios e arquivou como suspect archived.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Validar os dados de DICT/Rufra antes de responder a calculadora. Os registros no DICT são indícios diretos de participação em fraude e deveriam ter levado à marcação como fraudster.</p></div>
-        </div>
-        <div class="ex-impact">💥 <strong>Impacto:</strong> Cliente fraudador permanece com conta ativa, podendo continuar evadindo valores de outras vítimas. Scorecard zerado (Fail Section).</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="critico" id="ex2">
-      <div class="ex-head" onclick="togEx('ex2')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-crit">🔴 Crítico</span><span class="ex-titulo">Não apontou cliente UV — fluxo de postpone não executado</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Identificou corretamente o fraudador em report proativo. Marcou como fraudster, mas não realizou o apontamento de cliente UV nem executou o fluxo de postpone UV + Jira, mesmo sendo um caso elegível.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Após decisão de fraudster em report proativo, verificar se o cliente se enquadra no critério UV. Se sim, realizar o apontamento e executar o fluxo de postpone UV + abertura de ticket no Jira.</p></div>
-        </div>
-        <div class="ex-impact">💥 <strong>Impacto:</strong> Caso não rastreado corretamente, comprometendo investigações futuras e o controle de riscos. Desconto máximo.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="critico" id="ex3">
-      <div class="ex-head" onclick="togEx('ex3')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-crit">🔴 Crítico</span><span class="ex-titulo">Utilizou matriz desatualizada — decisão incorreta como consequência</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Utilizou a versão antiga da Matriz Mule para análise de um report de Boleto. A matriz desatualizada não contemplava os novos critérios de pejotização. A decisão saiu como suspect archived, mas com a matriz correta seria fraudster.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Usar sempre a versão mais recente da matriz correspondente ao tipo de report. Para Boleto, a matriz correta é a Matriz Boleto 2.0. Verificar regularmente o canal de atualizações.</p></div>
-        </div>
-        <div class="ex-impact">💥 <strong>Impacto:</strong> Método incorreto leva a decisão errada. Erro de método é Crítico independente do resultado final. Scorecard zerado.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="medio" id="ex4">
-      <div class="ex-head" onclick="togEx('ex4')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-med">🟡 Médio</span><span class="ex-titulo">Comunicação enviada para e-mail errado</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Enviou a macro pelo Zendesk sem verificar se o e-mail cadastrado lá era o mesmo do BKO. O cliente tinha e-mails diferentes nos dois sistemas e não recebeu a comunicação.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Antes de enviar qualquer comunicação, conferir o e-mail no BKO e no Zendesk. Quando forem diferentes, usar o protocolo correto para definir qual utilizar.</p></div>
-        </div>
-        <div class="ex-impact">⚠️ <strong>Impacto:</strong> Cliente não recebe comunicação e fica sem clareza do que está acontecendo. Desconto de 1,5 pts.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="medio" id="ex5">
-      <div class="ex-head" onclick="togEx('ex5')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-med">🟡 Médio</span><span class="ex-titulo">Não realizou liquidação de produtos (caixinha com saldo)</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Marcou o cliente como fraudster e cancelou os produtos principais, mas não verificou se havia saldo em caixinha ou outros produtos adicionais. O fraudador manteve acesso ao saldo nesses produtos.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Ao fechar como fraudster, verificar todos os produtos adicionais — caixinha, limbo, cripto — e realizar o resgate dos valores conforme protocolo antes de finalizar.</p></div>
-        </div>
-        <div class="ex-impact">⚠️ <strong>Impacto:</strong> Fraudador pode resgatar valores que deveriam estar bloqueados. Desconto de 1,5 pts.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="medio" id="ex6">
-      <div class="ex-head" onclick="togEx('ex6')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-med">🟡 Médio</span><span class="ex-titulo">Contestação não realizada no Tristram</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Identificou que o cliente era vítima e registrou a análise corretamente. Porém, não realizou a contestação da transação dentro do Tristram, mesmo o cliente possuindo uma contestação válida.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Sempre que houver contestação válida, realizar o procedimento de contestação da transação no Tristram. Esse passo é necessário para viabilizar a devolução do valor à vítima.</p></div>
-        </div>
-        <div class="ex-impact">⚠️ <strong>Impacto:</strong> Sem contestação no Tristram, o valor pode não ser devolvido para a vítima. Desconto de 1,5 pts.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="baixo" id="ex7">
-      <div class="ex-head" onclick="togEx('ex7')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-low">🟢 Baixo</span><span class="ex-titulo">Análise finalizada sem registro</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Finalizou o caso como fraudster mas não registrou o texto da análise — deixando o campo em branco ou com anotações insuficientes para entender o raciocínio que levou à decisão.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Registrar a análise de forma clara e completa, documentando os principais indícios e como embasaram a decisão. Fundamental para revisões futuras, contestações e calibração do time.</p></div>
-        </div>
-        <div class="ex-impact">📋 <strong>Impacto:</strong> Dificulta auditorias, contestações e estudos. Desconto de 0,5 pts.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="baixo" id="ex8">
-      <div class="ex-head" onclick="togEx('ex8')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-low">🟢 Baixo</span><span class="ex-titulo">Tag inserida incorretamente</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Fechou um caso de fraudster com pejotização identificada, mas não adicionou a tag correspondente ao tipo de esquema. A decisão estava correta, mas a classificação ficou incompleta.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Inserir todas as tags correspondentes ao cenário identificado conforme o protocolo. As tags alimentam bases de dados usadas em estudos, monitoramentos e planos de ação.</p></div>
-        </div>
-        <div class="ex-impact">📋 <strong>Impacto:</strong> Decisão não prejudicada, mas estudos e monitoramentos perdem precisão. Desconto de 0,5 pts.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="missclick" id="ex9">
-      <div class="ex-head" onclick="togEx('ex9')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-miss">🖱️ Miss Click</span><span class="ex-titulo">Análise aponta fraude, mas ação registrada foi "suspect archived"</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que aconteceu</div><p>Realizou a análise completa, identificou todos os indícios e registrou: <em>"cliente com múltiplas colisões, cash out imediato após TED recebida, padrão típico de mule — fechar como fraudster"</em>. Porém, ao finalizar, clicou em "suspect archived" por engano.</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ Como fica a avaliação</div><p>A análise registrada evidencia que o julgamento estava correto. O qualiter identifica o miss click pela inconsistência entre o texto e a ação final. O caso é tratado como erro operacional — diferente de erro de julgamento.</p></div>
-        </div>
-        <div class="ex-impact">💡 <strong>Por que o registro importa:</strong> Sem o texto documentado, não há como distinguir um miss click de uma decisão errada. O registro é a única evidência que diferencia os dois cenários.</div>
-      </div>
-    </div>
-
-    <div class="ex-card" data-tipo="missclick" id="ex10">
-      <div class="ex-head" onclick="togEx('ex10')">
-        <div class="ex-label"><span class="ex-tipo ex-tipo-miss">🖱️ Miss Click</span><span class="ex-titulo">Caso finalizado como fraudster, mas análise indica liberação</span></div>
-        <span class="ex-chev">▾</span>
-      </div>
-      <div class="ex-body">
-        <div class="ex-row">
-          <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que aconteceu</div><p>Concluiu que o cliente era legítimo — sem indícios de fraude, cash in compatível com o perfil, sem colisões. Registrou isso na análise, mas ao finalizar clicou em "fraudster" ao invés de "suspect archived".</p></div>
-          <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ Como fica a avaliação</div><p>A análise registrada evidencia a contradição: conclusão era de cliente OK, mas a ação foi de cancelamento. O qualiter identifica o miss click e o caso pode ser revertido.</p></div>
-        </div>
-        <div class="ex-impact">💥 <strong>Impacto real:</strong> Cancelamento indevido de cliente legítimo. Mesmo sendo miss click, o impacto é imediato — acione o processo de reversão assim que identificado.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
-     FEEDBACK
-══════════════════════════════════════ -->
-<div id="feedback" class="page">
-
-  <div class="callout callout-violet" style="margin-bottom:20px;">
-    <strong>Como funciona o feedback?</strong>
-    Quando há erro em uma monitoria, o qualiter envia um feedback estruturado. O objetivo é deixar claro o que foi feito, o que era esperado e o que pode melhorar.
-  </div>
-
-  <div class="sec-label">Feedback para o analista</div>
-  <div class="card">
-    <div class="feedback-tpl">
-      <span class="fph">[Origem: nome do scorecard]</span><br>
-      <span class="fph">[CID: xxxxxx]</span> <span class="fph">[Reporte avaliado: xxxxxx]</span> <span class="fph">[BKO / Email / Chat / Ajis]</span><br><br>
-      Olá, espero que esteja bem!<br><br>
-      <strong>Ação realizada:</strong> <span class="fph">o que foi feito</span><br>
-      <strong>Processo esperado:</strong> <span class="fph">o que deveria ter sido feito</span><br><br>
-      Agradecemos a sua compreensão e reconhecemos o seu comprometimento em melhorar continuamente!<br>
-      <strong>Fraud Quality Team.</strong>
-    </div>
-  </div>
-
-  <div class="sec-label">Feedback para o distrito</div>
-  <div class="card">
-    <div class="feedback-tpl">
-      <span class="fph">[Origem: nome do scorecard]</span><br>
-      <span class="fph">[CID: xxxxxx]</span> <span class="fph">[Reporte avaliado: xxxxxx]</span> <span class="fph">[BKO / Email / Chat / Ajis]</span><br><br>
-      Olá, espero que esteja bem!<br><br>
-      <strong>Problema identificado e/ou oportunidade de melhoria:</strong> <span class="fph">descrição</span><br><br>
-      Agradecemos a sua compreensão e reconhecemos o seu comprometimento em melhorar continuamente!<br>
-      <strong>Fraud Quality Team.</strong>
-    </div>
-  </div>
-
-  <div class="callout callout-blue" style="margin-top:4px;">
-    <strong>💬 Discordou da avaliação?</strong>
-    Conteste pelo formulário indicado no próprio feedback. É um canal oficial — use sempre que discordar. Sua contestação pode gerar melhorias no processo.
-  </div>
-
-  <div class="callout callout-green">
-    <strong>🔬 Recebi uma análise que não impacta minha nota — o que significa?</strong>
-    Análises do Decision Hub <strong>não afetam sua nota</strong>. Elas calibram os protocolos do distrito. Leia com atenção: os insights coletados alimentam melhorias que facilitarão seu trabalho no futuro.
-  </div>
-
-</div>
-
-
-<div id="timeline" class="page">
-  <div class="tl-intro callout callout-violet" style="margin-bottom:20px;">
-    <strong>Por que isso importa?</strong> A ação do analista e o apontamento de qualidade podem estar separados por até <strong>89 dias</strong>. Entender essa janela ajuda a contextualizar feedbacks que chegam semanas após a decisão original.
-  </div>
-  <div class="dtabs" id="tl-tabs">
-    <button class="dtab active" onclick="showTl('complaints',this)">Complaints</button>
-    <button class="dtab" onclick="showTl('mm',this)">Money Movements</button>
-    <button class="dtab" onclick="showTl('distrito',this)">Sinalização de Distrito</button>
-  </div>
-
-  <!-- COMPLAINTS -->
-  <div id="tl-complaints" class="dpanel visible">
-    <div class="card" style="margin-bottom:12px;">
-      <p>O analista cancela a conta hoje. O cliente tem até <strong>40 dias</strong> para abrir uma reclamação. Após o recebimento, o Fraud Lab tem até <strong>49 dias</strong> para processar — totalizando até <strong>89 dias</strong> entre a ação e o apontamento.</p>
-    </div>
-    <div class="tl-track-wrap">
-      <div class="tl-visual" id="tlv-complaints">
-        <div class="tl-bar-row">
-          <div class="tl-seg tl-seg-a" style="width:44.9%">
-            <div class="tl-seg-label">Janela do cliente — 40 dias</div>
+      <!-- COMPLAINTS -->
+      <div id="tl-c" class="tl-panel active">
+        <div class="tl-card">
+          <div class="tl-desc">O cliente pode reclamar <strong>a qualquer momento</strong> após a sua ação — não existe prazo fixo para isso. O que tem prazo é o <strong>apontamento</strong>: o time de qualidade tem até <strong>89 dias</strong> a partir da sua ação original para registrá-lo no seu dashboard.</div>
+          <div class="tl-track">
+            <div class="tl-bar">
+              <div class="tl-seg" style="width:45%;background:rgba(107,63,228,.2)"><div class="tl-seg-label" style="color:var(--violet)">reclamação pode chegar aqui</div></div>
+              <div class="tl-seg" style="width:20%;background:rgba(122,122,150,.13)"><div class="tl-seg-label" style="color:var(--ink-3)">jira + checagem</div></div>
+              <div class="tl-seg" style="width:35%;background:rgba(224,42,42,.13)"><div class="tl-seg-label" style="color:var(--red)">processamento</div></div>
+            </div>
+            <div class="tl-events">
+              <div class="tl-ev" style="left:0%"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-ev-top"><strong>Sua ação</strong>Dia 0</div></div>
+              <div class="tl-ev" style="left:45%"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-ev-bot"><strong>Complaint</strong>a qualquer momento</div></div>
+              <div class="tl-ev" style="left:57%"><div class="tl-dot" style="background:var(--ink-4)"></div><div class="tl-ev-top"><strong>Jira aberto</strong>setor → qualidade</div></div>
+              <div class="tl-ev" style="left:76%"><div class="tl-dot" style="background:var(--emerald)"></div><div class="tl-ev-bot"><strong>2ª checagem</strong>time de qualidade</div></div>
+              <div class="tl-ev" style="left:100%"><div class="tl-dot" style="background:var(--red)"></div><div class="tl-ev-top"><strong>Dashboard</strong>até dia 89</div></div>
+            </div>
           </div>
-          <div class="tl-seg tl-seg-b" style="width:55.1%">
-            <div class="tl-seg-label">Janela Fraud Lab — 49 dias</div>
+          <div class="tl-steps">
+            <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Sua ação</div><div class="tl-step-sub">Dia 0</div></div>
+            <div class="tl-step"><div class="tl-step-icon">😤</div><div class="tl-step-label">Cliente reclama</div><div class="tl-step-sub">qualquer hora</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">setor → qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
+          </div>
+          <div class="tl-stats">
+            <div class="tl-stat"><div class="tl-stat-num">Sem prazo</div><div class="tl-stat-lbl">Para o cliente reclamar</div></div>
+            <div class="tl-stat"><div class="tl-stat-num">Variável</div><div class="tl-stat-lbl">Tempo de processamento</div></div>
+            <div class="tl-stat hl"><div class="tl-stat-num">89 dias</div><div class="tl-stat-lbl">Limite para o apontamento</div></div>
           </div>
         </div>
-        <div class="tl-events-row">
-          <div class="tl-ev" style="left:0%">
-            <div class="tl-ev-dot tl-dot-violet"></div>
-            <div class="tl-ev-top"><strong>Ação do analista</strong><br>Cancelamento de conta</div>
-            <div class="tl-ev-day">Dia 0</div>
+        <div class="callout callout-amber" style="margin-top:12px"><strong>⚠️ O prazo é do apontamento, não da reclamação.</strong> O cliente pode reclamar quando quiser. O que expira em 89 dias é a janela para o time de qualidade registrar o apontamento na sua nota.</div>
+      </div>
+
+      <!-- MONEY MOVEMENTS -->
+      <div id="tl-m" class="tl-panel">
+        <div class="tl-card">
+          <div class="tl-desc">Após você arquivar um case como OK, o sistema monitora automaticamente as movimentações da conta. Se detectar algo suspeito, o setor abre um Jira para o time de qualidade revisar. Janela típica: <strong>~30 dias</strong>.</div>
+          <div class="tl-track">
+            <div class="tl-bar">
+              <div class="tl-seg" style="width:100%;background:rgba(5,150,105,.13)"><div class="tl-seg-label" style="color:var(--emerald)">janela de monitoramento</div></div>
+            </div>
+            <div class="tl-events">
+              <div class="tl-ev" style="left:0%"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-ev-top"><strong>Sua ação</strong>arquivamento</div></div>
+              <div class="tl-ev" style="left:38%"><div class="tl-dot" style="background:var(--emerald)"></div><div class="tl-ev-bot"><strong>Sistema detecta</strong>movimentação suspeita</div></div>
+              <div class="tl-ev" style="left:57%"><div class="tl-dot" style="background:var(--ink-4)"></div><div class="tl-ev-top"><strong>Jira aberto</strong>setor → qualidade</div></div>
+              <div class="tl-ev" style="left:79%"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-ev-bot"><strong>2ª checagem</strong>time de qualidade</div></div>
+              <div class="tl-ev" style="left:100%"><div class="tl-dot" style="background:var(--red)"></div><div class="tl-ev-top"><strong>Dashboard</strong>~30 dias</div></div>
+            </div>
           </div>
-          <div class="tl-ev" style="left:44.9%">
-            <div class="tl-ev-dot tl-dot-amber"></div>
-            <div class="tl-ev-bot"><strong>Complaint do cliente</strong><br>Reclamação registrada</div>
-            <div class="tl-ev-day">até Dia 40</div>
+          <div class="tl-steps">
+            <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Sua ação</div><div class="tl-step-sub">Dia 0</div></div>
+            <div class="tl-step"><div class="tl-step-icon">🤖</div><div class="tl-step-label">Sistema detecta</div><div class="tl-step-sub">automático</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">setor → qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
           </div>
-          <div class="tl-ev" style="left:100%">
-            <div class="tl-ev-dot tl-dot-red"></div>
-            <div class="tl-ev-top"><strong>Apontamento</strong><br>Fraud Lab processa</div>
-            <div class="tl-ev-day">até Dia 89</div>
+          <div class="tl-stats">
+            <div class="tl-stat"><div class="tl-stat-num">Automático</div><div class="tl-stat-lbl">Origem da detecção</div></div>
+            <div class="tl-stat"><div class="tl-stat-num">~30 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
+            <div class="tl-stat hl"><div class="tl-stat-num">Catch &amp; Release</div><div class="tl-stat-lbl">Scorecard relacionado</div></div>
           </div>
+        </div>
+        <div class="callout callout-blue" style="margin-top:12px"><strong>🤖 O sistema detecta, o setor formaliza.</strong> A movimentação é identificada automaticamente, mas é o setor que abre o Jira para o time de qualidade. Sem o Jira, a segunda checagem não acontece.</div>
+      </div>
+
+      <!-- DISTRITO -->
+      <div id="tl-d" class="tl-panel">
+        <div class="tl-card">
+          <div class="tl-desc">A liderança do distrito ou pares identificam uma inconsistência e abrem diretamente um Jira para o time de qualidade. É o caminho mais rápido e costuma ter o contexto mais detalhado desde o início. Janela típica: <strong>~15 dias</strong>.</div>
+          <div class="tl-track">
+            <div class="tl-bar">
+              <div class="tl-seg" style="width:100%;background:rgba(217,119,6,.13)"><div class="tl-seg-label" style="color:var(--amber)">janela de sinalização</div></div>
+            </div>
+            <div class="tl-events">
+              <div class="tl-ev" style="left:0%"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-ev-top"><strong>Sua ação</strong>decisão registrada</div></div>
+              <div class="tl-ev" style="left:35%"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-ev-bot"><strong>Distrito identifica</strong>liderança / pares</div></div>
+              <div class="tl-ev" style="left:52%"><div class="tl-dot" style="background:var(--ink-4)"></div><div class="tl-ev-top"><strong>Jira aberto</strong>distrito → qualidade</div></div>
+              <div class="tl-ev" style="left:76%"><div class="tl-dot" style="background:var(--emerald)"></div><div class="tl-ev-bot"><strong>2ª checagem</strong>time de qualidade</div></div>
+              <div class="tl-ev" style="left:100%"><div class="tl-dot" style="background:var(--red)"></div><div class="tl-ev-top"><strong>Dashboard</strong>~15 dias</div></div>
+            </div>
+          </div>
+          <div class="tl-steps">
+            <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Sua ação</div><div class="tl-step-sub">Dia 0</div></div>
+            <div class="tl-step"><div class="tl-step-icon">👀</div><div class="tl-step-label">Distrito identifica</div><div class="tl-step-sub">liderança / pares</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">distrito → qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
+          </div>
+          <div class="tl-stats">
+            <div class="tl-stat"><div class="tl-stat-num">Manual</div><div class="tl-stat-lbl">Origem da sinalização</div></div>
+            <div class="tl-stat"><div class="tl-stat-num">~15 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
+            <div class="tl-stat hl"><div class="tl-stat-num">Mais rápido</div><div class="tl-stat-lbl">Dos três caminhos</div></div>
+          </div>
+        </div>
+        <div class="callout callout-green" style="margin-top:12px"><strong>📌 Contexto completo desde o início.</strong> Sinalizações de distrito costumam chegar com mais detalhes do que outros caminhos, o que torna a segunda checagem mais rápida e o feedback mais claro.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ORIGENS ══ -->
+  <div class="section" id="origens">
+    <div class="section-eyebrow">Origens</div>
+    <div class="section-title">De onde vêm os apontamentos?</div>
+    <div class="section-desc">Um apontamento pode ser gerado por diferentes origens. Cada uma tem uma lógica, um prazo e um nível de detalhe diferente.</div>
+
+    <div class="origem-list">
+      <div class="origem-card">
+        <div class="origem-icon">😤</div>
+        <div>
+          <div class="origem-tag origem-tag-c">Complaints</div>
+          <div class="origem-title">Reclamação do cliente</div>
+          <div class="origem-text">O cliente tratado abre uma reclamação em qualquer momento após a sua ação. Quando o setor recebe, abre um Jira para o time de qualidade verificar se a decisão foi correta. É a origem com maior janela de tempo.</div>
+          <span class="origem-pill">⏱ Até 89 dias</span>
+        </div>
+      </div>
+
+      <div class="origem-card">
+        <div class="origem-icon">🤖</div>
+        <div>
+          <div class="origem-tag origem-tag-mm">Money Movements</div>
+          <div class="origem-title">Movimentação suspeita detectada pelo sistema</div>
+          <div class="origem-text">Após um case ser arquivado como OK, o sistema monitora automaticamente se aquela conta volta a ter movimentações suspeitas. Se detectar, o setor abre um Jira para revisão. Muito comum em casos de Catch & Release.</div>
+          <span class="origem-pill">⏱ ~30 dias</span>
+        </div>
+      </div>
+
+      <div class="origem-card">
+        <div class="origem-icon">👀</div>
+        <div>
+          <div class="origem-tag origem-tag-d">Sinalização de Distrito</div>
+          <div class="origem-title">Identificação pela liderança ou pares</div>
+          <div class="origem-text">A liderança direta ou pares do seu distrito identificam uma inconsistência na sua análise durante calibrações, revisões de QA ou discussões de caso. O Jira é aberto com o contexto já mapeado.</div>
+          <span class="origem-pill">⏱ ~15 dias</span>
+        </div>
+      </div>
+
+      <div class="origem-card">
+        <div class="origem-icon">📋</div>
+        <div>
+          <div class="origem-tag origem-tag-cr">Amostragem por Scorecard</div>
+          <div class="origem-title">Revisão periódica da amostra</div>
+          <div class="origem-text">O time de qualidade extrai periodicamente uma amostra de cases finalizados para revisar. Cada distrito tem seus próprios scorecards — Catch & Release, decisões de fraudador, reversões, análises PAS. Você pode ser monitorado sem nenhum gatilho específico.</div>
+          <span class="origem-pill">⏱ Variável por scorecard</span>
         </div>
       </div>
     </div>
-    <div class="tl-stats">
-      <div class="tl-stat-card"><div class="tl-stat-num">A qualquer momento</div><div class="tl-stat-lbl">Cliente pode reclamar</div></div>
-      <div class="tl-stat-card"><div class="tl-stat-num">49 dias</div><div class="tl-stat-lbl">Para o Fraud Lab processar</div></div>
-      <div class="tl-stat-card tl-stat-highlight"><div class="tl-stat-num">89 dias</div><div class="tl-stat-lbl">Janela máxima total</div></div>
+
+    <div class="callout callout-violet">
+      <strong>🎫 Em todos os caminhos, o Jira é o gatilho formal.</strong> Sem um ticket aberto, o time de qualidade não inicia a segunda checagem. O Jira garante rastreabilidade e formaliza a solicitação — independente de qual foi a origem.
     </div>
-    <div class="callout callout-amber"><strong>⚠️ Atenção:</strong> Receber um apontamento semanas após a decisão não significa necessariamente que a análise estava errada — apenas que o ciclo tem uma janela longa. Use o guia para entender o critério avaliado.</div>
   </div>
 
-  <!-- MONEY MOVEMENTS -->
-  <div id="tl-mm" class="dpanel">
-    <div class="card" style="margin-bottom:12px;">
-      <p>Após a ação do analista, o sistema de Money Movements monitora automaticamente movimentações suspeitas do cliente. O apontamento pode ocorrer a qualquer momento dentro de <strong>~30 dias</strong> após o case ser fechado.</p>
-    </div>
-    <div class="tl-track-wrap">
-      <div class="tl-visual" id="tlv-mm">
-        <div class="tl-bar-row">
-          <div class="tl-seg tl-seg-teal" style="width:100%">
-            <div class="tl-seg-label">Janela de monitoramento — ~30 dias</div>
-          </div>
+  <!-- ══ CRITICIDADE ══ -->
+  <div class="section" id="criticidade">
+    <div class="section-eyebrow">Criticidade</div>
+    <div class="section-title">O que cada nível significa</div>
+    <div class="section-desc">Todo apontamento tem um nível de criticidade que determina o impacto na sua nota. O nível reflete a gravidade do erro, não a intenção.</div>
+
+    <div class="crit-grid">
+      <div class="crit-card crit-card-red">
+        <div class="crit-emoji">🔴</div>
+        <div class="crit-title">Crítico</div>
+        <div class="crit-pts">Scorecard zerado</div>
+        <div class="crit-text">A decisão estava errada e gerou impacto direto — seja para o cliente, para o negócio ou para investigações futuras.</div>
+        <div class="crit-list">
+          <div class="crit-item">Arquivar como OK um fraudador com indícios claros (DICT, Rufra, Chimera)</div>
+          <div class="crit-item">Não executar fluxo de postpone UV + Jira quando elegível</div>
+          <div class="crit-item">Usar método ou matriz de análise incorretos</div>
+          <div class="crit-item">Miss click que resulta em liberação de fraudador</div>
         </div>
-        <div class="tl-events-row">
-          <div class="tl-ev" style="left:0%">
-            <div class="tl-ev-dot tl-dot-violet"></div>
-            <div class="tl-ev-top"><strong>Ação do analista</strong><br>Ex.: arquivamento de case</div>
-            <div class="tl-ev-day">Dia 0</div>
-          </div>
-          <div class="tl-ev" style="left:40%">
-            <div class="tl-ev-dot tl-dot-teal"></div>
-            <div class="tl-ev-bot"><strong>Movimentação detectada</strong><br>Sistema identifica padrão</div>
-            <div class="tl-ev-day">variável</div>
-          </div>
-          <div class="tl-ev" style="left:100%">
-            <div class="tl-ev-dot tl-dot-red"></div>
-            <div class="tl-ev-top"><strong>Apontamento</strong><br>Encaminhado ao Fraud Lab</div>
-            <div class="tl-ev-day">até Dia 30</div>
-          </div>
+      </div>
+      <div class="crit-card crit-card-amber">
+        <div class="crit-emoji">🟡</div>
+        <div class="crit-title">Médio</div>
+        <div class="crit-pts">−1,5 pts</div>
+        <div class="crit-text">Uma etapa operacional foi pulada ou feita de forma incorreta. A decisão principal pode estar certa, mas algo ficou incompleto.</div>
+        <div class="crit-list">
+          <div class="crit-item">Comunicação enviada para e-mail errado</div>
+          <div class="crit-item">Não liquidar produtos adicionais (caixinha, limbo)</div>
+          <div class="crit-item">Não contestar no Tristram quando havia contestação válida</div>
+          <div class="crit-item">Coverage Loss Range incorreto</div>
+        </div>
+      </div>
+      <div class="crit-card crit-card-green">
+        <div class="crit-emoji">🟢</div>
+        <div class="crit-title">Baixo</div>
+        <div class="crit-pts">−0,5 pts</div>
+        <div class="crit-text">Um detalhe de registro ou classificação ficou faltando. Sem impacto direto na decisão ou no cliente, mas afeta estudos e monitoramentos.</div>
+        <div class="crit-list">
+          <div class="crit-item">Análise finalizada sem registro de texto</div>
+          <div class="crit-item">Tag ausente ou incorreta</div>
+          <div class="crit-item">Campo de motivo não preenchido corretamente</div>
         </div>
       </div>
     </div>
-    <div class="tl-stats">
-      <div class="tl-stat-card"><div class="tl-stat-num">Automático</div><div class="tl-stat-lbl">Origem do apontamento</div></div>
-      <div class="tl-stat-card"><div class="tl-stat-num">~30 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
-      <div class="tl-stat-card"><div class="tl-stat-num">Catch &amp; Release</div><div class="tl-stat-lbl">Scorecard relacionado</div></div>
+
+    <div class="callout callout-blue">
+      <strong>🎓 Grace Period:</strong> Durante o período de adaptação a novos protocolos ou scorecards, seu case é avaliado normalmente — mas sem desconto na nota. É uma fase de aprendizado, não de punição.
     </div>
-    <div class="callout callout-blue"><strong>💡 Como funciona:</strong> Money Movements monitora se o cliente arquivado como OK volta a ter movimentações suspeitas. Quando detectado, o case original é revisitado e o analista pode ser apontado por ter liberado o cliente.</div>
+
+    <div class="callout callout-amber">
+      <strong>🖱️ Miss Click vs Erro de Decisão:</strong> Esses dois erros têm pesos diferentes. Miss click é quando você chegou à conclusão certa mas clicou na opção errada. Erro de decisão é quando o julgamento estava equivocado. <strong>Sem o registro da análise, não dá para distinguir os dois</strong> — sempre documente seu raciocínio.
+    </div>
   </div>
 
-  <!-- DISTRITO -->
-  <div id="tl-distrito" class="dpanel">
-    <div class="card" style="margin-bottom:12px;">
-      <p>O próprio distrito pode sinalizar um case para revisão ao identificar uma decisão inconsistente. É o caminho mais rápido — geralmente dentro de <strong>~15 dias</strong> — e costuma ser mais detalhado em termos de contexto e embasamento.</p>
+  <!-- ══ EXEMPLOS ══ -->
+  <div class="section" id="exemplos">
+    <div class="section-eyebrow">Exemplos Práticos</div>
+    <div class="section-title">Situações reais, nível a nível</div>
+    <div class="section-desc">Clique em cada exemplo para ver o que foi feito, o que era esperado e qual o impacto.</div>
+
+    <div class="ex-filter">
+      <button class="ex-filter-btn active" onclick="filtrarEx('todos',this)">Todos</button>
+      <button class="ex-filter-btn" onclick="filtrarEx('critico',this)">🔴 Crítico</button>
+      <button class="ex-filter-btn" onclick="filtrarEx('medio',this)">🟡 Médio</button>
+      <button class="ex-filter-btn" onclick="filtrarEx('baixo',this)">🟢 Baixo</button>
     </div>
-    <div class="tl-track-wrap">
-      <div class="tl-visual" id="tlv-distrito">
-        <div class="tl-bar-row">
-          <div class="tl-seg tl-seg-amber" style="width:100%">
-            <div class="tl-seg-label">Janela de sinalização — ~15 dias</div>
-          </div>
+
+    <div class="ex-list">
+      <div class="ex-card" data-nivel="critico" id="ex1">
+        <div class="ex-head" onclick="togEx('ex1')">
+          <span class="ex-badge ex-badge-red">🔴 Crítico</span>
+          <span class="ex-title">Indícios de DICT ignorados — case arquivado como OK</span>
+          <span class="ex-chev">▾</span>
         </div>
-        <div class="tl-events-row">
-          <div class="tl-ev" style="left:0%">
-            <div class="tl-ev-dot tl-dot-violet"></div>
-            <div class="tl-ev-top"><strong>Ação do analista</strong><br>Decisão registrada no case</div>
-            <div class="tl-ev-day">Dia 0</div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>O analista identificou 3 registros no DICT vinculando a conta a fraudes. Mesmo assim, respondeu a calculadora sem considerar os indícios e arquivou como suspect archived.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Validar DICT/Rufra antes de responder a calculadora. Os registros indicam participação em fraude e deveriam levar à marcação como fraudster.</p></div>
           </div>
-          <div class="tl-ev" style="left:53%">
-            <div class="tl-ev-dot tl-dot-amber"></div>
-            <div class="tl-ev-bot"><strong>Sinalização pelo distrito</strong><br>Líder ou revisão de pares</div>
-            <div class="tl-ev-day">variável</div>
+          <div class="ex-impact">💥 <strong>Impacto:</strong> Cliente fraudador permanece ativo. Scorecard zerado (Fail Section).</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="critico" id="ex2">
+        <div class="ex-head" onclick="togEx('ex2')">
+          <span class="ex-badge ex-badge-red">🔴 Crítico</span>
+          <span class="ex-title">Fluxo UV + Jira não executado após fechar como fraudster</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Marcou corretamente como fraudster em report proativo, mas não realizou o apontamento UV nem executou o fluxo de postpone UV + Jira.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Após fechar como fraudster em case elegível, verificar critério UV e executar o fluxo completo de postpone + Jira antes de finalizar.</p></div>
           </div>
-          <div class="tl-ev" style="left:100%">
-            <div class="tl-ev-dot tl-dot-red"></div>
-            <div class="tl-ev-top"><strong>Apontamento</strong><br>Fraud Lab processa</div>
-            <div class="tl-ev-day">até Dia 15</div>
+          <div class="ex-impact">💥 <strong>Impacto:</strong> Case não rastreado, comprometendo investigações futuras. Desconto máximo.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="critico" id="ex3">
+        <div class="ex-head" onclick="togEx('ex3')">
+          <span class="ex-badge ex-badge-red">🔴 Crítico</span>
+          <span class="ex-title">Miss click — análise diz fraudster, ação registra OK</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que aconteceu</div><p>O analista identificou todos os indícios, registrou "fechar como fraudster" na análise, mas clicou em "suspect archived" por engano ao finalizar.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ Como fica a avaliação</div><p>O time de qualidade identifica o miss click pela inconsistência entre o texto e a ação. Tratado como erro operacional — mas o impacto é o mesmo: um fraudador solto.</p></div>
           </div>
+          <div class="ex-impact">💡 <strong>Por que o registro importa:</strong> Sem o texto documentando a intenção, não há como diferenciar miss click de erro de decisão.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="medio" id="ex4">
+        <div class="ex-head" onclick="togEx('ex4')">
+          <span class="ex-badge ex-badge-amber">🟡 Médio</span>
+          <span class="ex-title">Comunicação enviada para e-mail errado</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Enviou a macro pelo Zendesk sem verificar se o e-mail era o mesmo cadastrado no BKO. Os sistemas tinham endereços diferentes e o cliente não recebeu nada.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Conferir o e-mail no BKO e no Zendesk antes de enviar. Quando diferentes, usar o protocolo correto para o caso.</p></div>
+          </div>
+          <div class="ex-impact">⚠️ <strong>Impacto:</strong> Cliente sem retorno. Experiência prejudicada. Desconto de 1,5 pts.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="medio" id="ex5">
+        <div class="ex-head" onclick="togEx('ex5')">
+          <span class="ex-badge ex-badge-amber">🟡 Médio</span>
+          <span class="ex-title">Contestação válida não realizada no Tristram</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Identificou a vítima corretamente e registrou bem a análise. Mas não contestou a transação no Tristram, mesmo havendo contestação válida no sistema.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Sempre que houver contestação válida, realizar o procedimento no Tristram antes de finalizar o case.</p></div>
+          </div>
+          <div class="ex-impact">⚠️ <strong>Impacto:</strong> Valor pode não ser devolvido à vítima. Desconto de 1,5 pts.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="medio" id="ex6">
+        <div class="ex-head" onclick="togEx('ex6')">
+          <span class="ex-badge ex-badge-amber">🟡 Médio</span>
+          <span class="ex-title">Saldo em caixinha não liquidado ao fechar como fraudster</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Cancelou corretamente a conta e os cartões, mas não verificou e não liquidou o saldo retido na caixinha do cliente.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Ao fechar como fraudster, verificar todos os produtos adicionais — caixinha, limbo, cripto — e resgatar conforme protocolo.</p></div>
+          </div>
+          <div class="ex-impact">⚠️ <strong>Impacto:</strong> Fraudador pode resgatar valores bloqueados. Desconto de 1,5 pts.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="baixo" id="ex7">
+        <div class="ex-head" onclick="togEx('ex7')">
+          <span class="ex-badge ex-badge-green">🟢 Baixo</span>
+          <span class="ex-title">Análise finalizada sem registro de texto</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Finalizou o case como fraudster com a decisão correta, mas não registrou nenhum texto na análise. O campo ficou em branco.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Registrar os principais indícios e como eles embasaram a decisão. Mesmo em cases simples, o registro protege o analista em caso de contestação.</p></div>
+          </div>
+          <div class="ex-impact">📋 <strong>Impacto:</strong> Dificulta auditorias e contestações futuras. Desconto de 0,5 pts.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" data-nivel="baixo" id="ex8">
+        <div class="ex-head" onclick="togEx('ex8')">
+          <span class="ex-badge ex-badge-green">🟢 Baixo</span>
+          <span class="ex-title">Tag de esquema não adicionada</span>
+          <span class="ex-chev">▾</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-row">
+            <div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Fechou o case como fraudster com pejotização claramente identificada na análise, mas não adicionou a tag correspondente ao tipo de esquema.</p></div>
+            <div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Inserir todas as tags conforme protocolo. Tags alimentam estudos internos e monitoramentos de padrão de fraude.</p></div>
+          </div>
+          <div class="ex-impact">📋 <strong>Impacto:</strong> Estudos e monitoramentos perdem precisão. Desconto de 0,5 pts.</div>
         </div>
       </div>
     </div>
-    <div class="tl-stats">
-      <div class="tl-stat-card"><div class="tl-stat-num">Manual</div><div class="tl-stat-lbl">Origem do apontamento</div></div>
-      <div class="tl-stat-card"><div class="tl-stat-num">~15 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
-      <div class="tl-stat-card tl-stat-highlight"><div class="tl-stat-num">Mais rápido</div><div class="tl-stat-lbl">Dos três caminhos</div></div>
-    </div>
-    <div class="callout callout-green"><strong>📌 Quem pode sinalizar:</strong> Sinalizações costumam partir da liderança direta ao identificar inconsistências em revisões de QA internas ou durante calibrações de protocolo.</div>
-  </div>
-</div>
-
-
-<div id="timeline" class="page">
-  <div class="callout callout-violet" style="margin-bottom:20px;"><strong>Por que isso importa?</strong> O analista trata o case hoje. O cliente pode reclamar <strong>a qualquer momento</strong> — e o time de qualidade tem até <strong>89 dias</strong> a partir da ação original para registrar um apontamento válido no dashboard.</div>
-  <div class="dtabs" id="tl-tabs">
-    <button class="dtab active" onclick="showTl('c',this)">Complaints</button>
-    <button class="dtab" onclick="showTl('m',this)">Money Movements</button>
-    <button class="dtab" onclick="showTl('d',this)">Sinalização de Distrito</button>
   </div>
 
-  <!-- COMPLAINTS -->
-  <div id="tl-c" class="dpanel visible">
-    <div class="card" style="margin-bottom:12px;"><p>O analista cancela a conta no <strong>Dia 0</strong>. O cliente pode reclamar <strong>a qualquer momento</strong> — não há prazo fixo para isso. Quando a complaint chega ao setor, ele abre um <strong>Jira para o time de qualidade</strong>, que faz a segunda checagem. O limite existe para o apontamento: o analista só pode ser pontuado dentro de <strong>89 dias</strong> a partir da ação original.</p></div>
-    <div class="tl-track-wrap">
-      <div class="tl-visual">
-        <div class="tl-bar-row">
-          <div class="tl-seg tl-seg-v" style="width:44.9%"><div class="tl-seg-label">complaint pode ocorrer aqui</div></div>
-          <div class="tl-seg tl-seg-g" style="width:22.5%"><div class="tl-seg-label">jira + checagem</div></div>
-          <div class="tl-seg tl-seg-r" style="width:32.6%"><div class="tl-seg-label">processamento</div></div>
+  <!-- ══ QUIZ ══ -->
+  <div class="section" id="quiz">
+    <div class="section-eyebrow">Quiz</div>
+    <div class="section-title">Você entendeu tudo? 🎮</div>
+    <div class="section-desc">10 questões sobre origens, prazos e criticidade. Cada erro custa uma vida — boa sorte! 👀</div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h3>Quiz de Monitoria</h3>
+        <p>Origens · Prazos · Criticidade · Exemplos</p>
+      </div>
+
+      <!-- HUD -->
+      <div class="quiz-hud">
+        <div class="quiz-prog-wrap">
+          <div class="quiz-prog-label">Questão <span id="q-num">1</span> de 10</div>
+          <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="q-fill" style="width:10%"></div></div>
         </div>
-        <div class="tl-events-row">
-          <div class="tl-ev" style="left:0%"><div class="tl-ev-dot tl-dot-v"></div><div class="tl-ev-top"><strong>Ação do analista</strong>cancelamento</div></div>
-          <div class="tl-ev" style="left:44.9%"><div class="tl-ev-dot tl-dot-a"></div><div class="tl-ev-bot"><strong>Complaint do cliente</strong>a qualquer momento</div></div>
-          <div class="tl-ev" style="left:56%"><div class="tl-ev-dot tl-dot-g"></div><div class="tl-ev-top"><strong>Jira aberto</strong>setor → qualidade</div></div>
-          <div class="tl-ev" style="left:75%"><div class="tl-ev-dot tl-dot-t"></div><div class="tl-ev-bot"><strong>2ª checagem</strong>time de qualidade</div></div>
-          <div class="tl-ev" style="left:100%"><div class="tl-ev-dot tl-dot-r"></div><div class="tl-ev-top"><strong>Dashboard</strong>se válido · dia 89</div></div>
+        <div class="quiz-score-box">
+          <div class="quiz-score-lbl">Pontos</div>
+          <div class="quiz-score-val" id="q-score">0</div>
         </div>
+        <div class="quiz-lives" id="q-lives">❤️❤️❤️</div>
+      </div>
+
+      <!-- GAME -->
+      <div class="quiz-body" id="quiz-game">
+        <div class="quiz-streak" id="q-streak">
+          <div class="streak-dot" id="s0"></div><div class="streak-dot" id="s1"></div>
+          <div class="streak-dot" id="s2"></div><div class="streak-dot" id="s3"></div>
+          <div class="streak-dot" id="s4"></div>
+        </div>
+        <div class="quiz-scenario" id="q-scenario">
+          <div class="quiz-scenario-label">📂 Cenário</div>
+          <div class="quiz-scenario-text" id="q-scenario-text"></div>
+        </div>
+        <div class="quiz-question" id="q-question"></div>
+        <div class="quiz-opts" id="q-opts"></div>
+        <div class="quiz-feedback" id="q-feedback">
+          <div class="quiz-feedback-header">
+            <span class="quiz-feedback-emoji" id="q-fb-emoji"></span>
+            <span class="quiz-feedback-title" id="q-fb-title"></span>
+          </div>
+          <div class="quiz-feedback-text" id="q-fb-text"></div>
+        </div>
+        <button class="btn-next-quiz" id="q-btn-next" onclick="nextQ()">Próxima →</button>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="quiz-result" id="quiz-result">
+        <span class="quiz-result-trophy" id="q-trophy"></span>
+        <div class="quiz-result-title" id="q-result-title"></div>
+        <div class="quiz-result-sub" id="q-result-sub"></div>
+        <div class="quiz-result-score">
+          <div class="quiz-result-score-num" id="q-result-score">0</div>
+          <div class="quiz-result-score-lbl">pontos</div>
+          <div class="quiz-result-bar-wrap"><div class="quiz-result-bar" id="q-result-bar" style="width:0%"></div></div>
+        </div>
+        <div class="quiz-result-msg" id="q-result-msg"></div>
+        <div class="quiz-result-stats">
+          <div class="quiz-result-stat"><div class="quiz-result-stat-num" id="q-acertos">0</div><div class="quiz-result-stat-lbl">✅ Acertos</div></div>
+          <div class="quiz-result-stat"><div class="quiz-result-stat-num" id="q-erros">0</div><div class="quiz-result-stat-lbl">❌ Erros</div></div>
+          <div class="quiz-result-stat"><div class="quiz-result-stat-num" id="q-combo">0</div><div class="quiz-result-stat-lbl">🔥 Maior combo</div></div>
+        </div>
+        <button class="btn-retry" onclick="initQuiz()">🔄 Tentar de novo</button>
       </div>
     </div>
-    <div class="tl-steps">
-      <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Ação do analista</div><div class="tl-step-sub">Dia 0</div></div>
-      <div class="tl-step"><div class="tl-step-icon">😤</div><div class="tl-step-label">Cliente reclama</div><div class="tl-step-sub">a qualquer momento</div></div>
-      <div class="tl-step"><div class="tl-step-icon tl-hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">setor → qualidade</div></div>
-      <div class="tl-step"><div class="tl-step-icon tl-hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
-      <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
-    </div>
-    <div class="tl-stats">
-      <div class="tl-stat"><div class="tl-stat-num">A qualquer momento</div><div class="tl-stat-lbl">Cliente pode reclamar</div></div>
-      <div class="tl-stat"><div class="tl-stat-num">Variável</div><div class="tl-stat-lbl">Tempo de processamento</div></div>
-      <div class="tl-stat tl-hl"><div class="tl-stat-num">89 dias</div><div class="tl-stat-lbl">Janela máxima total</div></div>
-    </div>
-    <div class="callout callout-blue"><strong>🎫 Jira como gatilho formal:</strong> Sem o ticket aberto pelo setor, o time de qualidade não inicia a segunda checagem. É o passo que formaliza a solicitação e garante rastreabilidade.</div>
-    <div class="callout callout-green"><strong>✅ Segunda checagem:</strong> O time de qualidade revisa o case original. Se o apontamento for válido, o analista é notificado no dashboard. Se não for, o ticket é encerrado sem impacto na nota.</div>
-    <div class="callout callout-amber"><strong>⚠️ O limite é para o apontamento, não para o cliente:</strong> O cliente pode reclamar quando quiser. O que tem prazo é o registro do apontamento na nota do analista — isso só pode acontecer dentro dos 89 dias a partir da ação original.</div>
   </div>
-
-  <!-- MONEY MOVEMENTS -->
-  <div id="tl-m" class="dpanel">
-    <div class="card" style="margin-bottom:12px;"><p>Após a ação do analista, o sistema monitora automaticamente movimentações suspeitas. Quando detecta um padrão, <strong>o setor abre um Jira para o time de qualidade</strong>, que faz a segunda checagem. Janela típica: <strong>~30 dias</strong>.</p></div>
-    <div class="tl-track-wrap">
-      <div class="tl-visual">
-        <div class="tl-bar-row">
-          <div class="tl-seg tl-seg-t" style="width:100%"><div class="tl-seg-label">janela de monitoramento</div></div>
-        </div>
-        <div class="tl-events-row">
-          <div class="tl-ev" style="left:0%"><div class="tl-ev-dot tl-dot-v"></div><div class="tl-ev-top"><strong>Ação do analista</strong>arquivamento</div></div>
-          <div class="tl-ev" style="left:38%"><div class="tl-ev-dot tl-dot-t"></div><div class="tl-ev-bot"><strong>Movimentação detectada</strong>sistema identifica</div></div>
-          <div class="tl-ev" style="left:57%"><div class="tl-ev-dot tl-dot-g"></div><div class="tl-ev-top"><strong>Jira aberto</strong>setor → qualidade</div></div>
-          <div class="tl-ev" style="left:79%"><div class="tl-ev-dot tl-dot-a"></div><div class="tl-ev-bot"><strong>2ª checagem</strong>time de qualidade</div></div>
-          <div class="tl-ev" style="left:100%"><div class="tl-ev-dot tl-dot-r"></div><div class="tl-ev-top"><strong>Dashboard</strong>se válido · ~30 dias</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="tl-steps">
-      <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Ação do analista</div><div class="tl-step-sub">Dia 0</div></div>
-      <div class="tl-step"><div class="tl-step-icon">🤖</div><div class="tl-step-label">Sistema detecta</div><div class="tl-step-sub">automático</div></div>
-      <div class="tl-step"><div class="tl-step-icon tl-hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">setor → qualidade</div></div>
-      <div class="tl-step"><div class="tl-step-icon tl-hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
-      <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
-    </div>
-    <div class="tl-stats">
-      <div class="tl-stat"><div class="tl-stat-num">Automático</div><div class="tl-stat-lbl">Origem da detecção</div></div>
-      <div class="tl-stat"><div class="tl-stat-num">~30 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
-      <div class="tl-stat tl-hl"><div class="tl-stat-num">Catch &amp; Release</div><div class="tl-stat-lbl">Scorecard relacionado</div></div>
-    </div>
-    <div class="callout callout-blue"><strong>🎫 Jira como gatilho formal:</strong> O sistema detecta automaticamente, mas é o setor que formaliza o ticket para o time de qualidade. Sem o Jira, a segunda checagem não é iniciada.</div>
-    <div class="callout callout-green"><strong>✅ Segunda checagem:</strong> O time de qualidade analisa se a movimentação indica erro na decisão original. Apenas apontamentos válidos chegam ao dashboard do analista.</div>
-  </div>
-
-  <!-- DISTRITO -->
-  <div id="tl-d" class="dpanel">
-    <div class="card" style="margin-bottom:12px;"><p>A liderança do distrito identifica uma inconsistência e <strong>abre diretamente um Jira para o time de qualidade</strong>. É o caminho mais rápido — geralmente dentro de <strong>~15 dias</strong> — e costuma ter o contexto mais detalhado desde o início.</p></div>
-    <div class="tl-track-wrap">
-      <div class="tl-visual">
-        <div class="tl-bar-row">
-          <div class="tl-seg tl-seg-a" style="width:100%"><div class="tl-seg-label">janela de sinalização</div></div>
-        </div>
-        <div class="tl-events-row">
-          <div class="tl-ev" style="left:0%"><div class="tl-ev-dot tl-dot-v"></div><div class="tl-ev-top"><strong>Ação do analista</strong>decisão registrada</div></div>
-          <div class="tl-ev" style="left:35%"><div class="tl-ev-dot tl-dot-a"></div><div class="tl-ev-bot"><strong>Distrito identifica</strong>liderança / pares</div></div>
-          <div class="tl-ev" style="left:52%"><div class="tl-ev-dot tl-dot-g"></div><div class="tl-ev-top"><strong>Jira aberto</strong>distrito → qualidade</div></div>
-          <div class="tl-ev" style="left:76%"><div class="tl-ev-dot tl-dot-t"></div><div class="tl-ev-bot"><strong>2ª checagem</strong>time de qualidade</div></div>
-          <div class="tl-ev" style="left:100%"><div class="tl-ev-dot tl-dot-r"></div><div class="tl-ev-top"><strong>Dashboard</strong>se válido · ~15 dias</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="tl-steps">
-      <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Ação do analista</div><div class="tl-step-sub">Dia 0</div></div>
-      <div class="tl-step"><div class="tl-step-icon">👀</div><div class="tl-step-label">Distrito identifica</div><div class="tl-step-sub">liderança / pares</div></div>
-      <div class="tl-step"><div class="tl-step-icon tl-hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">distrito → qualidade</div></div>
-      <div class="tl-step"><div class="tl-step-icon tl-hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
-      <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
-    </div>
-    <div class="tl-stats">
-      <div class="tl-stat"><div class="tl-stat-num">Manual</div><div class="tl-stat-lbl">Origem da sinalização</div></div>
-      <div class="tl-stat"><div class="tl-stat-num">~15 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
-      <div class="tl-stat tl-hl"><div class="tl-stat-num">Mais rápido</div><div class="tl-stat-lbl">Dos três caminhos</div></div>
-    </div>
-    <div class="callout callout-blue"><strong>🎫 Jira com contexto completo:</strong> O distrito abre o ticket com a inconsistência já identificada — o que agiliza a segunda checagem, com menos ida e volta para entender o case.</div>
-    <div class="callout callout-green"><strong>✅ Segunda checagem:</strong> O time de qualidade confirma ou não o erro. Se confirmado, o apontamento vai para o dashboard do analista. Se não, o ticket é encerrado sem impacto.</div>
-    <div class="callout callout-amber"><strong>📌 Mais detalhado desde o início:</strong> Sinalizações de distrito costumam ter mais contexto — o que torna a segunda checagem mais rápida e o feedback ao analista mais claro.</div>
-  </div>
-</div>
 
 </main>
 
+<footer>
+  🔬 Fraud Quality Team · Nubank · 2026 &nbsp;·&nbsp;
+  <a href="https://camilabomfim-ux.github.io/fraud-lab-guia/">Guia da Operação</a> &nbsp;·&nbsp;
+  <a href="https://camilabomfim-ux.github.io/fraud-lab-guia/quiz.html">Quiz avançado</a>
+</footer>
+
 <script>
-function goTo(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('visible'));
-  document.querySelectorAll('.top-nav button').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('visible');
-  btn.classList.add('active');
-}
-function showD(id,btn){
-  document.querySelectorAll('.dpanel').forEach(d=>d.classList.remove('visible'));
-  document.querySelectorAll('.dtab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('d-'+id).classList.add('visible');
-  btn.classList.add('active');
-}
-function tog(id){document.getElementById(id).classList.toggle('open');}
-function togEx(id){document.getElementById(id).classList.toggle('open');}
-function showTl(id,btn){
-  document.querySelectorAll('#tl-tabs .dtab').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  ['complaints','mm','distrito'].forEach(k=>{
-    const el=document.getElementById('tl-'+k);
-    if(el)el.classList.toggle('visible',k===id);
+// ── SMOOTH SCROLL ──
+function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+
+// ── ANCHOR NAV ──
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      document.querySelectorAll('.anav-btn').forEach(b=>b.classList.remove('active'));
+      const mapping={como:'Como funciona',timeline:'Linha do tempo',origens:'Origens',criticidade:'Criticidade',exemplos:'Exemplos',quiz:'🎮 Quiz'};
+      document.querySelectorAll('.anav-btn').forEach(b=>{if(b.textContent.trim()===mapping[id])b.classList.add('active');});
+    }
   });
-}
+},{threshold:0.3});
+['como','timeline','origens','criticidade','exemplos','quiz'].forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el);});
+
+// ── TIMELINE ──
 function showTl(id,btn){
-  ['c','m','d'].forEach(k=>{var el=document.getElementById('tl-'+k);if(el)el.classList.toggle('visible',k===id);});
-  document.querySelectorAll('#tl-tabs .dtab').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
+  ['c','m','d'].forEach(k=>{document.getElementById('tl-'+k)?.classList.toggle('active',k===id);});
+  document.querySelectorAll('.tl-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
 }
+
+// ── EXEMPLOS ──
+function togEx(id){document.getElementById(id).classList.toggle('open');}
 function filtrarEx(tipo,btn){
   document.querySelectorAll('.ex-filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.ex-card').forEach(c=>{
-    c.style.display=(tipo==='todos'||c.dataset.tipo===tipo)?'':'none';
+  document.querySelectorAll('.ex-card').forEach(c=>{c.style.display=(tipo==='todos'||c.dataset.nivel===tipo)?'':'none';});
+}
+
+// ── QUIZ DATA ──
+const QS=[
+  {scenario:'Uma análise de Mule Account foi arquivada como OK. Duas semanas depois, o sistema detectou que a conta voltou a movimentar valores para beneficiários com histórico de fraude.',question:'Qual é a origem desse apontamento?',correct:'mm',opts:[{id:'mm',l:'Money Movements',s:'Sistema detecta movimentação após arquivamento'},{id:'c',l:'Complaint',s:'Cliente abriu uma reclamação'},{id:'d',l:'Sinalização de Distrito',s:'Liderança identificou inconsistência'}],fb_ok:'Exato! 🎯 O sistema de Money Movements monitora contas arquivadas como OK automaticamente. Quando detecta padrão suspeito, aciona o processo de revisão.',fb_err:'Essa é Money Movements! 💡 O gatilho foi o sistema detectando movimentação suspeita após o arquivamento — sem nenhuma reclamação do cliente.'},
+  {scenario:'Um analista tratou um case de fraude em março. Em junho — 80 dias depois — um apontamento apareceu no dashboard dele originado por uma complaint.',question:'Esse apontamento é válido dentro do prazo?',correct:'sim',opts:[{id:'sim',l:'Sim, está dentro do prazo',s:'O limite é de 89 dias a partir da ação'},{id:'nao',l:'Não, passou do prazo',s:'Achei que o cliente tinha 40 dias para reclamar'},{id:'dep',l:'Depende de quando o cliente reclamou',s:'O prazo começa quando a reclamação chega'}],fb_ok:'Correto! ✅ O prazo de 89 dias conta a partir da ação do analista, não da reclamação. O cliente pode reclamar a qualquer momento — o que expira é a janela para o apontamento.',fb_err:'Está dentro do prazo! O limite de 89 dias conta da ação do analista. O cliente pode reclamar quando quiser — não existe prazo fixo para a reclamação do cliente.'},
+  {scenario:'Uma liderança de distrito identifica durante uma calibração que um analista tomou uma decisão inconsistente em um case da semana anterior. Ela abre um Jira diretamente para o time de qualidade.',question:'Qual é a janela típica para esse apontamento chegar?',correct:'15',opts:[{id:'15',l:'~15 dias',s:'Sinalização de Distrito — caminho mais rápido'},{id:'30',l:'~30 dias',s:'Janela típica de Money Movements'},{id:'89',l:'Até 89 dias',s:'Janela máxima de Complaints'}],fb_ok:'Isso aí! 🏆 Sinalizações de Distrito são o caminho mais rápido — chegam com contexto detalhado e costumam ser processadas em ~15 dias.',fb_err:'A janela de Distrito é ~15 dias — o mais rápido dos três caminhos! O Jira já vem com contexto mapeado, o que agiliza a segunda checagem.'},
+  {scenario:'O analista identificou corretamente a fraude, documentou os indícios e fechou como fraudster. Mas ao finalizar, clicou em "suspect archived" por engano — o texto da análise dizia claramente "fechar como fraudster".',question:'Como esse erro é classificado?',correct:'miss',opts:[{id:'miss',l:'Miss Click — erro operacional',s:'Julgamento correto, ação errada'},{id:'dec',l:'Erro de Decisão',s:'Julgamento incorreto'},{id:'crit',l:'Crítico sem distinção',s:'O impacto é o mesmo, não importa o tipo'}],fb_ok:'Exato! 🖱️ É um Miss Click — o julgamento estava correto, a ação foi errada. O registro salva o analista: o time de qualidade consegue identificar a inconsistência pelo texto.',fb_err:'É um Miss Click! O analista chegou à conclusão certa — o erro foi mecânico. A diferença importa na avaliação, e o registro da análise é a única forma de comprovar isso.'},
+  {scenario:'Um analista finalizou um case como fraudster corretamente, mas ao revisar, o time de qualidade notou que ele não verificou nem liquidou o saldo que estava retido na caixinha do cliente.',question:'Qual o nível de criticidade?',correct:'medio',opts:[{id:'critico',l:'🔴 Crítico',s:'Decisão errada — impacto direto'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional incompleta'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de registro'}],fb_ok:'Certo! A decisão principal estava correta — por isso não é Crítico. Mas não liquidar a caixinha é uma etapa operacional que pode permitir ao fraudador resgatar valores. Médio: −1,5 pts.',fb_err:'É Médio! A decisão estava certa (não é Crítico), mas deixar a caixinha sem liquidar é uma falha operacional com consequência real para o negócio.'},
+  {scenario:'O analista não registrou nenhum texto na análise antes de fechar o case. A decisão estava correta, mas o campo ficou completamente em branco.',question:'Qual o nível de criticidade?',correct:'baixo',opts:[{id:'critico',l:'🔴 Crítico',s:'Impacto direto no resultado'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional incompleta'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de registro sem impacto direto'}],fb_ok:'Isso! 😌 Sem registro é Baixo — a decisão estava certa, sem impacto direto. Mas dificulta auditorias e impede distinguir miss click de erro de decisão no futuro.',fb_err:'É Baixo! A decisão estava certa. O problema é a falta de registro, que dificulta auditorias. Sem o texto, também não dá pra distinguir miss click de erro de decisão.'},
+  {scenario:'O analista usou a versão desatualizada da Matriz Mule para analisar um report de Boleto. Com a matriz correta, o case seria fechado como fraudster — mas com a versão antiga, foi arquivado como OK.',question:'Qual o nível de criticidade?',correct:'critico',opts:[{id:'critico',l:'🔴 Crítico',s:'Método incorreto levou à decisão errada'},{id:'medio',l:'🟡 Médio',s:'Erro operacional sem impacto na decisão'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de processo'}],fb_ok:'Certíssimo! 🔥 Usar método ou matriz incorretos é Crítico quando leva à decisão errada. Um fraudador foi liberado por ferramenta desatualizada.',fb_err:'É Crítico! Usar o método errado e chegar à decisão errada é o cenário de maior gravidade. O impacto é direto: um fraudador foi liberado.'},
+  {scenario:'Em qual das situações abaixo o Jira NÃO precisa ser aberto para que o apontamento chegue ao analista?',question:'Selecione a alternativa correta:',correct:'nenhuma',opts:[{id:'nenhuma',l:'Em nenhuma — o Jira é sempre necessário',s:'É o gatilho formal em todos os caminhos'},{id:'mm',l:'Money Movements',s:'O sistema detecta sozinho, sem precisar de Jira'},{id:'d',l:'Sinalização de Distrito',s:'A liderança avisa o analista diretamente'}],fb_ok:'Exato! 🎫 O Jira é o gatilho formal em todos os caminhos — Complaints, Money Movements e Distrito. Sem o ticket aberto, a segunda checagem não é iniciada.',fb_err:'O Jira é sempre necessário! É o gatilho formal que inicia a segunda checagem do time de qualidade — independente de qual foi a origem do apontamento.'},
+  {scenario:'O analista não contestou uma transação no Tristram, mesmo tendo uma contestação válida no sistema. A identificação da vítima e o registro da análise estavam corretos.',question:'Qual o nível de criticidade?',correct:'medio',opts:[{id:'critico',l:'🔴 Crítico',s:'A decisão principal estava errada'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional incompleta'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de registro'}],fb_ok:'Correto! ✅ A decisão estava certa — não é Crítico. Mas pular a contestação no Tristram é uma etapa operacional que pode impedir a devolução do valor à vítima.',fb_err:'É Médio! A decisão estava certa (não é Crítico), mas não contestar no Tristram quando há contestação válida é uma falha operacional que prejudica a vítima.'},
+  {scenario:'Uma análise foi selecionada para monitoria sem nenhum gatilho específico — nem complaint, nem Money Movements, nem sinalização. O case foi simplesmente incluído na amostra periódica de revisão do scorecard.',question:'Qual é a origem dessa monitoria?',correct:'sc',opts:[{id:'sc',l:'Amostragem por Scorecard',s:'Revisão periódica da amostra — sem gatilho específico'},{id:'c',l:'Complaint',s:'Cliente reclamou'},{id:'d',l:'Sinalização de Distrito',s:'Liderança identificou o case'}],fb_ok:'Isso! 📋 A amostragem por scorecard acontece periodicamente, sem depender de nenhum gatilho. Qualquer case finalizado pode entrar na amostra.',fb_err:'É Amostragem por Scorecard! O time de qualidade extrai amostras periodicamente de cada distrito — sem nenhum gatilho específico. Qualquer case pode ser selecionado.'},
+];
+
+let qIdx=0,score=0,lives=3,streak=0,maxStreak=0,answered=false,acertos=0,erros=0;
+let shuffled=[];
+
+function shuffle(a){return[...a].sort(()=>Math.random()-.5);}
+
+function initQuiz(){
+  qIdx=0;score=0;lives=3;streak=0;maxStreak=0;answered=false;acertos=0;erros=0;
+  shuffled=shuffle(QS);
+  document.getElementById('quiz-game').style.display='block';
+  document.getElementById('quiz-result').style.display='none';
+  updateLives();
+  renderQ();
+}
+
+function updateLives(){
+  let h='';
+  for(let i=0;i<3;i++)h+=i<lives?'❤️':'🖤';
+  document.getElementById('q-lives').innerHTML=h;
+}
+
+function updateStreak(){
+  for(let i=0;i<5;i++){
+    const d=document.getElementById('s'+i);
+    if(d)d.className='streak-dot'+(i<streak?' lit':'');
+  }
+}
+
+function renderQ(){
+  answered=false;
+  const q=shuffled[qIdx];
+  document.getElementById('q-num').textContent=qIdx+1;
+  document.getElementById('q-fill').style.width=`${((qIdx+1)/10)*100}%`;
+  document.getElementById('q-score').textContent=score;
+  document.getElementById('q-scenario-text').innerHTML=q.scenario;
+  document.getElementById('q-question').textContent=q.question;
+  document.getElementById('q-feedback').className='quiz-feedback';
+  document.getElementById('q-btn-next').className='btn-next-quiz';
+  updateStreak();
+  const wrap=document.getElementById('q-opts');
+  wrap.innerHTML='';
+  q.opts.forEach(o=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-opt';
+    btn.dataset.id=o.id;
+    btn.innerHTML=`<div class="quiz-opt-icon">${o.id===q.correct?'✓':'○'}</div><div><div class="quiz-opt-label">${o.l}</div><div class="quiz-opt-sub">${o.s}</div></div>`;
+    btn.innerHTML=`<div class="quiz-opt-icon">○</div><div><div class="quiz-opt-label">${o.l}</div><div class="quiz-opt-sub">${o.s}</div></div>`;
+    btn.onclick=()=>answer(o.id);
+    wrap.appendChild(btn);
   });
 }
+
+function answer(chosen){
+  if(answered)return;
+  answered=true;
+  const q=shuffled[qIdx];
+  const ok=chosen===q.correct;
+  document.querySelectorAll('.quiz-opt').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.id===q.correct)b.classList.add(ok&&b.dataset.id===chosen?'correct':'reveal');
+    if(b.dataset.id===chosen&&!ok)b.classList.add('wrong');
+    b.querySelector('.quiz-opt-icon').textContent=b.dataset.id===q.correct?'✓':'○';
+  });
+  if(ok){
+    streak++;if(streak>maxStreak)maxStreak=streak;acertos++;
+    const bonus=Math.min((streak-1)*5,25);score+=10+bonus;
+    document.getElementById('q-score').textContent=score;
+    if(streak>=2)showCombo(streak,bonus);
+  }else{
+    streak=0;erros++;lives--;updateLives();
+  }
+  updateStreak();
+  const fb=document.getElementById('q-feedback');
+  const emojis_ok=['🎯','✨','🔥','💪','👏','😎'];
+  const emojis_err=['😬','😅','🤔'];
+  fb.className='quiz-feedback '+(ok?'quiz-feedback-correct':'quiz-feedback-wrong')+' show';
+  document.getElementById('q-fb-emoji').textContent=ok?emojis_ok[Math.floor(Math.random()*emojis_ok.length)]:emojis_err[Math.floor(Math.random()*emojis_err.length)];
+  document.getElementById('q-fb-title').textContent=ok?'Isso aí!':'Quase!';
+  document.getElementById('q-fb-text').textContent=ok?q.fb_ok:q.fb_err;
+  const btn=document.getElementById('q-btn-next');
+  btn.className='btn-next-quiz show';
+  btn.textContent=(qIdx>=shuffled.length-1||lives<=0)?'Ver resultado →':'Próxima →';
+}
+
+function nextQ(){
+  qIdx++;
+  if(qIdx>=shuffled.length||lives<=0)showResult();
+  else renderQ();
+}
+
+function showResult(){
+  document.getElementById('quiz-game').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  let trophy,title,sub,msg;
+  if(score>=90){trophy='🏆';title='Craque da monitoria!';sub='Você entendeu tudo — impressionante.';msg='Perfeito ou quase! Você domina origens, prazos e criticidade. O time de qualidade ficaria orgulhoso. 🙌';launchConfetti();}
+  else if(score>=60){trophy='🎯';title='Muito bem!';sub='Tá entendendo o processo.';msg='Boa performance! Uns detalhes sobre prazos ou origens ainda escaparam, mas a base está ótima.';}
+  else if(score>=30){trophy='📚';title='Quase lá!';sub='Vale revisar algumas partes.';msg='Você tem a ideia geral, mas alguns conceitos sobre prazos, origens e criticidade merecem uma revisada.';}
+  else{trophy='💡';title='Bora revisar!';sub='O guia tem tudo que você precisa.';msg='Sem pressão — o processo de monitoria tem muitos detalhes mesmo. Lê o guia de cima a baixo e tenta de novo!';}
+  document.getElementById('q-trophy').textContent=trophy;
+  document.getElementById('q-result-title').textContent=title;
+  document.getElementById('q-result-sub').textContent=sub;
+  document.getElementById('q-result-msg').textContent=msg;
+  document.getElementById('q-result-score').textContent=score;
+  document.getElementById('q-acertos').textContent=acertos+'/10';
+  document.getElementById('q-erros').textContent=erros+'/10';
+  document.getElementById('q-combo').textContent=maxStreak>0?'x'+maxStreak:'—';
+  setTimeout(()=>{document.getElementById('q-result-bar').style.width=Math.min(score,100)+'%';},300);
+}
+
+function showCombo(s,b){
+  const t=document.getElementById('combo-toast');
+  const m={2:'🔥 Combo x2!',3:'⚡ Combo x3!',4:'🚀 Combo x4!',5:'💥 COMBO x5!'};
+  t.textContent=(m[s]||`🌟 Combo x${s}!`)+(b>0?` +${b} bônus`:'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+function launchConfetti(){
+  const c=document.getElementById('confetti-canvas');
+  const ctx=c.getContext('2d');
+  c.width=window.innerWidth;c.height=window.innerHeight;
+  const cols=['#6B3FE4','#A855F7','#C4B5FD','#F59E0B','#10B981','#EF4444'];
+  const ps=Array.from({length:100},()=>({x:Math.random()*c.width,y:-10,w:6+Math.random()*7,h:9+Math.random()*7,col:cols[Math.floor(Math.random()*cols.length)],vx:(Math.random()-.5)*4,vy:2+Math.random()*3,rot:Math.random()*360,vr:(Math.random()-.5)*5,op:1}));
+  let f=0;(function draw(){ctx.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;if(f>70)p.op-=0.018;ctx.save();ctx.globalAlpha=Math.max(0,p.op);ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});f++;if(f<130)requestAnimationFrame(draw);else ctx.clearRect(0,0,c.width,c.height);})();
+}
+
+initQuiz();
 </script>
-<div class="global-footer">
-  Fraud Quality Team &nbsp;·&nbsp;
-  <a href="sobre.html">O Processo</a> &nbsp;·&nbsp;
-  <a href="index.html">Guia da Operação</a> &nbsp;·&nbsp;
-  <a href="quiz.html">Quiz de Apontamentos</a>
-</div>
 </body>
 </html>
