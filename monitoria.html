@@ -1,1 +1,486 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entendendo a Monitoria — Fraud Quality</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D0D1A;--ink-2:#3D3D56;--ink-3:#7A7A96;--ink-4:#B8B8CC;
+  --surface:#FAFAFF;--surface-2:#F0EFF8;--border:#E0DEEE;
+  --violet:#6B3FE4;--violet-dark:#4A0A9E;--violet-3:#C4B5FD;--violet-bg:#F3F0FF;
+  --red:#E02A2A;--red-bg:#FFF0F0;--red-border:#FECACA;
+  --amber:#D97706;--amber-bg:#FFFBEB;--amber-border:#FDE68A;
+  --emerald:#059669;--emerald-bg:#ECFDF5;--emerald-border:#A7F3D0;
+  --blue:#2563EB;--blue-bg:#EFF6FF;
+  --r:14px;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.09);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.g-nav{background:rgba(13,13,26,.88);backdrop-filter:blur(10px);position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.08);}
+.g-nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:50px;}
+.g-nav-logo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none;}
+.g-nav-logo:hover{color:#C4B5FD;}
+.g-nav-links{display:flex;gap:2px;}
+.g-nav-link{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 11px;border-radius:7px;transition:all .15s;}
+.g-nav-link:hover{color:white;background:rgba(255,255,255,.09);}
+.g-nav-link.active{color:#C4B5FD;background:rgba(107,63,228,.3);}
+.hero{background:linear-gradient(135deg,#1a0533,#3b0d8a 50%,#6B3FE4);padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 110%,rgba(196,181,253,.18),transparent 70%);pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:99px;margin-bottom:20px;}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,5vw,42px);font-weight:800;color:white;line-height:1.15;letter-spacing:-.5px;margin-bottom:12px;}
+.hero h1 em{font-style:normal;color:#C4B5FD;}
+.hero p{font-size:16px;color:rgba(255,255,255,.75);max-width:500px;margin:0 auto 28px;line-height:1.6;}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;font-size:11px;font-weight:600;padding:5px 14px;border-radius:99px;}
+.anchor-nav{background:white;border-bottom:1px solid var(--border);position:sticky;top:50px;z-index:200;overflow-x:auto;}
+.anchor-nav-inner{max-width:900px;margin:0 auto;display:flex;padding:0 20px;}
+.anav-btn{padding:12px 16px;font-size:12px;font-weight:600;color:var(--ink-3);white-space:nowrap;border:none;background:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.anav-btn:hover{color:var(--violet);}
+.anav-btn.active{color:var(--violet);border-bottom-color:var(--violet);}
+.main{max-width:860px;margin:0 auto;padding:40px 20px 80px;}
+.section{margin-bottom:60px;}
+.section-eyebrow{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:8px;}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,4vw,28px);font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px;}
+.section-desc{font-size:14px;color:var(--ink-3);margin-bottom:24px;line-height:1.65;max-width:600px;}
+.callout{border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:16px;}
+.callout strong{font-weight:700;}
+.callout-violet{background:var(--violet-bg);border-left:3px solid var(--violet);color:#3B2098;}
+.callout-amber{background:var(--amber-bg);border-left:3px solid var(--amber);color:#92400E;}
+.callout-green{background:var(--emerald-bg);border-left:3px solid var(--emerald);color:#065F46;}
+.callout-blue{background:var(--blue-bg);border-left:3px solid var(--blue);color:#1E40AF;}
+.flow-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.flow-step{background:white;border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow-sm);}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--violet-bg);border:1.5px solid var(--violet-3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--violet);flex-shrink:0;margin-top:1px;}
+.flow-content-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.flow-content-text{font-size:12px;color:var(--ink-3);line-height:1.5;}
+.flow-arrow{text-align:center;font-size:16px;color:var(--ink-4);margin:-4px 0;}
+.tl-wrap{margin-bottom:24px;}
+.tl-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tl-tab{padding:7px 16px;border-radius:99px;border:1.5px solid var(--border);background:white;color:var(--ink-3);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.tl-tab.active{background:var(--violet);color:white;border-color:var(--violet);}
+.tl-panel{display:none;}.tl-panel.active{display:block;}
+.tl-card{background:white;border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow-sm);}
+.tl-desc{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:18px;}
+.tl-track{position:relative;padding:52px 0 48px;}
+.tl-bar{display:flex;height:6px;border-radius:99px;overflow:hidden;}
+.tl-seg{height:6px;position:relative;display:flex;align-items:center;justify-content:center;}
+.tl-seg-label{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+.tl-events{position:absolute;left:0;right:0;top:0;bottom:0;}
+.tl-ev{position:absolute;top:50%;transform:translate(-50%,-50%);}
+.tl-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid var(--surface-2);box-shadow:0 0 0 1px rgba(0,0,0,.08);position:absolute;left:50%;top:3px;transform:translateX(-50%);}
+.tl-ev-top{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.4;color:var(--ink-2);white-space:nowrap;}
+.tl-ev-top strong{display:block;font-size:12px;color:var(--ink);font-weight:700;}
+.tl-ev-bot{position:absolute;top:22px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;line-height:1.4;color:var(--ink-2);white-space:nowrap;}
+.tl-ev-bot strong{display:block;font-size:12px;color:var(--ink);font-weight:700;}
+.tl-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:20px 0 16px;position:relative;}
+.tl-steps::before{content:'';position:absolute;top:22px;left:10%;right:10%;height:1.5px;background:var(--border);z-index:0;}
+.tl-step{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:1;}
+.tl-step-icon{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:white;display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:var(--shadow-sm);}
+.tl-step-icon.hl{background:var(--violet-bg);border-color:var(--violet-3);}
+.tl-step-label{font-size:10px;font-weight:600;color:var(--ink);text-align:center;line-height:1.3;}
+.tl-step-sub{font-size:9px;color:var(--ink-3);text-align:center;}
+.tl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.tl-stat{background:var(--surface-2);border-radius:10px;padding:10px 12px;}
+.tl-stat.hl{background:var(--violet-bg);border:1px solid var(--violet-3);}
+.tl-stat-num{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--ink);line-height:1.2;}
+.tl-stat.hl .tl-stat-num{color:var(--violet);}
+.tl-stat-lbl{font-size:10px;color:var(--ink-3);margin-top:2px;}
+.origem-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.origem-card{background:white;border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start;}
+.origem-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.origem-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin-bottom:4px;}
+.origem-tag-c{background:var(--violet-bg);color:var(--violet);}
+.origem-tag-mm{background:var(--emerald-bg);color:var(--emerald);}
+.origem-tag-d{background:var(--amber-bg);color:var(--amber);}
+.origem-tag-cr{background:var(--blue-bg);color:var(--blue);}
+.origem-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.origem-text{font-size:13px;color:var(--ink-3);line-height:1.55;}
+.origem-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--surface-2);border:1px solid var(--border);color:var(--ink-3);padding:2px 8px;border-radius:99px;margin-top:5px;}
+.crit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;}
+.crit-card{border-radius:var(--r);padding:18px;}
+.crit-card-red{background:var(--red-bg);border:1px solid var(--red-border);}
+.crit-card-amber{background:var(--amber-bg);border:1px solid var(--amber-border);}
+.crit-card-green{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.crit-emoji{font-size:22px;margin-bottom:8px;}
+.crit-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.crit-card-red .crit-title{color:var(--red);}
+.crit-card-amber .crit-title{color:var(--amber);}
+.crit-card-green .crit-title{color:var(--emerald);}
+.crit-pts{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-bottom:6px;display:inline-block;}
+.crit-card-red .crit-pts{background:var(--red-border);color:var(--red);}
+.crit-card-amber .crit-pts{background:var(--amber-border);color:var(--amber);}
+.crit-card-green .crit-pts{background:var(--emerald-border);color:var(--emerald);}
+.crit-text{font-size:12px;color:var(--ink-2);line-height:1.55;}
+.crit-list{margin-top:8px;display:flex;flex-direction:column;gap:3px;}
+.crit-item{font-size:11px;color:var(--ink-2);display:flex;align-items:flex-start;gap:6px;line-height:1.4;}
+.crit-item::before{content:'·';color:var(--ink-4);flex-shrink:0;}
+.ex-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.ex-card{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
+.ex-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .1s;}
+.ex-head:hover{background:var(--surface-2);}
+.ex-card.open .ex-head{border-bottom:1px solid var(--border);}
+.ex-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;white-space:nowrap;}
+.ex-badge-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
+.ex-badge-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+.ex-badge-green{background:var(--emerald-bg);color:var(--emerald);border:1px solid var(--emerald-border);}
+.ex-title{font-size:13px;font-weight:600;color:var(--ink);flex:1;}
+.ex-chev{font-size:12px;color:var(--ink-4);transition:transform .2s;}
+.ex-card.open .ex-chev{transform:rotate(180deg);}
+.ex-body{display:none;padding:16px 18px;}
+.ex-card.open .ex-body{display:block;}
+.ex-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.ex-row{grid-template-columns:1fr;}}
+.ex-col{border-radius:10px;padding:12px 14px;}
+.ex-col-fez{background:var(--red-bg);border:1px solid var(--red-border);}
+.ex-col-dev{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.ex-col-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.ex-col-fez .ex-col-label{color:var(--red);}
+.ex-col-dev .ex-col-label{color:var(--emerald);}
+.ex-col p{font-size:13px;color:var(--ink-2);line-height:1.55;}
+.ex-impact{margin-top:10px;padding:9px 12px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--ink-2);line-height:1.5;}
+.ex-impact strong{color:var(--ink);}
+.ex-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.ex-filter-btn{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:white;color:var(--ink-3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.ex-filter-btn:hover{border-color:var(--violet-3);color:var(--violet);}
+.ex-filter-btn.active{background:var(--violet);color:white;border-color:var(--violet);}
+.quiz-wrap{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
+.quiz-header{background:linear-gradient(135deg,#1a0533,#6B3FE4);padding:20px 24px;}
+.quiz-header h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:white;margin-bottom:4px;}
+.quiz-header p{font-size:13px;color:rgba(255,255,255,.7);}
+.quiz-hud{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--surface-2);border-bottom:1px solid var(--border);}
+.quiz-prog-wrap{flex:1;}
+.quiz-prog-label{font-size:10px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.quiz-prog-bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--violet),#A855F7);border-radius:99px;transition:width .4s;}
+.quiz-score-box{background:white;border:1px solid var(--border);border-radius:10px;padding:6px 12px;text-align:center;min-width:70px;}
+.quiz-score-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-4);}
+.quiz-score-val{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:var(--violet);line-height:1;}
+.quiz-lives{display:flex;gap:2px;font-size:16px;}
+.quiz-body{padding:20px 24px;}
+.quiz-scenario{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+.quiz-scenario-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.quiz-scenario-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.quiz-scenario-text{font-size:13px;color:var(--ink-2);line-height:1.6;}
+.quiz-scenario-text strong{color:var(--ink);}
+.quiz-question{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.4;}
+.quiz-opts{display:flex;flex-direction:column;gap:7px;}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:2px solid var(--border);background:white;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.quiz-opt:hover:not(:disabled){border-color:var(--violet-3);background:var(--violet-bg);transform:translateX(3px);}
+.quiz-opt:disabled{cursor:default;}
+.quiz-opt.correct{border-color:var(--emerald);background:var(--emerald-bg);}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-bg);}
+.quiz-opt.reveal{border-color:var(--emerald);background:var(--emerald-bg);opacity:.55;}
+.quiz-opt-icon{width:30px;height:30px;border-radius:50%;background:var(--surface-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.quiz-opt.correct .quiz-opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
+.quiz-opt.wrong .quiz-opt-icon{background:var(--red);border-color:var(--red);color:white;}
+.quiz-opt.reveal .quiz-opt-icon{background:var(--emerald);border-color:var(--emerald);color:white;}
+.quiz-opt-label{font-size:13px;font-weight:600;color:var(--ink);}
+.quiz-opt-sub{font-size:11px;color:var(--ink-3);margin-top:1px;}
+.quiz-opt.correct .quiz-opt-label,.quiz-opt.correct .quiz-opt-sub{color:var(--emerald);}
+.quiz-opt.wrong .quiz-opt-label,.quiz-opt.wrong .quiz-opt-sub{color:var(--red);}
+.quiz-feedback{border-radius:10px;padding:12px 14px;margin-top:12px;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback-correct{background:var(--emerald-bg);border:1px solid var(--emerald-border);}
+.quiz-feedback-wrong{background:var(--red-bg);border:1px solid var(--red-border);}
+.quiz-feedback-header{display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+.quiz-feedback-emoji{font-size:18px;}
+.quiz-feedback-title{font-size:13px;font-weight:700;}
+.quiz-feedback-correct .quiz-feedback-title{color:var(--emerald);}
+.quiz-feedback-wrong .quiz-feedback-title{color:var(--red);}
+.quiz-feedback-text{font-size:12px;color:var(--ink-2);line-height:1.55;}
+.btn-next-quiz{width:100%;padding:12px;margin-top:10px;background:var(--violet);color:white;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;display:none;}
+.btn-next-quiz.show{display:block;}
+.btn-next-quiz:hover{background:var(--violet-dark);}
+.quiz-streak{display:flex;gap:3px;justify-content:center;margin-bottom:12px;}
+.streak-dot{width:9px;height:9px;border-radius:50%;background:var(--border);transition:all .25s;}
+.streak-dot.lit{background:linear-gradient(135deg,#F59E0B,#F97316);box-shadow:0 0 6px rgba(249,115,22,.5);}
+.combo-toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,var(--violet),#A855F7);color:white;padding:8px 20px;border-radius:99px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;z-index:500;white-space:nowrap;box-shadow:0 4px 20px rgba(107,63,228,.5);transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .25s;opacity:0;}
+.combo-toast.show{transform:translateX(-50%) scale(1);opacity:1;}
+.quiz-result{padding:28px 24px;text-align:center;display:none;}
+.quiz-result-trophy{font-size:60px;display:block;margin-bottom:8px;}
+.quiz-result-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.quiz-result-sub{font-size:13px;color:var(--ink-3);margin-bottom:20px;}
+.quiz-result-score{background:linear-gradient(135deg,#1a0533,#6B3FE4);border-radius:var(--r);padding:20px;margin-bottom:16px;}
+.quiz-result-score-num{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:900;color:white;line-height:1;}
+.quiz-result-score-lbl{font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;}
+.quiz-result-bar-wrap{height:6px;background:rgba(255,255,255,.15);border-radius:99px;margin-top:12px;overflow:hidden;}
+.quiz-result-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,#C4B5FD,white);transition:width 1s cubic-bezier(.4,0,.2,1);}
+.quiz-result-msg{font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:14px 16px;margin-bottom:16px;line-height:1.6;border:1px solid var(--border);}
+.quiz-result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.quiz-result-stat{background:white;border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+.quiz-result-stat-num{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--ink);}
+.quiz-result-stat-lbl{font-size:10px;color:var(--ink-3);margin-top:1px;}
+.btn-retry{width:100%;padding:13px;background:linear-gradient(135deg,var(--violet),#A855F7);color:white;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+footer{background:rgba(13,13,26,.9);color:rgba(255,255,255,.45);text-align:center;padding:20px;font-size:12px;}
+footer a{color:rgba(255,255,255,.6);text-decoration:none;}
+footer a:hover{color:rgba(255,255,255,.9);}
+@media(max-width:600px){.main{padding:24px 14px 60px;}.quiz-body,.quiz-header{padding:16px;}.hero{padding:36px 16px 32px;}}
+@media(max-width:560px){.tl-steps{grid-template-columns:repeat(3,1fr);}.tl-stats{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+<div class="combo-toast" id="combo-toast"></div>
+<nav class="g-nav">
+  <div class="g-nav-inner">
+    <a href="sobre.html" class="g-nav-logo">🔬 Fraud Lab</a>
+    <div class="g-nav-links">
+      <a href="sobre.html" class="g-nav-link">O Processo</a>
+      <a href="index.html" class="g-nav-link">Guia</a>
+      <a href="quiz.html" class="g-nav-link">🎮 Quiz</a>
+      <a href="monitoria.html" class="g-nav-link active">Monitoria</a>
+    </div>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-tag">🔍 Fraud Quality Team</div>
+  <h1>Tudo sobre a sua <em>monitoria</em></h1>
+  <p>Como suas análises são selecionadas, o que cada apontamento significa e por que ele pode chegar semanas depois da sua decisão.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">📋 Como é extraído</span>
+    <span class="hero-pill">⏱ Linha do tempo</span>
+    <span class="hero-pill">🔴🟡🟢 Criticidade</span>
+    <span class="hero-pill">🎮 Quiz</span>
+  </div>
+</div>
+<div class="anchor-nav">
+  <div class="anchor-nav-inner">
+    <button class="anav-btn active" onclick="scrollTo('como')">Como funciona</button>
+    <button class="anav-btn" onclick="scrollTo('timeline')">Linha do tempo</button>
+    <button class="anav-btn" onclick="scrollTo('origens')">Origens</button>
+    <button class="anav-btn" onclick="scrollTo('criticidade')">Criticidade</button>
+    <button class="anav-btn" onclick="scrollTo('exemplos')">Exemplos</button>
+    <button class="anav-btn" onclick="scrollTo('quiz')">🎮 Quiz</button>
+  </div>
+</div>
+<main class="main">
+  <div class="section" id="como">
+    <div class="section-eyebrow">Como funciona</div>
+    <div class="section-title">Como sua análise é selecionada para monitoria</div>
+    <div class="section-desc">Nem toda análise é monitorada — o time de qualidade usa uma combinação de amostragem e gatilhos específicos para revisar os cases.</div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-num">1</div><div><div class="flow-content-title">Amostragem por scorecard</div><div class="flow-content-text">Cada distrito tem scorecards diferentes. O time de qualidade extrai uma amostra periódica de cases finalizados — Catch & Release, decisões de fraudador, reversões.</div></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-num">2</div><div><div class="flow-content-title">Gatilhos automáticos</div><div class="flow-content-text">Alguns cases entram na fila automaticamente — quando o sistema de Money Movements detecta movimentações suspeitas em contas arquivadas como OK, ou quando um cliente retorna com nova reclamação.</div></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-num">3</div><div><div class="flow-content-title">Sinalizações internas</div><div class="flow-content-text">A liderança do distrito ou pares podem sinalizar um case para revisão ao identificar uma decisão inconsistente durante calibrações, QA interno ou revisão de pares.</div></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-num">4</div><div><div class="flow-content-title">Segunda checagem pelo time de qualidade</div><div class="flow-content-text">Um qualiter revisa o case original com base no scorecard do seu distrito. Só avança se o apontamento for considerado válido.</div></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-num">5</div><div><div class="flow-content-title">Feedback e dashboard</div><div class="flow-content-text">Se o apontamento for válido, você recebe feedback estruturado e o case aparece no seu dashboard. Se não for, o ticket é encerrado sem impacto na sua nota.</div></div></div>
+    </div>
+    <div class="callout callout-violet"><strong>💡 Só chega no seu dashboard se for confirmado.</strong> A segunda checagem existe para garantir que apontamentos indevidos não afetem sua nota. Discordou? Conteste pelo formulário indicado no feedback.</div>
+  </div>
+  <div class="section" id="timeline">
+    <div class="section-eyebrow">Linha do Tempo</div>
+    <div class="section-title">Por que o apontamento pode chegar tarde?</div>
+    <div class="section-desc">Você trata um case hoje. O apontamento pode aparecer no seu dashboard semanas depois — cada origem tem uma janela diferente.</div>
+    <div class="tl-wrap">
+      <div class="tl-tabs">
+        <button class="tl-tab active" onclick="showTl('c',this)">Complaints</button>
+        <button class="tl-tab" onclick="showTl('m',this)">Money Movements</button>
+        <button class="tl-tab" onclick="showTl('d',this)">Distrito</button>
+      </div>
+      <div id="tl-c" class="tl-panel active">
+        <div class="tl-card">
+          <div class="tl-desc">O cliente pode reclamar <strong>a qualquer momento</strong> — não existe prazo fixo. O que tem prazo é o <strong>apontamento</strong>: o time de qualidade tem até <strong>89 dias</strong> a partir da sua ação para registrá-lo no dashboard.</div>
+          <div class="tl-track">
+            <div class="tl-bar">
+              <div class="tl-seg" style="width:45%;background:rgba(107,63,228,.2)"><div class="tl-seg-label" style="color:var(--violet)">reclamação pode chegar aqui</div></div>
+              <div class="tl-seg" style="width:20%;background:rgba(122,122,150,.13)"><div class="tl-seg-label" style="color:var(--ink-3)">jira + checagem</div></div>
+              <div class="tl-seg" style="width:35%;background:rgba(224,42,42,.13)"><div class="tl-seg-label" style="color:var(--red)">processamento</div></div>
+            </div>
+            <div class="tl-events">
+              <div class="tl-ev" style="left:0%"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-ev-top"><strong>Sua ação</strong>Dia 0</div></div>
+              <div class="tl-ev" style="left:45%"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-ev-bot"><strong>Complaint</strong>a qualquer momento</div></div>
+              <div class="tl-ev" style="left:65%"><div class="tl-dot" style="background:var(--ink-4)"></div><div class="tl-ev-top"><strong>Jira aberto</strong>setor → qualidade</div></div>
+              <div class="tl-ev" style="left:100%"><div class="tl-dot" style="background:var(--red)"></div><div class="tl-ev-top"><strong>Dashboard</strong>até dia 89</div></div>
+            </div>
+          </div>
+          <div class="tl-steps">
+            <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Sua ação</div><div class="tl-step-sub">Dia 0</div></div>
+            <div class="tl-step"><div class="tl-step-icon">😤</div><div class="tl-step-label">Cliente reclama</div><div class="tl-step-sub">qualquer hora</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">setor → qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
+          </div>
+          <div class="tl-stats">
+            <div class="tl-stat"><div class="tl-stat-num">Sem prazo</div><div class="tl-stat-lbl">Para o cliente reclamar</div></div>
+            <div class="tl-stat"><div class="tl-stat-num">Variável</div><div class="tl-stat-lbl">Tempo de processamento</div></div>
+            <div class="tl-stat hl"><div class="tl-stat-num">89 dias</div><div class="tl-stat-lbl">Limite para o apontamento</div></div>
+          </div>
+        </div>
+        <div class="callout callout-amber" style="margin-top:12px"><strong>⚠️ O prazo é do apontamento, não da reclamação.</strong> O cliente pode reclamar quando quiser. O que expira em 89 dias é a janela para registrar o apontamento na sua nota.</div>
+      </div>
+      <div id="tl-m" class="tl-panel">
+        <div class="tl-card">
+          <div class="tl-desc">Após você arquivar como OK, o sistema monitora automaticamente as movimentações. Se detectar algo suspeito, o setor abre um Jira para revisão. Janela típica: <strong>~30 dias</strong>.</div>
+          <div class="tl-track">
+            <div class="tl-bar"><div class="tl-seg" style="width:100%;background:rgba(5,150,105,.13)"><div class="tl-seg-label" style="color:var(--emerald)">janela de monitoramento</div></div></div>
+            <div class="tl-events">
+              <div class="tl-ev" style="left:0%"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-ev-top"><strong>Sua ação</strong>arquivamento</div></div>
+              <div class="tl-ev" style="left:40%"><div class="tl-dot" style="background:var(--emerald)"></div><div class="tl-ev-bot"><strong>Sistema detecta</strong>movimentação suspeita</div></div>
+              <div class="tl-ev" style="left:65%"><div class="tl-dot" style="background:var(--ink-4)"></div><div class="tl-ev-top"><strong>Jira aberto</strong>setor → qualidade</div></div>
+              <div class="tl-ev" style="left:100%"><div class="tl-dot" style="background:var(--red)"></div><div class="tl-ev-top"><strong>Dashboard</strong>~30 dias</div></div>
+            </div>
+          </div>
+          <div class="tl-steps">
+            <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Sua ação</div><div class="tl-step-sub">Dia 0</div></div>
+            <div class="tl-step"><div class="tl-step-icon">🤖</div><div class="tl-step-label">Sistema detecta</div><div class="tl-step-sub">automático</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">setor → qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
+          </div>
+          <div class="tl-stats">
+            <div class="tl-stat"><div class="tl-stat-num">Automático</div><div class="tl-stat-lbl">Origem da detecção</div></div>
+            <div class="tl-stat"><div class="tl-stat-num">~30 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
+            <div class="tl-stat hl"><div class="tl-stat-num">Catch &amp; Release</div><div class="tl-stat-lbl">Scorecard relacionado</div></div>
+          </div>
+        </div>
+        <div class="callout callout-blue" style="margin-top:12px"><strong>🤖 O sistema detecta, o setor formaliza.</strong> Sem o Jira aberto pelo setor, a segunda checagem não acontece.</div>
+      </div>
+      <div id="tl-d" class="tl-panel">
+        <div class="tl-card">
+          <div class="tl-desc">A liderança ou pares identificam uma inconsistência e abrem um Jira direto para o time de qualidade. É o caminho mais rápido. Janela típica: <strong>~15 dias</strong>.</div>
+          <div class="tl-track">
+            <div class="tl-bar"><div class="tl-seg" style="width:100%;background:rgba(217,119,6,.13)"><div class="tl-seg-label" style="color:var(--amber)">janela de sinalização</div></div></div>
+            <div class="tl-events">
+              <div class="tl-ev" style="left:0%"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-ev-top"><strong>Sua ação</strong>decisão registrada</div></div>
+              <div class="tl-ev" style="left:35%"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-ev-bot"><strong>Distrito identifica</strong>liderança / pares</div></div>
+              <div class="tl-ev" style="left:60%"><div class="tl-dot" style="background:var(--ink-4)"></div><div class="tl-ev-top"><strong>Jira aberto</strong>distrito → qualidade</div></div>
+              <div class="tl-ev" style="left:100%"><div class="tl-dot" style="background:var(--red)"></div><div class="tl-ev-top"><strong>Dashboard</strong>~15 dias</div></div>
+            </div>
+          </div>
+          <div class="tl-steps">
+            <div class="tl-step"><div class="tl-step-icon">🧑‍💻</div><div class="tl-step-label">Sua ação</div><div class="tl-step-sub">Dia 0</div></div>
+            <div class="tl-step"><div class="tl-step-icon">👀</div><div class="tl-step-label">Distrito identifica</div><div class="tl-step-sub">liderança / pares</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🎫</div><div class="tl-step-label">Jira aberto</div><div class="tl-step-sub">distrito → qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon hl">🔍</div><div class="tl-step-label">2ª checagem</div><div class="tl-step-sub">time de qualidade</div></div>
+            <div class="tl-step"><div class="tl-step-icon">📊</div><div class="tl-step-label">Dashboard</div><div class="tl-step-sub">se válido</div></div>
+          </div>
+          <div class="tl-stats">
+            <div class="tl-stat"><div class="tl-stat-num">Manual</div><div class="tl-stat-lbl">Origem da sinalização</div></div>
+            <div class="tl-stat"><div class="tl-stat-num">~15 dias</div><div class="tl-stat-lbl">Janela típica</div></div>
+            <div class="tl-stat hl"><div class="tl-stat-num">Mais rápido</div><div class="tl-stat-lbl">Dos três caminhos</div></div>
+          </div>
+        </div>
+        <div class="callout callout-green" style="margin-top:12px"><strong>📌 Contexto completo desde o início.</strong> Sinalizações de distrito chegam com mais detalhes, tornando a segunda checagem mais rápida e o feedback mais claro.</div>
+      </div>
+    </div>
+  </div>
+  <div class="section" id="origens">
+    <div class="section-eyebrow">Origens</div>
+    <div class="section-title">De onde vêm os apontamentos?</div>
+    <div class="section-desc">Um apontamento pode ser gerado por diferentes origens. Cada uma tem uma lógica, um prazo e um nível de detalhe diferente.</div>
+    <div class="origem-list">
+      <div class="origem-card"><div class="origem-icon">😤</div><div><div class="origem-tag origem-tag-c">Complaints</div><div class="origem-title">Reclamação do cliente</div><div class="origem-text">O cliente tratado abre uma reclamação em qualquer momento. Quando o setor recebe, abre um Jira para o time de qualidade verificar se a decisão foi correta. É a origem com maior janela de tempo.</div><span class="origem-pill">⏱ Até 89 dias</span></div></div>
+      <div class="origem-card"><div class="origem-icon">🤖</div><div><div class="origem-tag origem-tag-mm">Money Movements</div><div class="origem-title">Movimentação suspeita detectada pelo sistema</div><div class="origem-text">Após um case ser arquivado como OK, o sistema monitora automaticamente se aquela conta volta a ter movimentações suspeitas. Se detectar, o setor abre um Jira para revisão. Muito comum em Catch &amp; Release.</div><span class="origem-pill">⏱ ~30 dias</span></div></div>
+      <div class="origem-card"><div class="origem-icon">👀</div><div><div class="origem-tag origem-tag-d">Sinalização de Distrito</div><div class="origem-title">Identificação pela liderança ou pares</div><div class="origem-text">A liderança direta ou pares do seu distrito identificam uma inconsistência durante calibrações, revisões de QA ou discussões de caso. O Jira é aberto com o contexto já mapeado.</div><span class="origem-pill">⏱ ~15 dias</span></div></div>
+      <div class="origem-card"><div class="origem-icon">📋</div><div><div class="origem-tag origem-tag-cr">Amostragem por Scorecard</div><div class="origem-title">Revisão periódica da amostra</div><div class="origem-text">O time de qualidade extrai periodicamente uma amostra de cases finalizados para revisar. Cada distrito tem seus próprios scorecards — Catch &amp; Release, decisões de fraudador, reversões, análises PAS. Você pode ser monitorado sem nenhum gatilho específico.</div><span class="origem-pill">⏱ Variável por scorecard</span></div></div>
+    </div>
+    <div class="callout callout-violet"><strong>🎫 Em todos os caminhos, o Jira é o gatilho formal.</strong> Sem um ticket aberto, o time de qualidade não inicia a segunda checagem — independente de qual foi a origem.</div>
+  </div>
+  <div class="section" id="criticidade">
+    <div class="section-eyebrow">Criticidade</div>
+    <div class="section-title">O que cada nível significa</div>
+    <div class="section-desc">Todo apontamento tem um nível de criticidade que determina o impacto na sua nota. O nível reflete a gravidade do erro, não a intenção.</div>
+    <div class="crit-grid">
+      <div class="crit-card crit-card-red"><div class="crit-emoji">🔴</div><div class="crit-title">Crítico</div><div class="crit-pts">Scorecard zerado</div><div class="crit-text">A decisão estava errada e gerou impacto direto — para o cliente, para o negócio ou para investigações futuras.</div><div class="crit-list"><div class="crit-item">Arquivar como OK um fraudador com indícios claros</div><div class="crit-item">Não executar fluxo de postpone UV + Jira quando elegível</div><div class="crit-item">Usar método ou matriz de análise incorretos</div><div class="crit-item">Miss click que resulta em liberação de fraudador</div></div></div>
+      <div class="crit-card crit-card-amber"><div class="crit-emoji">🟡</div><div class="crit-title">Médio</div><div class="crit-pts">−1,5 pts</div><div class="crit-text">Uma etapa operacional foi pulada ou feita incorretamente. A decisão principal pode estar certa, mas algo ficou incompleto.</div><div class="crit-list"><div class="crit-item">Comunicação enviada para e-mail errado</div><div class="crit-item">Não liquidar produtos adicionais (caixinha, limbo)</div><div class="crit-item">Não contestar no Tristram quando havia contestação válida</div><div class="crit-item">Coverage Loss Range incorreto</div></div></div>
+      <div class="crit-card crit-card-green"><div class="crit-emoji">🟢</div><div class="crit-title">Baixo</div><div class="crit-pts">−0,5 pts</div><div class="crit-text">Um detalhe de registro ou classificação ficou faltando. Sem impacto direto na decisão, mas afeta estudos e monitoramentos.</div><div class="crit-list"><div class="crit-item">Análise finalizada sem registro de texto</div><div class="crit-item">Tag ausente ou incorreta</div><div class="crit-item">Campo de motivo não preenchido corretamente</div></div></div>
+    </div>
+    <div class="callout callout-blue"><strong>🎓 Grace Period:</strong> Durante adaptação a novos protocolos, seu case é avaliado normalmente — mas sem desconto na nota.</div>
+    <div class="callout callout-amber"><strong>🖱️ Miss Click vs Erro de Decisão:</strong> Miss click é quando você chegou à conclusão certa mas clicou na opção errada. Erro de decisão é quando o julgamento estava equivocado. <strong>Sem o registro da análise, não dá para distinguir os dois</strong> — sempre documente seu raciocínio.</div>
+  </div>
+  <div class="section" id="exemplos">
+    <div class="section-eyebrow">Exemplos Práticos</div>
+    <div class="section-title">Situações reais, nível a nível</div>
+    <div class="section-desc">Clique em cada exemplo para ver o que foi feito, o que era esperado e qual o impacto.</div>
+    <div class="ex-filter">
+      <button class="ex-filter-btn active" onclick="filtrarEx('todos',this)">Todos</button>
+      <button class="ex-filter-btn" onclick="filtrarEx('critico',this)">🔴 Crítico</button>
+      <button class="ex-filter-btn" onclick="filtrarEx('medio',this)">🟡 Médio</button>
+      <button class="ex-filter-btn" onclick="filtrarEx('baixo',this)">🟢 Baixo</button>
+    </div>
+    <div class="ex-list">
+      <div class="ex-card" data-nivel="critico" id="ex1"><div class="ex-head" onclick="togEx('ex1')"><span class="ex-badge ex-badge-red">🔴 Crítico</span><span class="ex-title">Indícios de DICT ignorados — case arquivado como OK</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>O analista identificou 3 registros no DICT vinculando a conta a fraudes. Mesmo assim, respondeu a calculadora sem considerar os indícios e arquivou como suspect archived.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Validar DICT/Rufra antes de responder a calculadora. Os registros indicam participação em fraude e deveriam levar à marcação como fraudster.</p></div></div><div class="ex-impact">💥 <strong>Impacto:</strong> Cliente fraudador permanece ativo. Scorecard zerado.</div></div></div>
+      <div class="ex-card" data-nivel="critico" id="ex2"><div class="ex-head" onclick="togEx('ex2')"><span class="ex-badge ex-badge-red">🔴 Crítico</span><span class="ex-title">Fluxo UV + Jira não executado após fechar como fraudster</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Marcou corretamente como fraudster em report proativo, mas não realizou o apontamento UV nem executou o fluxo de postpone UV + Jira.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Após fechar como fraudster em case elegível, verificar critério UV e executar o fluxo completo de postpone + Jira antes de finalizar.</p></div></div><div class="ex-impact">💥 <strong>Impacto:</strong> Case não rastreado, comprometendo investigações futuras. Desconto máximo.</div></div></div>
+      <div class="ex-card" data-nivel="critico" id="ex3"><div class="ex-head" onclick="togEx('ex3')"><span class="ex-badge ex-badge-red">🔴 Crítico</span><span class="ex-title">Miss click — análise diz fraudster, ação registra OK</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que aconteceu</div><p>O analista registrou "fechar como fraudster" na análise, mas clicou em "suspect archived" por engano ao finalizar.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ Como fica a avaliação</div><p>O time de qualidade identifica o miss click pela inconsistência entre texto e ação. O registro do texto é o que comprova a intenção do analista.</p></div></div><div class="ex-impact">💡 <strong>Por que o registro importa:</strong> Sem o texto, não há como diferenciar miss click de erro de decisão.</div></div></div>
+      <div class="ex-card" data-nivel="medio" id="ex4"><div class="ex-head" onclick="togEx('ex4')"><span class="ex-badge ex-badge-amber">🟡 Médio</span><span class="ex-title">Comunicação enviada para e-mail errado</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Enviou a macro pelo Zendesk sem verificar se o e-mail era o mesmo cadastrado no BKO. Os sistemas tinham endereços diferentes e o cliente não recebeu nada.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Conferir o e-mail no BKO e no Zendesk antes de enviar. Quando diferentes, usar o protocolo correto para o caso.</p></div></div><div class="ex-impact">⚠️ <strong>Impacto:</strong> Cliente sem retorno. Experiência prejudicada. −1,5 pts.</div></div></div>
+      <div class="ex-card" data-nivel="medio" id="ex5"><div class="ex-head" onclick="togEx('ex5')"><span class="ex-badge ex-badge-amber">🟡 Médio</span><span class="ex-title">Contestação válida não realizada no Tristram</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Identificou a vítima corretamente e registrou bem a análise, mas não contestou a transação no Tristram mesmo havendo contestação válida no sistema.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Sempre que houver contestação válida, realizar o procedimento no Tristram antes de finalizar o case.</p></div></div><div class="ex-impact">⚠️ <strong>Impacto:</strong> Valor pode não ser devolvido à vítima. −1,5 pts.</div></div></div>
+      <div class="ex-card" data-nivel="medio" id="ex6"><div class="ex-head" onclick="togEx('ex6')"><span class="ex-badge ex-badge-amber">🟡 Médio</span><span class="ex-title">Saldo em caixinha não liquidado ao fechar como fraudster</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Cancelou corretamente a conta e os cartões, mas não verificou nem liquidou o saldo retido na caixinha do cliente.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Ao fechar como fraudster, verificar todos os produtos adicionais — caixinha, limbo, cripto — e resgatar conforme protocolo.</p></div></div><div class="ex-impact">⚠️ <strong>Impacto:</strong> Fraudador pode resgatar valores bloqueados. −1,5 pts.</div></div></div>
+      <div class="ex-card" data-nivel="baixo" id="ex7"><div class="ex-head" onclick="togEx('ex7')"><span class="ex-badge ex-badge-green">🟢 Baixo</span><span class="ex-title">Análise finalizada sem registro de texto</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Finalizou o case como fraudster com a decisão correta, mas não registrou nenhum texto na análise. O campo ficou em branco.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Registrar os principais indícios e como eles embasaram a decisão — mesmo em cases simples, o registro protege o analista em caso de contestação.</p></div></div><div class="ex-impact">📋 <strong>Impacto:</strong> Dificulta auditorias e contestações futuras. −0,5 pts.</div></div></div>
+      <div class="ex-card" data-nivel="baixo" id="ex8"><div class="ex-head" onclick="togEx('ex8')"><span class="ex-badge ex-badge-green">🟢 Baixo</span><span class="ex-title">Tag de esquema não adicionada</span><span class="ex-chev">▾</span></div><div class="ex-body"><div class="ex-row"><div class="ex-col ex-col-fez"><div class="ex-col-label">❌ O que foi feito</div><p>Fechou o case como fraudster com pejotização claramente identificada na análise, mas não adicionou a tag correspondente ao tipo de esquema.</p></div><div class="ex-col ex-col-dev"><div class="ex-col-label">✅ O que era esperado</div><p>Inserir todas as tags conforme protocolo. Tags alimentam estudos internos e monitoramentos de padrão de fraude.</p></div></div><div class="ex-impact">📋 <strong>Impacto:</strong> Estudos e monitoramentos perdem precisão. −0,5 pts.</div></div></div>
+    </div>
+  </div>
+  <div class="section" id="quiz">
+    <div class="section-eyebrow">Quiz</div>
+    <div class="section-title">Você entendeu tudo? 🎮</div>
+    <div class="section-desc">10 questões sobre origens, prazos e criticidade. Cada erro custa uma vida — boa sorte! 👀</div>
+    <div class="quiz-wrap">
+      <div class="quiz-header"><h3>Quiz de Monitoria</h3><p>Origens · Prazos · Criticidade · Exemplos</p></div>
+      <div class="quiz-hud">
+        <div class="quiz-prog-wrap"><div class="quiz-prog-label">Questão <span id="q-num">1</span> de 10</div><div class="quiz-prog-bar"><div class="quiz-prog-fill" id="q-fill" style="width:10%"></div></div></div>
+        <div class="quiz-score-box"><div class="quiz-score-lbl">Pontos</div><div class="quiz-score-val" id="q-score">0</div></div>
+        <div class="quiz-lives" id="q-lives">❤️❤️❤️</div>
+      </div>
+      <div class="quiz-body" id="quiz-game">
+        <div class="quiz-streak" id="q-streak"><div class="streak-dot" id="s0"></div><div class="streak-dot" id="s1"></div><div class="streak-dot" id="s2"></div><div class="streak-dot" id="s3"></div><div class="streak-dot" id="s4"></div></div>
+        <div class="quiz-scenario" id="q-scenario"><div class="quiz-scenario-label">📂 Cenário</div><div class="quiz-scenario-text" id="q-scenario-text"></div></div>
+        <div class="quiz-question" id="q-question"></div>
+        <div class="quiz-opts" id="q-opts"></div>
+        <div class="quiz-feedback" id="q-feedback"><div class="quiz-feedback-header"><span class="quiz-feedback-emoji" id="q-fb-emoji"></span><span class="quiz-feedback-title" id="q-fb-title"></span></div><div class="quiz-feedback-text" id="q-fb-text"></div></div>
+        <button class="btn-next-quiz" id="q-btn-next" onclick="nextQ()">Próxima →</button>
+      </div>
+      <div class="quiz-result" id="quiz-result">
+        <span class="quiz-result-trophy" id="q-trophy"></span>
+        <div class="quiz-result-title" id="q-result-title"></div>
+        <div class="quiz-result-sub" id="q-result-sub"></div>
+        <div class="quiz-result-score"><div class="quiz-result-score-num" id="q-result-score">0</div><div class="quiz-result-score-lbl">pontos</div><div class="quiz-result-bar-wrap"><div class="quiz-result-bar" id="q-result-bar" style="width:0%"></div></div></div>
+        <div class="quiz-result-msg" id="q-result-msg"></div>
+        <div class="quiz-result-stats"><div class="quiz-result-stat"><div class="quiz-result-stat-num" id="q-acertos">0</div><div class="quiz-result-stat-lbl">✅ Acertos</div></div><div class="quiz-result-stat"><div class="quiz-result-stat-num" id="q-erros">0</div><div class="quiz-result-stat-lbl">❌ Erros</div></div><div class="quiz-result-stat"><div class="quiz-result-stat-num" id="q-combo">0</div><div class="quiz-result-stat-lbl">🔥 Maior combo</div></div></div>
+        <button class="btn-retry" onclick="initQuiz()">🔄 Tentar de novo</button>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>🔬 Fraud Quality Team · Nubank · 2026 &nbsp;·&nbsp; <a href="sobre.html">O Processo</a> &nbsp;·&nbsp; <a href="index.html">Guia da Operação</a> &nbsp;·&nbsp; <a href="quiz.html">Quiz avançado</a></footer>
+<script>
+function scrollTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const id=e.target.id;const mapping={como:'Como funciona',timeline:'Linha do tempo',origens:'Origens',criticidade:'Criticidade',exemplos:'Exemplos',quiz:'🎮 Quiz'};document.querySelectorAll('.anav-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.anav-btn').forEach(b=>{if(b.textContent.trim()===mapping[id])b.classList.add('active');});}});},{threshold:0.3});
+['como','timeline','origens','criticidade','exemplos','quiz'].forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el);});
+function showTl(id,btn){['c','m','d'].forEach(k=>{document.getElementById('tl-'+k)?.classList.toggle('active',k===id);});document.querySelectorAll('.tl-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');}
+function togEx(id){document.getElementById(id).classList.toggle('open');}
+function filtrarEx(tipo,btn){document.querySelectorAll('.ex-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.ex-card').forEach(c=>{c.style.display=(tipo==='todos'||c.dataset.nivel===tipo)?'':'none';});}
+const QS=[
+{scenario:'Uma análise de Mule Account foi arquivada como OK. Duas semanas depois, o sistema detectou que a conta voltou a movimentar valores para beneficiários com histórico de fraude.',question:'Qual é a origem desse apontamento?',correct:'mm',opts:[{id:'mm',l:'Money Movements',s:'Sistema detecta movimentação após arquivamento'},{id:'c',l:'Complaint',s:'Cliente abriu uma reclamação'},{id:'d',l:'Sinalização de Distrito',s:'Liderança identificou inconsistência'}],fb_ok:'Exato! O sistema de Money Movements monitora contas arquivadas como OK automaticamente.',fb_err:'Essa é Money Movements! O gatilho foi o sistema detectando movimentação suspeita — sem nenhuma reclamação do cliente.'},
+{scenario:'Um analista tratou um case em março. Em junho — 80 dias depois — um apontamento apareceu no dashboard originado por uma complaint.',question:'Esse apontamento é válido dentro do prazo?',correct:'sim',opts:[{id:'sim',l:'Sim, está dentro do prazo',s:'O limite é de 89 dias a partir da ação'},{id:'nao',l:'Não, passou do prazo',s:'Achei que o cliente tinha 40 dias para reclamar'},{id:'dep',l:'Depende de quando o cliente reclamou',s:'O prazo começa quando a reclamação chega'}],fb_ok:'Correto! O prazo de 89 dias conta a partir da ação do analista. O cliente pode reclamar a qualquer momento.',fb_err:'Está dentro do prazo! O limite de 89 dias conta da ação do analista — não existe prazo fixo para o cliente reclamar.'},
+{scenario:'Uma liderança identifica durante calibração que um analista tomou uma decisão inconsistente na semana anterior e abre um Jira direto para o time de qualidade.',question:'Qual é a janela típica para esse apontamento chegar?',correct:'15',opts:[{id:'15',l:'~15 dias',s:'Sinalização de Distrito — caminho mais rápido'},{id:'30',l:'~30 dias',s:'Janela típica de Money Movements'},{id:'89',l:'Até 89 dias',s:'Janela máxima de Complaints'}],fb_ok:'Isso aí! Sinalizações de Distrito são o caminho mais rápido — ~15 dias.',fb_err:'A janela de Distrito é ~15 dias — o mais rápido dos três caminhos!'},
+{scenario:'O analista identificou a fraude, documentou os indícios e fechou como fraudster. Mas ao finalizar, clicou em "suspect archived" por engano — o texto dizia claramente "fechar como fraudster".',question:'Como esse erro é classificado?',correct:'miss',opts:[{id:'miss',l:'Miss Click — erro operacional',s:'Julgamento correto, ação errada'},{id:'dec',l:'Erro de Decisão',s:'Julgamento incorreto'},{id:'crit',l:'Crítico sem distinção',s:'O impacto é o mesmo, não importa o tipo'}],fb_ok:'Exato! É um Miss Click — julgamento correto, ação errada. O registro da análise comprova isso.',fb_err:'É um Miss Click! O analista chegou à conclusão certa — o erro foi mecânico. O registro é a prova.'},
+{scenario:'Um analista finalizou um case como fraudster corretamente, mas o time de qualidade notou que ele não verificou nem liquidou o saldo retido na caixinha.',question:'Qual o nível de criticidade?',correct:'medio',opts:[{id:'critico',l:'🔴 Crítico',s:'Decisão errada — impacto direto'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional incompleta'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de registro'}],fb_ok:'Certo! A decisão estava correta — não é Crítico. Mas não liquidar a caixinha é uma falha operacional com consequência real. Médio: −1,5 pts.',fb_err:'É Médio! A decisão estava certa, mas deixar a caixinha sem liquidar é uma falha operacional.'},
+{scenario:'O analista não registrou nenhum texto na análise antes de fechar o case. A decisão estava correta, mas o campo ficou completamente em branco.',question:'Qual o nível de criticidade?',correct:'baixo',opts:[{id:'critico',l:'🔴 Crítico',s:'Impacto direto no resultado'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional incompleta'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de registro sem impacto direto'}],fb_ok:'Isso! Sem registro é Baixo. A decisão estava certa. Mas dificulta auditorias e impede distinguir miss click de erro de decisão.',fb_err:'É Baixo! A decisão estava certa. O problema é a falta de registro.'},
+{scenario:'O analista usou a versão desatualizada da Matriz Mule. Com a matriz correta, o case seria fechado como fraudster — mas com a versão antiga, foi arquivado como OK.',question:'Qual o nível de criticidade?',correct:'critico',opts:[{id:'critico',l:'🔴 Crítico',s:'Método incorreto levou à decisão errada'},{id:'medio',l:'🟡 Médio',s:'Erro operacional sem impacto na decisão'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de processo'}],fb_ok:'Certíssimo! Usar método errado e chegar à decisão errada é Crítico. Um fraudador foi liberado.',fb_err:'É Crítico! Usar o método errado e chegar à decisão errada é o cenário de maior gravidade.'},
+{scenario:'Em qual situação o Jira NÃO precisa ser aberto para que o apontamento chegue ao analista?',question:'Selecione a alternativa correta:',correct:'nenhuma',opts:[{id:'nenhuma',l:'Em nenhuma — o Jira é sempre necessário',s:'É o gatilho formal em todos os caminhos'},{id:'mm',l:'Money Movements',s:'O sistema detecta sozinho, sem precisar de Jira'},{id:'d',l:'Sinalização de Distrito',s:'A liderança avisa o analista diretamente'}],fb_ok:'Exato! O Jira é o gatilho formal em todos os caminhos — sem ele, a segunda checagem não é iniciada.',fb_err:'O Jira é sempre necessário! É o gatilho formal que inicia a segunda checagem — independente da origem.'},
+{scenario:'O analista não contestou uma transação no Tristram mesmo tendo uma contestação válida no sistema. A identificação da vítima e o registro estavam corretos.',question:'Qual o nível de criticidade?',correct:'medio',opts:[{id:'critico',l:'🔴 Crítico',s:'A decisão principal estava errada'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional incompleta'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de registro'}],fb_ok:'Correto! A decisão estava certa — não é Crítico. Mas pular a contestação no Tristram pode impedir a devolução do valor à vítima.',fb_err:'É Médio! A decisão estava certa, mas não contestar no Tristram é uma falha operacional que prejudica a vítima.'},
+{scenario:'Uma análise foi selecionada para monitoria sem nenhum gatilho específico — nem complaint, nem Money Movements, nem sinalização. O case entrou na revisão periódica do scorecard.',question:'Qual é a origem dessa monitoria?',correct:'sc',opts:[{id:'sc',l:'Amostragem por Scorecard',s:'Revisão periódica — sem gatilho específico'},{id:'c',l:'Complaint',s:'Cliente reclamou'},{id:'d',l:'Sinalização de Distrito',s:'Liderança identificou o case'}],fb_ok:'Isso! A amostragem por scorecard acontece periodicamente, sem depender de nenhum gatilho. Qualquer case pode entrar.',fb_err:'É Amostragem por Scorecard! O time extrai amostras periodicamente — sem nenhum gatilho específico.'},
+{scenario:'Um analista fechou corretamente um case como fraudster, mas não adicionou a tag de pejotização mesmo tendo identificado o esquema na análise.',question:'Qual o nível de criticidade?',correct:'baixo',opts:[{id:'critico',l:'🔴 Crítico',s:'Impacto direto na decisão'},{id:'medio',l:'🟡 Médio',s:'Etapa operacional com impacto no cliente'},{id:'baixo',l:'🟢 Baixo',s:'Detalhe de classificação interna'}],fb_ok:'Correto! Tag ausente é Baixo — a decisão estava certa e não há impacto direto no cliente. Afeta estudos internos. −0,5 pts.',fb_err:'É Baixo! A decisão estava certa. Tag ausente afeta monitoramentos internos, mas sem impacto direto no cliente.'}
+];
+let qIdx=0,score=0,lives=3,streak=0,maxStreak=0,answered=false,acertos=0,erros=0,shuffled=[];
+function shuffle(a){return[...a].sort(()=>Math.random()-.5);}
+function initQuiz(){qIdx=0;score=0;lives=3;streak=0;maxStreak=0;answered=false;acertos=0;erros=0;shuffled=shuffle(QS);document.getElementById('quiz-game').style.display='block';document.getElementById('quiz-result').style.display='none';updateLives();renderQ();}
+function updateLives(){let h='';for(let i=0;i<3;i++)h+=i<lives?'❤️':'🖤';document.getElementById('q-lives').innerHTML=h;}
+function updateStreak(){for(let i=0;i<5;i++){const d=document.getElementById('s'+i);if(d)d.className='streak-dot'+(i<streak?' lit':'');}}
+function renderQ(){answered=false;const q=shuffled[qIdx];document.getElementById('q-num').textContent=qIdx+1;document.getElementById('q-fill').style.width=`${((qIdx+1)/11)*100}%`;document.getElementById('q-score').textContent=score;document.getElementById('q-scenario-text').innerHTML=q.scenario;document.getElementById('q-question').textContent=q.question;document.getElementById('q-feedback').className='quiz-feedback';document.getElementById('q-btn-next').className='btn-next-quiz';updateStreak();const wrap=document.getElementById('q-opts');wrap.innerHTML='';q.opts.forEach(o=>{const btn=document.createElement('button');btn.className='quiz-opt';btn.dataset.id=o.id;btn.innerHTML=`<div class="quiz-opt-icon">○</div><div><div class="quiz-opt-label">${o.l}</div><div class="quiz-opt-sub">${o.s}</div></div>`;btn.onclick=()=>answer(o.id);wrap.appendChild(btn);});}
+function answer(chosen){if(answered)return;answered=true;const q=shuffled[qIdx];const ok=chosen===q.correct;document.querySelectorAll('.quiz-opt').forEach(b=>{b.disabled=true;if(b.dataset.id===q.correct)b.classList.add(ok&&b.dataset.id===chosen?'correct':'reveal');if(b.dataset.id===chosen&&!ok)b.classList.add('wrong');b.querySelector('.quiz-opt-icon').textContent=b.dataset.id===q.correct?'✓':'○';});if(ok){streak++;if(streak>maxStreak)maxStreak=streak;acertos++;const bonus=Math.min((streak-1)*5,25);score+=10+bonus;document.getElementById('q-score').textContent=score;if(streak>=2)showCombo(streak,bonus);}else{streak=0;erros++;lives--;updateLives();}updateStreak();const fb=document.getElementById('q-feedback');fb.className='quiz-feedback '+(ok?'quiz-feedback-correct':'quiz-feedback-wrong')+' show';document.getElementById('q-fb-emoji').textContent=ok?['🎯','✨','🔥','💪','👏'][Math.floor(Math.random()*5)]:['😬','😅','🤔'][Math.floor(Math.random()*3)];document.getElementById('q-fb-title').textContent=ok?'Isso aí!':'Quase!';document.getElementById('q-fb-text').textContent=ok?q.fb_ok:q.fb_err;const btn=document.getElementById('q-btn-next');btn.className='btn-next-quiz show';btn.textContent=(qIdx>=shuffled.length-1||lives<=0)?'Ver resultado →':'Próxima →';}
+function nextQ(){qIdx++;if(qIdx>=shuffled.length||lives<=0)showResult();else renderQ();}
+function showResult(){document.getElementById('quiz-game').style.display='none';document.getElementById('quiz-result').style.display='block';let trophy,title,sub,msg;if(score>=90){trophy='🏆';title='Craque da monitoria!';sub='Você entendeu tudo — impressionante.';msg='Perfeito ou quase! Você domina origens, prazos e criticidade.';launchConfetti();}else if(score>=60){trophy='🎯';title='Muito bem!';sub='Tá entendendo o processo.';msg='Boa performance! Uns detalhes ainda escaparam, mas a base está ótima.';}else if(score>=30){trophy='📚';title='Quase lá!';sub='Vale revisar algumas partes.';msg='Você tem a ideia geral, mas alguns conceitos merecem uma revisada.';}else{trophy='💡';title='Bora revisar!';sub='O guia tem tudo que você precisa.';msg='Sem pressão — o processo tem muitos detalhes. Lê o guia e tenta de novo!';}document.getElementById('q-trophy').textContent=trophy;document.getElementById('q-result-title').textContent=title;document.getElementById('q-result-sub').textContent=sub;document.getElementById('q-result-msg').textContent=msg;document.getElementById('q-result-score').textContent=score;document.getElementById('q-acertos').textContent=acertos+'/11';document.getElementById('q-erros').textContent=erros+'/11';document.getElementById('q-combo').textContent=maxStreak>0?'x'+maxStreak:'—';setTimeout(()=>{document.getElementById('q-result-bar').style.width=Math.min(score,100)+'%';},300);}
+function showCombo(s,b){const t=document.getElementById('combo-toast');const m={2:'🔥 Combo x2!',3:'⚡ Combo x3!',4:'🚀 Combo x4!',5:'💥 COMBO x5!'};t.textContent=(m[s]||`🌟 Combo x${s}!`)+(b>0?` +${b} bônus`:'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+function launchConfetti(){const c=document.getElementById('confetti-canvas');const ctx=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;const cols=['#6B3FE4','#A855F7','#C4B5FD','#F59E0B','#10B981','#EF4444'];const ps=Array.from({length:100},()=>({x:Math.random()*c.width,y:-10,w:6+Math.random()*7,h:9+Math.random()*7,col:cols[Math.floor(Math.random()*cols.length)],vx:(Math.random()-.5)*4,vy:2+Math.random()*3,rot:Math.random()*360,vr:(Math.random()-.5)*5,op:1}));let f=0;(function draw(){ctx.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;if(f>70)p.op-=0.018;ctx.save();ctx.globalAlpha=Math.max(0,p.op);ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});f++;if(f<130)requestAnimationFrame(draw);else ctx.clearRect(0,0,c.width,c.height);})();}
+initQuiz();
+</script>
+</body>
+</html>
