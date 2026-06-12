@@ -7,7 +7,6 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-  /* ===== DARK THEME (default) ===== */
   :root, [data-theme="dark"] {
     --nu-purple: #8a05be;
     --nu-purple-light: #a020d4;
@@ -37,8 +36,6 @@
     --shadow-btn: rgba(138,5,190,0.4);
     --shadow-btn-hover: rgba(138,5,190,0.5);
   }
-
-  /* ===== LIGHT THEME ===== */
   [data-theme="light"] {
     --nu-purple: #7b04a8;
     --nu-purple-light: #9010c0;
@@ -69,110 +66,30 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--nu-bg);
-    color: var(--nu-text);
-    line-height: 1.6;
-    overflow-x: hidden;
-    transition: background 0.3s, color 0.3s;
-  }
+  body { font-family: 'Inter', sans-serif; background: var(--nu-bg); color: var(--nu-text); line-height: 1.6; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--nu-border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .nav-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700; font-size: 1.1rem;
-    color: var(--nu-lilac);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .nav-logo span {
-    background: var(--nu-purple);
-    color: white;
-    padding: 2px 8px; border-radius: 4px;
-    font-size: 0.75rem; letter-spacing: 0.05em;
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--nav-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--nu-border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; transition: background 0.3s, border-color 0.3s; }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--nu-lilac); display: flex; align-items: center; gap: 10px; }
+  .nav-logo span { background: var(--nu-purple); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; letter-spacing: 0.05em; }
   .nav-right { display: flex; align-items: center; gap: 1.5rem; }
   .nav-links { display: flex; gap: 1.5rem; list-style: none; }
   .nav-links a { color: var(--nu-muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover { color: var(--nu-lilac); }
 
-  /* THEME TOGGLE */
-  .theme-toggle {
-    background: var(--nu-card);
-    border: 1.5px solid var(--nu-border);
-    border-radius: 100px;
-    padding: 4px;
-    display: flex; align-items: center; gap: 2px;
-    cursor: pointer;
-    transition: all 0.25s;
-    flex-shrink: 0;
-  }
+  .theme-toggle { background: var(--nu-card); border: 1.5px solid var(--nu-border); border-radius: 100px; padding: 4px; display: flex; align-items: center; gap: 2px; cursor: pointer; transition: all 0.25s; flex-shrink: 0; }
   .theme-toggle:hover { border-color: var(--nu-purple); }
-  .theme-btn {
-    width: 30px; height: 26px;
-    border-radius: 100px;
-    border: none; background: transparent;
-    cursor: pointer; font-size: 0.85rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-    color: var(--nu-muted);
-  }
-  .theme-btn.active {
-    background: var(--nu-purple);
-    color: white;
-  }
+  .theme-btn { width: 30px; height: 26px; border-radius: 100px; border: none; background: transparent; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; color: var(--nu-muted); }
+  .theme-btn.active { background: var(--nu-purple); color: white; }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 80px 2rem 4rem;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
-    width: 800px; height: 800px;
-    background: radial-gradient(circle, var(--hero-glow) 0%, transparent 70%);
-    pointer-events: none;
-    transition: background 0.3s;
-  }
-  .hero-tag {
-    display: inline-block;
-    background: var(--info-bg);
-    border: 1px solid var(--nu-purple);
-    color: var(--nu-lilac);
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 16px; border-radius: 100px;
-    margin-bottom: 1.5rem;
-  }
-  h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 4.2rem);
-    font-weight: 700; line-height: 1.1; margin-bottom: 1.2rem;
-  }
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 2rem 4rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, var(--hero-glow) 0%, transparent 70%); pointer-events: none; transition: background 0.3s; }
+  .hero-tag { display: inline-block; background: var(--info-bg); border: 1px solid var(--nu-purple); color: var(--nu-lilac); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; margin-bottom: 1.5rem; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.2rem; }
   h1 em { font-style: normal; color: var(--nu-lilac); }
   .hero-sub { font-size: 1.15rem; color: var(--nu-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; }
   .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  .btn {
-    padding: 0.75rem 2rem; border-radius: 100px;
-    font-weight: 600; font-size: 0.95rem;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
-  }
+  .btn { padding: 0.75rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; }
   .btn-primary { background: var(--nu-purple); color: white; box-shadow: 0 4px 20px var(--shadow-btn); }
   .btn-primary:hover { background: var(--nu-purple-light); transform: translateY(-2px); box-shadow: 0 8px 28px var(--shadow-btn-hover); }
   .btn-outline { background: transparent; color: var(--nu-lilac); border: 1.5px solid var(--nu-border); }
@@ -180,7 +97,7 @@
 
   section { padding: 5rem 2rem; transition: background 0.3s; }
   .container { max-width: 1100px; margin: 0 auto; }
-  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--nu-purple-light, var(--nu-purple)); margin-bottom: 0.75rem; }
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--nu-purple); margin-bottom: 0.75rem; }
   h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
   .section-desc { color: var(--nu-muted); max-width: 560px; font-size: 1.05rem; }
 
@@ -192,7 +109,27 @@
   .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
   .card p { font-size: 0.9rem; color: var(--nu-muted); line-height: 1.6; }
 
-  #scorecards { background: var(--nu-bg); }
+  /* LINKS ÚTEIS */
+  #links { background: var(--nu-bg); }
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
+  .link-card {
+    background: var(--nu-card);
+    border: 1px solid var(--nu-border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 1rem;
+    transition: border-color 0.25s, transform 0.2s, background 0.3s;
+  }
+  .link-card:hover { border-color: var(--nu-purple); transform: translateY(-2px); }
+  .link-card-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .link-card-text { display: flex; flex-direction: column; gap: 2px; }
+  .link-card-title { font-weight: 600; font-size: 0.95rem; color: var(--nu-text); }
+  .link-card-desc { font-size: 0.8rem; color: var(--nu-muted); }
+  .link-card-arrow { margin-left: auto; color: var(--nu-purple); font-size: 1rem; flex-shrink: 0; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
+  .link-card:hover .link-card-arrow { opacity: 1; transform: translateX(3px); }
+
+  #scorecards { background: var(--nu-surface); }
   .accordion { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
   .acc-item { background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); overflow: hidden; transition: background 0.3s; }
   .acc-header { padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; transition: background 0.2s; }
@@ -221,14 +158,14 @@
   .fail-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
   .fail-card p { font-size: 0.8rem; color: var(--nu-muted); line-height: 1.5; }
 
-  #feedback { background: var(--nu-surface); }
+  #feedback { background: var(--nu-bg); }
   .feedback-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
   @media (max-width: 680px) { .feedback-wrap { grid-template-columns: 1fr; } }
   .feedback-box { background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); padding: 1.5rem; transition: background 0.3s; }
   .feedback-box h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
   .feedback-box pre { background: var(--pre-bg); border: 1px solid var(--nu-border); border-radius: var(--radius-sm); padding: 1rem; font-size: 0.8rem; color: var(--nu-lilac); white-space: pre-wrap; font-family: 'Space Grotesk', monospace; line-height: 1.7; transition: background 0.3s; }
 
-  #contestacao { background: var(--nu-bg); }
+  #contestacao { background: var(--nu-surface); }
   .steps { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
   .step { display: flex; gap: 1.2rem; background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); padding: 1.3rem 1.5rem; transition: background 0.3s; }
   .step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--nu-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: white; }
@@ -239,7 +176,7 @@
   .tag-proc { background: rgba(105,219,124,0.12); color: var(--baixo); border: 1px solid rgba(105,219,124,0.3); }
   .tag-improc { background: rgba(255,77,109,0.12); color: var(--alto); border: 1px solid rgba(255,77,109,0.3); }
 
-  #quiz { background: var(--nu-surface); }
+  #quiz { background: var(--nu-bg); }
   .quiz-tabs { display: flex; gap: 0.5rem; margin: 2rem 0 1.5rem; flex-wrap: wrap; }
   .quiz-tab { padding: 0.5rem 1.2rem; border-radius: 100px; border: 1.5px solid var(--nu-border); background: transparent; color: var(--nu-muted); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; font-family: 'Inter', sans-serif; }
   .quiz-tab:hover { border-color: var(--nu-purple); color: var(--nu-lilac); }
@@ -275,6 +212,10 @@
   .info-box { background: var(--info-bg); border: 1px solid var(--info-border); border-radius: var(--radius-sm); padding: 1rem 1.2rem; font-size: 0.88rem; color: var(--nu-muted); margin: 1rem 0; display: flex; gap: 10px; align-items: flex-start; transition: background 0.3s; }
   .info-box .icon { flex-shrink: 0; font-size: 1rem; margin-top: 1px; }
 
+  /* inline link style */
+  .nu-link { color: var(--nu-lilac); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .nu-link:hover { border-color: var(--nu-lilac); }
+
   @media (max-width: 768px) {
     nav { padding: 0 1rem; }
     .nav-links { display: none; }
@@ -290,6 +231,7 @@
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#sobre">O que é</a></li>
+      <li><a href="#links">Links</a></li>
       <li><a href="#scorecards">Scorecards</a></li>
       <li><a href="#feedback">Feedback</a></li>
       <li><a href="#contestacao">Contestação</a></li>
@@ -308,12 +250,13 @@
     <h1>Entenda como<br><em>sua monitoria</em><br>funciona</h1>
     <p class="hero-sub">Aqui você encontra tudo sobre os scorecards, critérios de avaliação e como contestar uma monitoria com a qual você discorda.</p>
     <div class="hero-cta">
-      <a href="#scorecards" class="btn btn-primary">📋 Ver Scorecards</a>
+      <a href="#links" class="btn btn-primary">🔗 Acessar ferramentas</a>
       <a href="#quiz" class="btn btn-outline">🧠 Fazer Quiz</a>
     </div>
   </div>
 </section>
 
+<!-- O QUE É -->
 <section id="sobre">
   <div class="container">
     <div class="section-label">Contexto</div>
@@ -323,7 +266,7 @@
       <div class="card"><div class="card-icon">🎯</div><h3>Objetivo</h3><p>Garantir a conformidade dos dados dos processos, atuando de forma orientadora e colaborativa para excelência na experiência do cliente.</p></div>
       <div class="card"><div class="card-icon">📊</div><h3>Scorecards no Spot</h3><p>São formulários de avaliação que transformam critérios qualitativos em notas objetivas — usados para feedback, calibragem e métricas de performance.</p></div>
       <div class="card"><div class="card-icon">🔍</div><h3>O que é monitorado</h3><p>Interações de BKO, chat, e-mail e phone dos analistas dos distritos de Investigative Operations — Mule Account, Identity Fraud, Victim Prevention, Gamers e Transactional.</p></div>
-      <div class="card"><div class="card-icon">📈</div><h3>Onde acompanhar</h3><p>Suas monitorias ficam disponíveis no dash individual na aba <strong>Qualidade</strong>, com detalhamento completo por scorecard.</p></div>
+      <div class="card"><div class="card-icon">📈</div><h3>Onde acompanhar</h3><p>Suas monitorias ficam disponíveis no <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener" class="nu-link">Dash Individual</a> na aba <strong>Qualidade</strong>, com detalhamento completo por scorecard.</p></div>
     </div>
     <div style="margin-top:2.5rem;">
       <div class="section-label">Grace Period</div>
@@ -333,6 +276,42 @@
   </div>
 </section>
 
+<!-- LINKS ÚTEIS -->
+<section id="links">
+  <div class="container">
+    <div class="section-label">Ferramentas</div>
+    <h2>Links Úteis</h2>
+    <p class="section-desc">Acesso rápido às ferramentas do dia a dia do Fraud Quality.</p>
+    <div class="links-grid">
+      <a href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">🎫</div>
+        <div class="link-card-text">
+          <span class="link-card-title">Portal Jira Quality</span>
+          <span class="link-card-desc">Abrir contestação de monitoria</span>
+        </div>
+        <span class="link-card-arrow">→</span>
+      </a>
+      <a href="https://docs.google.com/document/d/1CI71QUlVb2iGZZpydH_r4RLkhL5vyfJ65Azv50IRibU/edit?tab=t.0" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">📖</div>
+        <div class="link-card-text">
+          <span class="link-card-title">Cardteca — Mule Account</span>
+          <span class="link-card-desc">Documentação e processos do distrito MA</span>
+        </div>
+        <span class="link-card-arrow">→</span>
+      </a>
+      <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener" class="link-card">
+        <div class="link-card-icon">📊</div>
+        <div class="link-card-text">
+          <span class="link-card-title">Dash Individual de Qualidade</span>
+          <span class="link-card-desc">Acompanhe suas monitorias e notas</span>
+        </div>
+        <span class="link-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SCORECARDS -->
 <section id="scorecards">
   <div class="container">
     <div class="section-label">Avaliação</div>
@@ -439,6 +418,7 @@
   </div>
 </section>
 
+<!-- FEEDBACK -->
 <section id="feedback">
   <div class="container">
     <div class="section-label">Feedback</div>
@@ -486,22 +466,23 @@ Fraud Quality Team.</pre>
   </div>
 </section>
 
+<!-- CONTESTAÇÃO -->
 <section id="contestacao">
   <div class="container">
     <div class="section-label">Contestação</div>
     <h2>Como Contestar uma Monitoria</h2>
-    <p class="section-desc">Discordou de uma monitoria? Veja como abrir sua contestação pelo Portal Jira Quality.</p>
+    <p class="section-desc">Discordou de uma monitoria? Veja como abrir sua contestação pelo <a href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener" class="nu-link">Portal Jira Quality</a>.</p>
     <div class="info-box" style="margin-top:1.5rem;"><span class="icon">📅</span><span>Prazo: a contestação deve ser aberta até o <strong style="color:var(--nu-text)">3º dia útil do mês seguinte</strong> à data da monitoria. Após esse prazo, não é possível prosseguir com a revisão.</span></div>
     <div class="steps">
       <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Verifique se está dentro do prazo</h4><p>A contestação só pode ser aberta até o 3º dia útil do mês seguinte à monitoria. Confirme a data antes de prosseguir.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Acesse o Portal Jira Quality</h4><p>Abra um ticket na seção <strong>"Contestação - operação"</strong>. O campo "Abrir esta requisição em nome de" é preenchido automaticamente.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Acesse o Portal Jira Quality</h4><p>Abra um ticket em <a href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener" class="nu-link">Contestação — operação</a>. O campo "Abrir esta requisição em nome de" é preenchido automaticamente.</p></div></div>
       <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Preencha os campos obrigatórios</h4><p>Informe: Distrito, Customer ID (CID), confirme que está na janela de contestação (SIM/NÃO), nome do card utilizado e descreva o que você acredita que não foi avaliado corretamente — sempre com base em materiais de apoio oficiais.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Aguarde a análise</h4><p>Um qualiter realizará a análise em até <strong>48 horas úteis</strong>. O resultado aparece no Dashboard Individual de Métricas em até 48h após a análise.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Aguarde a análise</h4><p>Um qualiter realizará a análise em até <strong>48 horas úteis</strong>. O resultado aparece no <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener" class="nu-link">Dashboard Individual de Métricas</a> em até 48h após a análise.</p></div></div>
     </div>
     <div style="margin-top:2rem;">
       <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:1rem;">O que conta como alinhamento oficial?</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-        <div class="feedback-box" style="border-color:rgba(105,219,124,0.3);"><h3 style="color:var(--baixo);">✅ Aceito</h3><ul style="font-size:0.85rem;color:var(--nu-muted);line-height:2;padding-left:1rem;"><li>Comunicados nos canais oficiais do distrito</li><li>Comunicados no <strong style="color:var(--nu-text)">fraud-informa</strong></li><li>Alinhamentos em canais de testes de novo processo</li><li>Cards no Weduka ou Cardteca</li></ul></div>
+        <div class="feedback-box" style="border-color:rgba(105,219,124,0.3);"><h3 style="color:var(--baixo);">✅ Aceito</h3><ul style="font-size:0.85rem;color:var(--nu-muted);line-height:2;padding-left:1rem;"><li>Comunicados nos canais oficiais do distrito</li><li>Comunicados no <strong style="color:var(--nu-text)">fraud-informa</strong></li><li>Alinhamentos em canais de testes de novo processo</li><li>Cards na <a href="https://docs.google.com/document/d/1CI71QUlVb2iGZZpydH_r4RLkhL5vyfJ65Azv50IRibU/edit?tab=t.0" target="_blank" rel="noopener" class="nu-link">Cardteca</a></li></ul></div>
         <div class="feedback-box" style="border-color:rgba(255,77,109,0.3);"><h3 style="color:var(--alto);">❌ Não aceito</h3><ul style="font-size:0.85rem;color:var(--nu-muted);line-height:2;padding-left:1rem;"><li>Alinhamentos feitos via DM</li><li>Alinhamentos com buddy ou mentor</li><li>Alinhamentos feitos no Ask Fraud</li></ul></div>
       </div>
     </div>
@@ -519,6 +500,7 @@ Fraud Quality Team.</pre>
   </div>
 </section>
 
+<!-- QUIZ -->
 <section id="quiz">
   <div class="container">
     <div class="section-label">Aprendizado</div>
@@ -547,7 +529,6 @@ Fraud Quality Team.</pre>
 </footer>
 
 <script>
-// ===== THEME =====
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
@@ -555,21 +536,16 @@ function applyTheme(theme) {
   localStorage.setItem('fq-theme', theme);
 }
 function cycleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  applyTheme(current === 'dark' ? 'light' : 'dark');
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
-// Init theme from localStorage or system preference
 (function() {
   const saved = localStorage.getItem('fq-theme');
   if (saved) { applyTheme(saved); return; }
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(prefersDark ? 'dark' : 'light');
+  applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 })();
 
-// ===== ACCORDION =====
 function toggleAcc(id) { document.getElementById(id).classList.toggle('open'); }
 
-// ===== QUIZ =====
 const quizData = {
   geral: [
     { q: "O que é um Scorecard no Spot?", opts: ["Uma planilha de controle de jornada dos analistas","Um formulário de avaliação que transforma critérios qualitativos em notas objetivas","Um sistema de ponto eletrônico","Um relatório mensal de fraudes"], correct: 1, exp: "Scorecards no Spot são formulários de avaliação usados para medir a qualidade das interações e o desempenho dos agentes. Eles transformam critérios qualitativos em notas objetivas para feedback, calibragem e métricas de performance." },
