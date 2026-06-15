@@ -8,60 +8,29 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
   :root, [data-theme="dark"] {
-    --nu-purple: #8a05be;
-    --nu-purple-light: #a020d4;
-    --nu-lilac: #c89cf0;
-    --nu-bg: #0d0015;
-    --nu-surface: #130020;
-    --nu-card: #1c0030;
-    --nu-border: #3a0060;
-    --nu-text: #f0e6ff;
-    --nu-muted: #9b7cbf;
-    --nu-white: #ffffff;
-    --alto: #ff4d6d;
-    --medio: #ffa94d;
-    --baixo: #69db7c;
-    --decisao: #74c0fc;
-    --radius: 14px;
-    --radius-sm: 8px;
-    --nav-bg: rgba(13,0,21,0.92);
-    --hero-glow: rgba(138,5,190,0.18);
-    --acc-hover: rgba(138,5,190,0.1);
-    --option-bg: rgba(255,255,255,0.03);
-    --fail-card-bg: rgba(255,255,255,0.03);
-    --pre-bg: rgba(0,0,0,0.3);
-    --info-bg: rgba(138,5,190,0.08);
-    --info-border: rgba(138,5,190,0.3);
+    --nu-purple: #8a05be; --nu-purple-light: #a020d4; --nu-lilac: #c89cf0;
+    --nu-bg: #0d0015; --nu-surface: #130020; --nu-card: #1c0030;
+    --nu-border: #3a0060; --nu-text: #f0e6ff; --nu-muted: #9b7cbf; --nu-white: #ffffff;
+    --alto: #ff4d6d; --medio: #ffa94d; --baixo: #69db7c; --decisao: #74c0fc;
+    --radius: 14px; --radius-sm: 8px;
+    --nav-bg: rgba(13,0,21,0.92); --hero-glow: rgba(138,5,190,0.18);
+    --acc-hover: rgba(138,5,190,0.1); --option-bg: rgba(255,255,255,0.03);
+    --fail-card-bg: rgba(255,255,255,0.03); --pre-bg: rgba(0,0,0,0.3);
+    --info-bg: rgba(138,5,190,0.08); --info-border: rgba(138,5,190,0.3);
     --score-td-border: rgba(58,0,96,0.4);
-    --shadow-btn: rgba(138,5,190,0.4);
-    --shadow-btn-hover: rgba(138,5,190,0.5);
+    --shadow-btn: rgba(138,5,190,0.4); --shadow-btn-hover: rgba(138,5,190,0.5);
   }
   [data-theme="light"] {
-    --nu-purple: #7b04a8;
-    --nu-purple-light: #9010c0;
-    --nu-lilac: #6b21a8;
-    --nu-bg: #f5f0fb;
-    --nu-surface: #ede5f7;
-    --nu-card: #ffffff;
-    --nu-border: #d8c4f0;
-    --nu-text: #1a0030;
-    --nu-muted: #6b4f8a;
-    --nu-white: #1a0030;
-    --alto: #c0002a;
-    --medio: #b35a00;
-    --baixo: #1a7a36;
-    --decisao: #0055a8;
-    --nav-bg: rgba(237,229,247,0.95);
-    --hero-glow: rgba(138,5,190,0.10);
-    --acc-hover: rgba(138,5,190,0.07);
-    --option-bg: rgba(138,5,190,0.04);
-    --fail-card-bg: rgba(138,5,190,0.04);
-    --pre-bg: rgba(138,5,190,0.06);
-    --info-bg: rgba(138,5,190,0.06);
-    --info-border: rgba(138,5,190,0.25);
+    --nu-purple: #7b04a8; --nu-purple-light: #9010c0; --nu-lilac: #6b21a8;
+    --nu-bg: #f5f0fb; --nu-surface: #ede5f7; --nu-card: #ffffff;
+    --nu-border: #d8c4f0; --nu-text: #1a0030; --nu-muted: #6b4f8a; --nu-white: #1a0030;
+    --alto: #c0002a; --medio: #b35a00; --baixo: #1a7a36; --decisao: #0055a8;
+    --nav-bg: rgba(237,229,247,0.95); --hero-glow: rgba(138,5,190,0.10);
+    --acc-hover: rgba(138,5,190,0.07); --option-bg: rgba(138,5,190,0.04);
+    --fail-card-bg: rgba(138,5,190,0.04); --pre-bg: rgba(138,5,190,0.06);
+    --info-bg: rgba(138,5,190,0.06); --info-border: rgba(138,5,190,0.25);
     --score-td-border: rgba(138,5,190,0.15);
-    --shadow-btn: rgba(123,4,168,0.25);
-    --shadow-btn-hover: rgba(123,4,168,0.35);
+    --shadow-btn: rgba(123,4,168,0.25); --shadow-btn-hover: rgba(123,4,168,0.35);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,7 +44,6 @@
   .nav-links { display: flex; gap: 1.5rem; list-style: none; }
   .nav-links a { color: var(--nu-muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover { color: var(--nu-lilac); }
-
   .theme-toggle { background: var(--nu-card); border: 1.5px solid var(--nu-border); border-radius: 100px; padding: 4px; display: flex; align-items: center; gap: 2px; cursor: pointer; transition: all 0.25s; flex-shrink: 0; }
   .theme-toggle:hover { border-color: var(--nu-purple); }
   .theme-btn { width: 30px; height: 26px; border-radius: 100px; border: none; background: transparent; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; color: var(--nu-muted); }
@@ -88,7 +56,6 @@
   h1 em { font-style: normal; color: var(--nu-lilac); }
   .hero-sub { font-size: 1.15rem; color: var(--nu-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; }
   .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
   .btn { padding: 0.75rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; }
   .btn-primary { background: var(--nu-purple); color: white; box-shadow: 0 4px 20px var(--shadow-btn); }
   .btn-primary:hover { background: var(--nu-purple-light); transform: translateY(-2px); box-shadow: 0 8px 28px var(--shadow-btn-hover); }
@@ -109,18 +76,9 @@
   .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
   .card p { font-size: 0.9rem; color: var(--nu-muted); line-height: 1.6; }
 
-  /* LINKS ÚTEIS */
   #links { background: var(--nu-bg); }
   .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
-  .link-card {
-    background: var(--nu-card);
-    border: 1px solid var(--nu-border);
-    border-radius: var(--radius);
-    padding: 1.4rem 1.6rem;
-    text-decoration: none;
-    display: flex; align-items: center; gap: 1rem;
-    transition: border-color 0.25s, transform 0.2s, background 0.3s;
-  }
+  .link-card { background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); padding: 1.4rem 1.6rem; text-decoration: none; display: flex; align-items: center; gap: 1rem; transition: border-color 0.25s, transform 0.2s, background 0.3s; }
   .link-card:hover { border-color: var(--nu-purple); transform: translateY(-2px); }
   .link-card-icon { font-size: 1.8rem; flex-shrink: 0; }
   .link-card-text { display: flex; flex-direction: column; gap: 2px; }
@@ -129,7 +87,78 @@
   .link-card-arrow { margin-left: auto; color: var(--nu-purple); font-size: 1rem; flex-shrink: 0; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
   .link-card:hover .link-card-arrow { opacity: 1; transform: translateX(3px); }
 
-  #scorecards { background: var(--nu-surface); }
+  /* CALCULADORA */
+  #calculadora { background: var(--nu-surface); }
+  .calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; align-items: start; }
+  @media (max-width: 700px) { .calc-wrap { grid-template-columns: 1fr; } }
+  .calc-box { background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); padding: 2rem; transition: background 0.3s; }
+  .calc-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+  .calc-field { margin-bottom: 1.2rem; }
+  .calc-field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--nu-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .calc-input {
+    width: 100%; padding: 0.75rem 1rem;
+    background: var(--option-bg); border: 1.5px solid var(--nu-border);
+    border-radius: var(--radius-sm); color: var(--nu-text);
+    font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+    transition: border-color 0.2s, background 0.3s; outline: none;
+    -moz-appearance: textfield;
+  }
+  .calc-input::-webkit-inner-spin-button,
+  .calc-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .calc-input:focus { border-color: var(--nu-purple); background: var(--acc-hover); }
+  .calc-btn {
+    width: 100%; padding: 0.85rem;
+    background: var(--nu-purple); color: white;
+    border: none; border-radius: var(--radius-sm);
+    font-size: 0.95rem; font-weight: 700; font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
+    box-shadow: 0 4px 16px var(--shadow-btn);
+  }
+  .calc-btn:hover { background: var(--nu-purple-light); transform: translateY(-1px); }
+  .calc-btn-ghost {
+    width: 100%; padding: 0.6rem;
+    background: transparent; color: var(--nu-muted);
+    border: 1.5px solid var(--nu-border); border-radius: var(--radius-sm);
+    font-size: 0.82rem; font-weight: 600; font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
+  }
+  .calc-btn-ghost:hover { border-color: var(--nu-purple); color: var(--nu-lilac); }
+
+  .calc-result-box {
+    background: var(--nu-card); border: 1px solid var(--nu-border);
+    border-radius: var(--radius); padding: 2rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; min-height: 280px; transition: background 0.3s, border-color 0.4s;
+  }
+  .calc-result-box.has-result { border-color: var(--nu-purple); }
+  .calc-result-placeholder { color: var(--nu-muted); font-size: 0.9rem; }
+  .calc-result-placeholder .ph-icon { font-size: 3rem; margin-bottom: 0.8rem; opacity: 0.4; }
+  .calc-pct {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 4rem; font-weight: 800; line-height: 1;
+    background: linear-gradient(135deg, var(--nu-lilac), var(--nu-purple-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.4rem;
+  }
+  .calc-pct-label { font-size: 0.85rem; color: var(--nu-muted); margin-bottom: 1.5rem; }
+  .calc-breakdown { width: 100%; display: flex; flex-direction: column; gap: 0.6rem; }
+  .calc-breakdown-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; padding: 0.5rem 0.8rem; border-radius: var(--radius-sm); background: var(--info-bg); }
+  .calc-breakdown-row span:first-child { color: var(--nu-muted); }
+  .calc-breakdown-row span:last-child { font-weight: 700; color: var(--nu-text); }
+  .calc-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 100px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .status-ok { background: rgba(105,219,124,0.12); color: var(--baixo); border: 1px solid rgba(105,219,124,0.3); }
+  .status-atencao { background: rgba(255,169,77,0.12); color: var(--medio); border: 1px solid rgba(255,169,77,0.3); }
+  .status-critico { background: rgba(255,77,109,0.12); color: var(--alto); border: 1px solid rgba(255,77,109,0.3); }
+
+  .calc-history { margin-top: 1.5rem; }
+  .calc-history h4 { font-size: 0.8rem; font-weight: 700; color: var(--nu-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+  .history-list { display: flex; flex-direction: column; gap: 0.5rem; max-height: 200px; overflow-y: auto; }
+  .history-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.8rem; border-radius: var(--radius-sm); background: var(--option-bg); border: 1px solid var(--nu-border); font-size: 0.82rem; }
+  .history-item-label { color: var(--nu-muted); }
+  .history-item-value { font-weight: 700; color: var(--nu-lilac); font-family: 'Space Grotesk', sans-serif; }
+
+  #scorecards { background: var(--nu-bg); }
   .accordion { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
   .acc-item { background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); overflow: hidden; transition: background 0.3s; }
   .acc-header { padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; transition: background 0.2s; }
@@ -140,32 +169,29 @@
   .acc-item.open .acc-chevron { transform: rotate(180deg); }
   .acc-body { display: none; padding: 0 1.5rem 1.5rem; }
   .acc-item.open .acc-body { display: block; }
-
   .score-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
   .score-table th { background: var(--info-bg); color: var(--nu-lilac); font-weight: 600; padding: 0.6rem 1rem; text-align: left; border-bottom: 1px solid var(--nu-border); }
   .score-table td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--score-td-border); color: var(--nu-muted); }
   .score-table tr:last-child td { border-bottom: none; }
   .score-table .pts { color: var(--nu-text); font-weight: 600; }
-
   .impact-pill { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 9px; border-radius: 100px; }
   .pill-alto { background: rgba(255,77,109,0.12); color: var(--alto); border: 1px solid rgba(255,77,109,0.3); }
   .pill-medio { background: rgba(255,169,77,0.12); color: var(--medio); border: 1px solid rgba(255,169,77,0.3); }
   .pill-baixo { background: rgba(105,219,124,0.12); color: var(--baixo); border: 1px solid rgba(105,219,124,0.3); }
   .pill-decisao { background: rgba(116,192,252,0.12); color: var(--decisao); border: 1px solid rgba(116,192,252,0.3); }
-
   .fail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
   .fail-card { background: var(--fail-card-bg); border: 1px solid var(--nu-border); border-radius: var(--radius-sm); padding: 1rem; transition: background 0.3s; }
   .fail-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
   .fail-card p { font-size: 0.8rem; color: var(--nu-muted); line-height: 1.5; }
 
-  #feedback { background: var(--nu-bg); }
+  #feedback { background: var(--nu-surface); }
   .feedback-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
   @media (max-width: 680px) { .feedback-wrap { grid-template-columns: 1fr; } }
   .feedback-box { background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); padding: 1.5rem; transition: background 0.3s; }
   .feedback-box h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
   .feedback-box pre { background: var(--pre-bg); border: 1px solid var(--nu-border); border-radius: var(--radius-sm); padding: 1rem; font-size: 0.8rem; color: var(--nu-lilac); white-space: pre-wrap; font-family: 'Space Grotesk', monospace; line-height: 1.7; transition: background 0.3s; }
 
-  #contestacao { background: var(--nu-surface); }
+  #contestacao { background: var(--nu-bg); }
   .steps { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
   .step { display: flex; gap: 1.2rem; background: var(--nu-card); border: 1px solid var(--nu-border); border-radius: var(--radius); padding: 1.3rem 1.5rem; transition: background 0.3s; }
   .step-num { flex-shrink: 0; width: 36px; height: 36px; background: var(--nu-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: white; }
@@ -208,11 +234,8 @@
 
   footer { background: var(--nu-surface); border-top: 1px solid var(--nu-border); text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--nu-muted); transition: background 0.3s; }
   footer strong { color: var(--nu-lilac); }
-
   .info-box { background: var(--info-bg); border: 1px solid var(--info-border); border-radius: var(--radius-sm); padding: 1rem 1.2rem; font-size: 0.88rem; color: var(--nu-muted); margin: 1rem 0; display: flex; gap: 10px; align-items: flex-start; transition: background 0.3s; }
   .info-box .icon { flex-shrink: 0; font-size: 1rem; margin-top: 1px; }
-
-  /* inline link style */
   .nu-link { color: var(--nu-lilac); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
   .nu-link:hover { border-color: var(--nu-lilac); }
 
@@ -232,6 +255,7 @@
     <ul class="nav-links">
       <li><a href="#sobre">O que é</a></li>
       <li><a href="#links">Links</a></li>
+      <li><a href="#calculadora">Calculadora</a></li>
       <li><a href="#scorecards">Scorecards</a></li>
       <li><a href="#feedback">Feedback</a></li>
       <li><a href="#contestacao">Contestação</a></li>
@@ -250,13 +274,12 @@
     <h1>Entenda como<br><em>sua monitoria</em><br>funciona</h1>
     <p class="hero-sub">Aqui você encontra tudo sobre os scorecards, critérios de avaliação e como contestar uma monitoria com a qual você discorda.</p>
     <div class="hero-cta">
-      <a href="#links" class="btn btn-primary">🔗 Acessar ferramentas</a>
+      <a href="#calculadora" class="btn btn-primary">🧮 Calculadora</a>
       <a href="#quiz" class="btn btn-outline">🧠 Fazer Quiz</a>
     </div>
   </div>
 </section>
 
-<!-- O QUE É -->
 <section id="sobre">
   <div class="container">
     <div class="section-label">Contexto</div>
@@ -276,7 +299,6 @@
   </div>
 </section>
 
-<!-- LINKS ÚTEIS -->
 <section id="links">
   <div class="container">
     <div class="section-label">Ferramentas</div>
@@ -285,33 +307,65 @@
     <div class="links-grid">
       <a href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener" class="link-card">
         <div class="link-card-icon">🎫</div>
-        <div class="link-card-text">
-          <span class="link-card-title">Portal Jira Quality</span>
-          <span class="link-card-desc">Abrir contestação de monitoria</span>
-        </div>
+        <div class="link-card-text"><span class="link-card-title">Portal Jira Quality</span><span class="link-card-desc">Abrir contestação de monitoria</span></div>
         <span class="link-card-arrow">→</span>
       </a>
       <a href="https://docs.google.com/document/d/1CI71QUlVb2iGZZpydH_r4RLkhL5vyfJ65Azv50IRibU/edit?tab=t.0" target="_blank" rel="noopener" class="link-card">
         <div class="link-card-icon">📖</div>
-        <div class="link-card-text">
-          <span class="link-card-title">Cardteca — Mule Account</span>
-          <span class="link-card-desc">Documentação e processos do distrito MA</span>
-        </div>
+        <div class="link-card-text"><span class="link-card-title">Cardteca — Mule Account</span><span class="link-card-desc">Documentação e processos do distrito MA</span></div>
         <span class="link-card-arrow">→</span>
       </a>
       <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener" class="link-card">
         <div class="link-card-icon">📊</div>
-        <div class="link-card-text">
-          <span class="link-card-title">Dash Individual de Qualidade</span>
-          <span class="link-card-desc">Acompanhe suas monitorias e notas</span>
-        </div>
+        <div class="link-card-text"><span class="link-card-title">Dash Individual de Qualidade</span><span class="link-card-desc">Acompanhe suas monitorias e notas</span></div>
         <span class="link-card-arrow">→</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- SCORECARDS -->
+<!-- CALCULADORA -->
+<section id="calculadora">
+  <div class="container">
+    <div class="section-label">Ferramenta</div>
+    <h2>Calculadora de Apontamento</h2>
+    <p class="section-desc">Calcule o percentual de apontamento sem precisar de planilha.</p>
+    <div class="calc-wrap">
+      <div class="calc-box">
+        <h3>🧮 Inserir dados</h3>
+        <div class="calc-field">
+          <label>Total de monitorias realizadas</label>
+          <input class="calc-input" type="number" id="inp-total" placeholder="ex: 15" min="1" oninput="calcLive()">
+        </div>
+        <div class="calc-field">
+          <label>Casos apontados (com erro)</label>
+          <input class="calc-input" type="number" id="inp-apontados" placeholder="ex: 5" min="0" oninput="calcLive()">
+        </div>
+        <button class="calc-btn" onclick="calcular()">Calcular →</button>
+        <button class="calc-btn-ghost" onclick="limpar()">Limpar</button>
+
+        <div class="calc-history" id="hist-wrap" style="display:none;">
+          <h4>Histórico</h4>
+          <div class="history-list" id="hist-list"></div>
+        </div>
+      </div>
+
+      <div class="calc-result-box" id="result-box">
+        <div class="calc-result-placeholder" id="result-placeholder">
+          <div class="ph-icon">🧮</div>
+          <p>Preencha os campos ao lado<br>para ver o resultado</p>
+        </div>
+        <div id="result-content" style="display:none;width:100%;">
+          <div class="calc-status" id="result-status"></div>
+          <div class="calc-pct" id="result-pct"></div>
+          <div class="calc-pct-label">de apontamento</div>
+          <div class="calc-breakdown" id="result-breakdown"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="scorecards">
   <div class="container">
     <div class="section-label">Avaliação</div>
@@ -337,7 +391,6 @@
           <p style="font-size:0.85rem;color:var(--nu-muted);margin-top:0.5rem;">✅ Sim &nbsp;|&nbsp; ❌ Fechou como OK um Fraudador &nbsp;|&nbsp; ❌ Fechou como OK um DC &nbsp;|&nbsp; ❌ Fechou como OK um Postponed (acima de R$200K)</p>
         </div>
       </div>
-
       <div class="acc-item" id="acc-ae">
         <div class="acc-header" onclick="toggleAcc('acc-ae')">
           <div class="acc-title">📌 Apontamentos Externos <span class="acc-badge">Todos os Distritos</span></div>
@@ -358,9 +411,9 @@
           <div style="margin-top:1.2rem;">
             <p style="font-size:0.85rem;font-weight:600;margin-bottom:0.8rem;">Categorias de impacto:</p>
             <div style="display:flex;flex-direction:column;gap:0.6rem;font-size:0.85rem;">
-              <div style="display:flex;gap:10px;align-items:flex-start;"><span class="impact-pill pill-alto">Alto</span><span style="color:var(--nu-muted);">Afeta diretamente o cliente e pode causar perdas para o cliente e/ou para o Nubank.</span></div>
-              <div style="display:flex;gap:10px;align-items:flex-start;"><span class="impact-pill pill-medio">Médio</span><span style="color:var(--nu-muted);">Pode afetar o cliente, mas não necessariamente gera perdas financeiras.</span></div>
-              <div style="display:flex;gap:10px;align-items:flex-start;"><span class="impact-pill pill-baixo">Baixo</span><span style="color:var(--nu-muted);">Influencia estudos, monitoramento e processos internos.</span></div>
+              <div style="display:flex;gap:10px;"><span class="impact-pill pill-alto">Alto</span><span style="color:var(--nu-muted);">Afeta diretamente o cliente e pode causar perdas para o cliente e/ou para o Nubank.</span></div>
+              <div style="display:flex;gap:10px;"><span class="impact-pill pill-medio">Médio</span><span style="color:var(--nu-muted);">Pode afetar o cliente, mas não necessariamente gera perdas financeiras.</span></div>
+              <div style="display:flex;gap:10px;"><span class="impact-pill pill-baixo">Baixo</span><span style="color:var(--nu-muted);">Influencia estudos, monitoramento e processos internos.</span></div>
             </div>
           </div>
           <div style="margin-top:1.5rem;">
@@ -418,7 +471,6 @@
   </div>
 </section>
 
-<!-- FEEDBACK -->
 <section id="feedback">
   <div class="container">
     <div class="section-label">Feedback</div>
@@ -466,7 +518,6 @@ Fraud Quality Team.</pre>
   </div>
 </section>
 
-<!-- CONTESTAÇÃO -->
 <section id="contestacao">
   <div class="container">
     <div class="section-label">Contestação</div>
@@ -474,10 +525,10 @@ Fraud Quality Team.</pre>
     <p class="section-desc">Discordou de uma monitoria? Veja como abrir sua contestação pelo <a href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener" class="nu-link">Portal Jira Quality</a>.</p>
     <div class="info-box" style="margin-top:1.5rem;"><span class="icon">📅</span><span>Prazo: a contestação deve ser aberta até o <strong style="color:var(--nu-text)">3º dia útil do mês seguinte</strong> à data da monitoria. Após esse prazo, não é possível prosseguir com a revisão.</span></div>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Verifique se está dentro do prazo</h4><p>A contestação só pode ser aberta até o 3º dia útil do mês seguinte à monitoria. Confirme a data antes de prosseguir.</p></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Verifique se está dentro do prazo</h4><p>A contestação só pode ser aberta até o 3º dia útil do mês seguinte à monitoria.</p></div></div>
       <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Acesse o Portal Jira Quality</h4><p>Abra um ticket em <a href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener" class="nu-link">Contestação — operação</a>. O campo "Abrir esta requisição em nome de" é preenchido automaticamente.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Preencha os campos obrigatórios</h4><p>Informe: Distrito, Customer ID (CID), confirme que está na janela de contestação (SIM/NÃO), nome do card utilizado e descreva o que você acredita que não foi avaliado corretamente — sempre com base em materiais de apoio oficiais.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Aguarde a análise</h4><p>Um qualiter realizará a análise em até <strong>48 horas úteis</strong>. O resultado aparece no <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener" class="nu-link">Dashboard Individual de Métricas</a> em até 48h após a análise.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Preencha os campos obrigatórios</h4><p>Informe: Distrito, CID, janela de contestação (SIM/NÃO), nome do card e o que não foi avaliado corretamente — sempre com base em materiais oficiais.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Aguarde a análise</h4><p>Um qualiter realizará a análise em até <strong>48 horas úteis</strong>. O resultado aparece no <a href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener" class="nu-link">Dashboard Individual de Métricas</a> em até 48h.</p></div></div>
     </div>
     <div style="margin-top:2rem;">
       <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin-bottom:1rem;">O que conta como alinhamento oficial?</h3>
@@ -500,7 +551,6 @@ Fraud Quality Team.</pre>
   </div>
 </section>
 
-<!-- QUIZ -->
 <section id="quiz">
   <div class="container">
     <div class="section-label">Aprendizado</div>
@@ -529,133 +579,176 @@ Fraud Quality Team.</pre>
 </footer>
 
 <script>
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  document.getElementById('btn-dark').classList.toggle('active', theme === 'dark');
-  document.getElementById('btn-light').classList.toggle('active', theme === 'light');
-  localStorage.setItem('fq-theme', theme);
+// THEME
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('btn-dark').classList.toggle('active', t==='dark');
+  document.getElementById('btn-light').classList.toggle('active', t==='light');
+  localStorage.setItem('fq-theme', t);
 }
-function cycleTheme() {
-  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-}
-(function() {
-  const saved = localStorage.getItem('fq-theme');
-  if (saved) { applyTheme(saved); return; }
-  applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-})();
+function cycleTheme() { applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'); }
+(function(){ const s=localStorage.getItem('fq-theme'); applyTheme(s||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')); })();
 
+// ACCORDION
 function toggleAcc(id) { document.getElementById(id).classList.toggle('open'); }
 
+// CALCULADORA
+let history = [];
+
+function calcLive() {
+  const t = parseFloat(document.getElementById('inp-total').value);
+  const a = parseFloat(document.getElementById('inp-apontados').value);
+  if (!isNaN(t) && !isNaN(a) && t > 0 && a >= 0 && a <= t) showResult(t, a);
+  else if (isNaN(t) || isNaN(a)) resetResult();
+}
+
+function calcular() {
+  const t = parseFloat(document.getElementById('inp-total').value);
+  const a = parseFloat(document.getElementById('inp-apontados').value);
+  if (!t || t <= 0) { alert('Informe o total de monitorias.'); return; }
+  if (isNaN(a) || a < 0) { alert('Informe os casos apontados.'); return; }
+  if (a > t) { alert('Os casos apontados não podem ser maiores que o total de monitorias.'); return; }
+  showResult(t, a);
+  addHistory(t, a);
+}
+
+function showResult(total, apontados) {
+  const pct = (apontados / total) * 100;
+  const pctStr = pct % 1 === 0 ? pct.toFixed(0) : pct.toFixed(1);
+  const ok = total - apontados;
+
+  let statusClass, statusIcon, statusLabel;
+  if (pct <= 10) { statusClass = 'status-ok'; statusIcon = '✅'; statusLabel = 'Ótimo'; }
+  else if (pct <= 25) { statusClass = 'status-atencao'; statusIcon = '⚠️'; statusLabel = 'Atenção'; }
+  else { statusClass = 'status-critico'; statusIcon = '🚨'; statusLabel = 'Crítico'; }
+
+  document.getElementById('result-placeholder').style.display = 'none';
+  document.getElementById('result-content').style.display = 'block';
+  document.getElementById('result-box').classList.add('has-result');
+  document.getElementById('result-status').className = 'calc-status ' + statusClass;
+  document.getElementById('result-status').innerHTML = statusIcon + ' ' + statusLabel;
+  document.getElementById('result-pct').textContent = pctStr + '%';
+  document.getElementById('result-breakdown').innerHTML = `
+    <div class="calc-breakdown-row"><span>Total de monitorias</span><span>${total}</span></div>
+    <div class="calc-breakdown-row"><span>Casos apontados</span><span>${apontados}</span></div>
+    <div class="calc-breakdown-row"><span>Casos sem erro</span><span>${ok}</span></div>
+    <div class="calc-breakdown-row"><span>% de apontamento</span><span>${pctStr}%</span></div>
+  `;
+}
+
+function resetResult() {
+  document.getElementById('result-placeholder').style.display = 'block';
+  document.getElementById('result-content').style.display = 'none';
+  document.getElementById('result-box').classList.remove('has-result');
+}
+
+function addHistory(total, apontados) {
+  const pct = ((apontados / total) * 100);
+  const pctStr = pct % 1 === 0 ? pct.toFixed(0) : pct.toFixed(1);
+  history.unshift({ total, apontados, pct: pctStr });
+  if (history.length > 5) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  const wrap = document.getElementById('hist-wrap');
+  const list = document.getElementById('hist-list');
+  if (history.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  list.innerHTML = history.map(h =>
+    `<div class="history-item">
+      <span class="history-item-label">${h.apontados} de ${h.total} monitorias</span>
+      <span class="history-item-value">${h.pct}%</span>
+    </div>`
+  ).join('');
+}
+
+function limpar() {
+  document.getElementById('inp-total').value = '';
+  document.getElementById('inp-apontados').value = '';
+  resetResult();
+}
+
+// QUIZ
 const quizData = {
   geral: [
-    { q: "O que é um Scorecard no Spot?", opts: ["Uma planilha de controle de jornada dos analistas","Um formulário de avaliação que transforma critérios qualitativos em notas objetivas","Um sistema de ponto eletrônico","Um relatório mensal de fraudes"], correct: 1, exp: "Scorecards no Spot são formulários de avaliação usados para medir a qualidade das interações e o desempenho dos agentes. Eles transformam critérios qualitativos em notas objetivas para feedback, calibragem e métricas de performance." },
-    { q: "Qual é o prazo para contestar uma monitoria?", opts: ["Até o último dia do mês da monitoria","Até 7 dias úteis após a monitoria","Até o 3º dia útil do mês seguinte à data da monitoria","Não há prazo, pode ser aberta a qualquer momento"], correct: 2, exp: "A contestação deve ser aberta até o 3º dia útil do mês seguinte à data da monitoria. Após esse prazo, não é possível prosseguir com a revisão da pontuação." },
-    { q: "O que é Grace Period (GP)?", opts: ["Um período de férias do analista","Um período em que o caso é avaliado mas não há pontuação de atrito, mesmo com erros","Um prazo para corrigir erros antes da monitoria","Uma bonificação por performance"], correct: 1, exp: "Grace Period é um período acordado com os responsáveis de distrito em que o caso é avaliado, mas não há pontuação de atrito, mesmo com erros. Deve ser comunicado via canal #fraud-districts-process-updates." },
-    { q: "Onde as monitorias ficam disponíveis para acompanhamento?", opts: ["Apenas no e-mail do analista","No dash gerencial ou individual na aba Qualidade","Somente no Jira de Quality","No canal #fraud-districts-process-updates"], correct: 1, exp: "As monitorias podem ser acompanhadas através do dash gerencial (para lideranças) ou do dash individual (para analistas), na aba Qualidade." },
-    { q: "Qual destes NÃO é considerado alinhamento oficial para contestação?", opts: ["Comunicado no canal oficial do distrito","Card na Cardteca","Alinhamento feito via DM","Comunicado no fraud-informa"], correct: 2, exp: "Alinhamentos feitos via DM, com buddy/mentor ou no Ask Fraud NÃO são considerados alinhamentos oficiais." },
-    { q: "Qual o tempo máximo para análise de uma contestação pelo qualiter?", opts: ["24 horas úteis","48 horas úteis","72 horas úteis","5 dias úteis"], correct: 1, exp: "O qualiter realizará a análise em até 48 horas úteis. O resultado aparecerá no Dashboard Individual de Métricas em até 48 horas úteis após a análise." }
+    { q: "O que é um Scorecard no Spot?", opts: ["Uma planilha de controle de jornada dos analistas","Um formulário de avaliação que transforma critérios qualitativos em notas objetivas","Um sistema de ponto eletrônico","Um relatório mensal de fraudes"], correct: 1, exp: "Scorecards no Spot são formulários de avaliação usados para medir a qualidade das interações e o desempenho dos agentes, transformando critérios qualitativos em notas objetivas." },
+    { q: "Qual é o prazo para contestar uma monitoria?", opts: ["Até o último dia do mês da monitoria","Até 7 dias úteis após a monitoria","Até o 3º dia útil do mês seguinte à data da monitoria","Não há prazo"], correct: 2, exp: "A contestação deve ser aberta até o 3º dia útil do mês seguinte à data da monitoria." },
+    { q: "O que é Grace Period (GP)?", opts: ["Um período de férias do analista","Um período em que o caso é avaliado mas não há pontuação de atrito, mesmo com erros","Um prazo para corrigir erros antes da monitoria","Uma bonificação por performance"], correct: 1, exp: "Grace Period é um período acordado com o distrito em que o caso é avaliado sem pontuação de atrito, mesmo com erros. Deve ser comunicado via #fraud-districts-process-updates." },
+    { q: "Onde as monitorias ficam disponíveis?", opts: ["Apenas no e-mail","No dash individual na aba Qualidade","Somente no Jira de Quality","No canal #fraud-districts-process-updates"], correct: 1, exp: "As monitorias ficam no dash gerencial (lideranças) ou individual (analistas), na aba Qualidade." },
+    { q: "Qual destes NÃO é alinhamento oficial para contestação?", opts: ["Comunicado no canal oficial do distrito","Card na Cardteca","Alinhamento feito via DM","Comunicado no fraud-informa"], correct: 2, exp: "Alinhamentos via DM, com buddy/mentor ou no Ask Fraud NÃO são oficiais." },
+    { q: "Qual o tempo máximo para análise de uma contestação?", opts: ["24h úteis","48h úteis","72h úteis","5 dias úteis"], correct: 1, exp: "O qualiter analisa em até 48 horas úteis e o resultado aparece no Dashboard Individual em até mais 48h." }
   ],
   ma: [
-    { q: "O que são casos de Catch & Release no Mule Account?", opts: ["Casos de clientes que solicitaram cancelamento de conta","Casos finalizados como 'suspect archived' que viraram Fraudster em até 30 dias por infração PIX acatada","Casos de fraude em transações internacionais","Casos de postponed acima de R$200K"], correct: 1, exp: "Catch & Release são os casos finalizados como 'suspect archived' (cliente OK) que viraram Fraudster em até 30 dias após a decisão, por terem recebido uma infração PIX que foi acatada." },
-    { q: "No scorecard Catch & Release, quando o analista recebe pontuação?", opts: ["Sempre, independente do resultado","Somente quando acerta a decisão","Somente quando há erro de decisão","Uma vez por mês, independente de erros"], correct: 2, exp: "A monitoria Catch & Release tem como foco principal observar a assertividade da tomada de decisão. Só haverá pontuação quando houver erro de decisão." },
-    { q: "Fechar como OK um Fraudador no Catch & Release vale quantos pontos de atrito?", opts: ["1 ponto","2,5 pontos","5 pontos","10 pontos"], correct: 2, exp: "A única questão pontuada é 'A decisão no report está correta?', que vale 5 pontos. A pontuação é sempre 0 ou 5 — não há pontuação parcial." },
-    { q: "O que é um Missclick no contexto de Mule Account?", opts: ["Quando o analista usa a matriz errada","Quando o analista finalizou como suspect-archived mas registrou análise com conclusão de fraudster","Quando o analista não preencheu o registro de análise","Quando o analista não realizou o espelhamento PF/PJ"], correct: 1, exp: "Missclick é quando o analista finalizou como suspect-archived, mas registrou análise com conclusão de fraudster. É ALTO IMPACTO pois pode cancelar produtos legítimos ou liberar fraudadores." },
-    { q: "Por que o espelhamento de análise (PF na PJ) é ALTO IMPACTO?", opts: ["Porque atrapalha os estudos internos","Porque o fraudador pode evadir valores fraudulentos e gerar perdas pela conta não espelhada","Porque gera reclamações de clientes","Porque aumenta o tempo de tratativa"], correct: 1, exp: "O espelhamento é ALTO IMPACTO porque o fraudador pode evadir valores fraudulentos e gerar perdas através da conta não espelhada." },
-    { q: "Qual o impacto de não contestar uma transação no Tristram com contestação válida?", opts: ["Baixo — só afeta estudos internos","Médio — gera reclamação do cliente","Alto — o valor pode não ser devolvido para a vítima","Não tem impacto se a decisão final estiver correta"], correct: 2, exp: "A falta de contestação no Tristram é ALTO IMPACTO porque pode fazer com que o valor não seja devolvido para a vítima." }
+    { q: "O que são casos de Catch & Release no Mule Account?", opts: ["Clientes que solicitaram cancelamento","Casos 'suspect archived' que viraram Fraudster em até 30 dias por infração PIX acatada","Fraudes em transações internacionais","Postponed acima de R$200K"], correct: 1, exp: "Catch & Release são casos fechados como 'suspect archived' que viraram Fraudster em até 30 dias, por infração PIX acatada." },
+    { q: "No Catch & Release, quando o analista recebe pontuação?", opts: ["Sempre","Somente quando acerta","Somente quando há erro de decisão","Uma vez por mês"], correct: 2, exp: "Só haverá pontuação quando houver erro de decisão — o foco é a assertividade." },
+    { q: "Fechar como OK um Fraudador no Catch & Release vale quantos pontos de atrito?", opts: ["1","2,5","5","10"], correct: 2, exp: "A questão vale 5 pontos. A pontuação é sempre 0 ou 5 — sem pontuação parcial." },
+    { q: "O que é um Missclick no Mule Account?", opts: ["Usar a matriz errada","Finalizar como suspect-archived mas registrar análise como fraudster","Não preencher o registro","Não fazer o espelhamento PF/PJ"], correct: 1, exp: "Missclick é finalizar como suspect-archived mas registrar análise como fraudster. ALTO IMPACTO." },
+    { q: "Por que o espelhamento (PF na PJ) é ALTO IMPACTO?", opts: ["Atrapalha estudos","Fraudador pode evadir valores pela conta não espelhada","Gera reclamações","Aumenta tempo de tratativa"], correct: 1, exp: "O fraudador pode evadir valores e gerar perdas através da conta não espelhada." },
+    { q: "Não contestar transação no Tristram com contestação válida tem qual impacto?", opts: ["Baixo","Médio","Alto — o valor pode não ser devolvido para a vítima","Sem impacto se a decisão estiver correta"], correct: 2, exp: "ALTO IMPACTO — pode fazer com que o valor não seja devolvido para a vítima." }
   ],
   id: [
-    { q: "Qual é o impacto de fechar um caso ID como f_f (ou vice-versa)?", opts: ["Baixo — apenas afeta estudos internos","Médio — gera reclamação futura","Alto — afeta a responsabilidade por dívidas e pode gerar perdas indevidas","Sem impacto se a decisão final for correta"], correct: 2, exp: "Fechar um caso ID como f_f gera impacto direto no cliente com perda atribuída de um cadastro fraudulento. Fechar f_f como ID gera perda indevida para o Nubank." },
-    { q: "Por que as tags COLLISION_NOK, FAKE_ID e UPLOAD_OF_PHOTO são ALTO IMPACTO?", opts: ["Porque prejudicam apenas os estudos internos","Porque definem como o caso é enviado para a Rufra — envio incorreto representa risco regulatório","Porque aumentam o tempo de tratativa do caso","Porque afetam a experiência do cliente no onboarding"], correct: 1, exp: "Essas tags definem como o caso será enviado para a Rufra. O não envio ou envio incorreto representa um risco regulatório para o Nubank." },
-    { q: "O que deve ser feito quando o analista finalizou como 'fraudster'? (Deep Dive Reversals)", opts: ["Nada, não há necessidade de ações adicionais","Deve-se informar se o caso foi revertido por erro de decisão e, se não foi, explicar o motivo","Deve-se abrir automaticamente contestação","Deve-se notificar o cliente por e-mail"], correct: 1, exp: "A questão 'Reversão foi realizada' deve ser respondida apenas quando o report for finalizado como 'fraudster', informando se foi revertido por erro e o motivo caso não tenha sido." },
-    { q: "Pedido de cancelamento de conta incorreto (Identity Fraud) tem qual nível de impacto?", opts: ["Baixo","Médio","Alto","É erro de decisão (Fail Section)"], correct: 1, exp: "É MÉDIO IMPACTO. O cliente terá problemas desnecessários durante o onboarding." },
-    { q: "O que acontece quando o analista realiza incorretamente o pedido de retirada de fotos de terceiro?", opts: ["Nenhum impacto relevante","Impacto baixo apenas em estudos","A foto de um terceiro pode atrapalhar a experiência do cliente na autenticação biométrica","Gera perda financeira direta ao Nubank"], correct: 2, exp: "É MÉDIO IMPACTO. A foto de um terceiro poderá atrapalhar a autenticação biométrica (liveness/challenge) do cliente legítimo." }
+    { q: "Fechar um caso ID como f_f tem qual impacto?", opts: ["Baixo","Médio","Alto — afeta responsabilidade por dívidas e pode gerar perdas","Sem impacto se a decisão final for correta"], correct: 2, exp: "ALTO IMPACTO. Fechar ID como f_f gera perda atribuída ao cliente do cadastro fraudulento. Fechar f_f como ID gera perda indevida ao Nubank." },
+    { q: "Por que as tags COLLISION_NOK, FAKE_ID e UPLOAD_OF_PHOTO são ALTO IMPACTO?", opts: ["Prejudicam estudos","Definem como o caso é enviado para a Rufra — envio incorreto é risco regulatório","Aumentam o tempo de tratativa","Afetam o onboarding"], correct: 1, exp: "Essas tags definem o envio para a Rufra. Envio incorreto representa risco regulatório." },
+    { q: "O que fazer quando o analista finalizou como 'fraudster'? (Deep Dive Reversals)", opts: ["Nada","Informar se o caso foi revertido e, se não foi, explicar o motivo","Abrir contestação automaticamente","Notificar o cliente"], correct: 1, exp: "Deve-se informar se houve reversão por erro de decisão e, se não houve, explicar o motivo." },
+    { q: "Pedido de cancelamento de conta incorreto (Identity Fraud) tem qual impacto?", opts: ["Baixo","Médio","Alto","Fail Section"], correct: 1, exp: "MÉDIO IMPACTO — o cliente terá problemas desnecessários no onboarding." },
+    { q: "Pedido de retirada de fotos de terceiro realizado incorretamente tem qual impacto?", opts: ["Nenhum","Baixo","A foto pode atrapalhar a autenticação biométrica do cliente","Gera perda financeira direta"], correct: 2, exp: "MÉDIO IMPACTO. A foto de terceiro pode atrapalhar a autenticação biométrica (liveness/challenge)." }
   ],
   vp: [
-    { q: "O que é um Falso Negativo no Victim Prevention?", opts: ["Fechar como fraudador um cliente que é vítima","Marcar dispositivo invasor como seguro ou arquivar uma vítima","Não abrir report de CSS para análise","Não realizar planilhamento de caso postponed"], correct: 1, exp: "Falso Negativo são casos onde o analista marcou um acesso fraudulento como legítimo ou arquivou um reporte com indícios de golpe." },
-    { q: "Por que 'Não tratou todos os devices' é ALTO IMPACTO?", opts: ["Porque afeta apenas estudos internos","Porque gera reclamação de cliente","Porque um dispositivo fraudador pode se manter com acesso à conta, além do risco de deixar o cliente no limbo","Porque aumenta o tempo de resolução"], correct: 2, exp: "É ALTO IMPACTO porque um dispositivo fraudador pode se manter com acesso à conta, além do risco de deixar o cliente no limbo (bloqueado sem solução)." },
-    { q: "Por que não abrir report de ID quando necessário é ALTO IMPACTO?", opts: ["Apenas prejudica estudos internos","Pode gerar perdas para o Nubank","Aumenta o tempo de tratativa do caso","Afeta a experiência do cliente no onboarding"], correct: 1, exp: "Abertura de report de ID é ALTO IMPACTO porque o caso pode gerar perdas para o Nubank se não for devidamente tratado." },
-    { q: "Não adicionar a tag 'scam-victim-confirmed' tem qual nível de impacto?", opts: ["Alto","Médio","Baixo","É Fail Section"], correct: 2, exp: "BAIXO IMPACTO — o prejuízo se limita a estudos e monitoramentos." },
-    { q: "Não desconectar dispositivos após finalizar a análise tem qual impacto?", opts: ["Alto — mantém acesso fraudulento","Médio — gera reclamação de cliente","Baixo — como há etapas de segurança no app, o prejuízo se limita ao alerta incompleto","Não tem impacto algum"], correct: 2, exp: "BAIXO IMPACTO. Como há etapas bem estabelecidas de segurança no app, o prejuízo se limita ao 'alerta incompleto' — não gera perda financeira nem prejudica a experiência." }
+    { q: "O que é Falso Negativo no Victim Prevention?", opts: ["Fechar como fraudador uma vítima","Marcar dispositivo invasor como seguro ou arquivar vítima","Não abrir report de CSS","Não planilhar postponed"], correct: 1, exp: "Falso Negativo = marcar acesso fraudulento como legítimo ou arquivar reporte com indícios de golpe." },
+    { q: "Por que 'Não tratou todos os devices' é ALTO IMPACTO?", opts: ["Afeta estudos","Gera reclamação","Dispositivo fraudador pode manter acesso e deixar o cliente no limbo","Aumenta tempo de resolução"], correct: 2, exp: "ALTO IMPACTO — dispositivo fraudador pode manter acesso e o cliente pode ficar bloqueado sem solução." },
+    { q: "Por que não abrir report de ID é ALTO IMPACTO?", opts: ["Prejudica estudos","Pode gerar perdas para o Nubank","Aumenta o tempo de tratativa","Afeta o onboarding"], correct: 1, exp: "ALTO IMPACTO — o caso pode gerar perdas se não for devidamente tratado." },
+    { q: "Não adicionar 'scam-victim-confirmed' tem qual impacto?", opts: ["Alto","Médio","Baixo","Fail Section"], correct: 2, exp: "BAIXO IMPACTO — prejuízo se limita a estudos e monitoramentos." },
+    { q: "Não desconectar dispositivos após análise tem qual impacto?", opts: ["Alto","Médio","Baixo — etapas de segurança do app limitam o prejuízo ao alerta incompleto","Nenhum"], correct: 2, exp: "BAIXO IMPACTO. As etapas de segurança do app garantem que não haja perda financeira ou prejuízo à experiência." }
   ],
   gm: [
-    { q: "Por que não cancelar conta e cartões de um fraudador (Gamers) é ALTO IMPACTO?", opts: ["Apenas afeta estudos internos","Manter produtos ativos pode gerar prejuízo","Aumenta o tempo de resolução do caso","Gera reclamação no Bacen"], correct: 1, exp: "ALTO IMPACTO — manter produtos ativos pode gerar prejuízo financeiro." },
-    { q: "O que acontece quando o analista libera crédito de confiança incorretamente?", opts: ["Baixo impacto — só afeta estudos","Médio impacto — afeta comunicação com o cliente","Alto impacto — prejuízo ao cliente ao não liberar quando deve e prejuízo ao Nubank ao liberar quando não deve","Não tem impacto se a decisão final estiver correta"], correct: 2, exp: "ALTO IMPACTO. Há duplo prejuízo: ao não liberar quando deve, prejudica o cliente; ao liberar quando não deve, prejudica o Nubank." },
-    { q: "As tags CB_GAMER, CSI_GAMER e CSI_GAMER_FRAUD têm qual nível de impacto?", opts: ["Alto","Médio","Baixo","Fail Section"], correct: 2, exp: "BAIXO IMPACTO — o prejuízo se limita a estudos e monitoramentos." },
-    { q: "Erros nas tags de Strike 1 e 2 no Gamers têm qual impacto?", opts: ["Alto — podem gerar perdas financeiras","Médio — afetam a experiência do cliente","Baixo — prejudicam processos internos, dificultando a tomada de decisão na próxima análise","Não têm impacto algum"], correct: 2, exp: "BAIXO IMPACTO — são marcadores cruciais para a decisão final no BKO, mas erros nelas não geram perdas imediatas." },
-    { q: "Não adicionar a tag 'suspect' no Gamers tem qual nível de impacto?", opts: ["Alto","Médio","Baixo","É Fail Section"], correct: 2, exp: "BAIXO IMPACTO — prejudica processos internos pois dificultará a tomada de decisão na próxima análise." }
+    { q: "Por que não cancelar conta e cartões de fraudador (Gamers) é ALTO IMPACTO?", opts: ["Afeta estudos","Manter produtos ativos pode gerar prejuízo","Aumenta tempo de resolução","Gera reclamação no Bacen"], correct: 1, exp: "ALTO IMPACTO — manter produtos ativos pode gerar prejuízo financeiro." },
+    { q: "Liberar crédito de confiança incorretamente tem qual impacto?", opts: ["Baixo","Médio","Alto — prejuízo ao cliente ao não liberar quando deve e ao Nubank ao liberar quando não deve","Sem impacto se a decisão final estiver correta"], correct: 2, exp: "ALTO IMPACTO duplo: não liberar quando deve prejudica o cliente; liberar quando não deve prejudica o Nubank." },
+    { q: "Tags CB_GAMER, CSI_GAMER e CSI_GAMER_FRAUD têm qual impacto quando incorretas?", opts: ["Alto","Médio","Baixo","Fail Section"], correct: 2, exp: "BAIXO IMPACTO — prejuízo se limita a estudos e monitoramentos." },
+    { q: "Erros nas tags de Strike 1 e 2 (Gamers) têm qual impacto?", opts: ["Alto","Médio","Baixo — prejudicam processos internos na tomada de decisão futura","Nenhum"], correct: 2, exp: "BAIXO IMPACTO — são marcadores cruciais para o BKO, mas erros não geram perdas imediatas." },
+    { q: "Não adicionar a tag 'suspect' (Gamers) tem qual impacto?", opts: ["Alto","Médio","Baixo","Fail Section"], correct: 2, exp: "BAIXO IMPACTO — dificultará a tomada de decisão na próxima análise." }
   ],
   tr: [
-    { q: "O que é 'Descredenciamento não realizado' no Transactional e por que é ALTO IMPACTO?", opts: ["Não cancelar a conta — o cliente pode abrir reclamação","Não incluir a TAG de descredenciamento — o cliente pode continuar usando produtos de adquirência inadequadamente, gerando perdas","Não registrar a análise — afeta estudos internos","Não comunicar o cliente — afeta experiência"], correct: 1, exp: "ALTO IMPACTO porque não atuar na retirada dos produtos de adquirência faz com que o cliente possa continuar utilizando o produto de forma inadequada, gerando perdas." },
-    { q: "Qual a diferença entre 'Descredenciamento não realizado' e 'Descredenciamento equivocado'?", opts: ["Não há diferença, ambos têm impacto médio","O primeiro não incluiu a TAG; o segundo descredenciou uma PJ que não deveria","O primeiro é erro de decisão; o segundo é baixo impacto","São o mesmo tipo de erro com nomes diferentes"], correct: 1, exp: "Não realizado = não incluiu a TAG (fraudador continua ativo). Equivocado = descredenciou a PJ que não deveria, impactando o cliente legítimo." },
-    { q: "Remover o descredenciamento de um cliente de forma equivocada tem qual nível de impacto?", opts: ["Alto","Médio","Baixo","É Fail Section"], correct: 1, exp: "MÉDIO IMPACTO. O cliente passa a ter acesso novamente aos produtos de adquirência, podendo praticar fraudes e gerar perdas." },
-    { q: "Por que o espelhamento de análise (PF na PJ) no Transactional é ALTO IMPACTO?", opts: ["Porque aumenta o tempo de análise","Porque o fraudador pode evadir valores fraudulentos e gerar perdas pela conta não espelhada","Porque gera reclamação do cliente","Porque afeta apenas estudos internos"], correct: 1, exp: "O espelhamento é ALTO IMPACTO porque o fraudador pode evadir valores fraudulentos e gerar perdas através da conta não espelhada." },
-    { q: "Erros na inserção/remoção de tags de Strike 1 e 2 no Transactional têm qual impacto?", opts: ["Alto — podem gerar perdas financeiras diretas","Médio — afetam a experiência do cliente","Baixo — prejudicam processos internos na tomada de decisão futura","Não têm impacto algum"], correct: 2, exp: "BAIXO IMPACTO. São marcadores cruciais para a próxima análise, mas erros nelas não geram perdas ou impacto na experiência do cliente se a decisão final estiver correta." }
+    { q: "Por que 'Descredenciamento não realizado' é ALTO IMPACTO?", opts: ["Cliente pode reclamar","Sem TAG de descredenciamento, o cliente pode continuar usando produtos de adquirência inadequadamente","Não registrar análise afeta estudos","Não comunicar afeta experiência"], correct: 1, exp: "ALTO IMPACTO — o cliente continua usando produtos de adquirência de forma inadequada, gerando perdas." },
+    { q: "Diferença entre 'Descredenciamento não realizado' e 'Descredenciamento equivocado'?", opts: ["Não há diferença","O primeiro não incluiu a TAG; o segundo descredenciou PJ que não deveria","O primeiro é erro de decisão; o segundo é baixo impacto","São o mesmo erro"], correct: 1, exp: "Não realizado = não incluiu TAG. Equivocado = descredenciou PJ que não deveria, impactando cliente legítimo." },
+    { q: "Remover descredenciamento de forma equivocada tem qual impacto?", opts: ["Alto","Médio","Baixo","Fail Section"], correct: 1, exp: "MÉDIO IMPACTO — o cliente passa a ter acesso novamente, podendo praticar fraudes." },
+    { q: "Por que o espelhamento (PF na PJ) no Transactional é ALTO IMPACTO?", opts: ["Aumenta tempo","Fraudador pode evadir valores pela conta não espelhada","Gera reclamação","Afeta estudos"], correct: 1, exp: "ALTO IMPACTO — fraudador pode evadir valores e gerar perdas pela conta não espelhada." },
+    { q: "Erros nas tags de Strike 1 e 2 (Transactional) têm qual impacto?", opts: ["Alto","Médio","Baixo — prejudicam processos internos na decisão futura","Nenhum"], correct: 2, exp: "BAIXO IMPACTO — não geram perdas imediatas se a decisão final estiver correta." }
   ]
 };
 
 const quizState = {};
-function initQuiz(key) {
-  quizState[key] = { current: 0, score: 0, answered: false, total: quizData[key].length };
-  renderQuestion(key);
-}
+function initQuiz(key) { quizState[key]={current:0,score:0,answered:false,total:quizData[key].length}; renderQuestion(key); }
 function renderQuestion(key) {
-  const container = document.getElementById('qc-' + key);
-  const state = quizState[key];
-  if (state.current >= state.total) { renderResult(key); return; }
-  const q = quizData[key][state.current];
-  const pct = (state.current / state.total) * 100;
-  container.innerHTML = `
-    <div class="quiz-progress">
-      <span>Questão ${state.current + 1} de ${state.total}</span>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <span class="quiz-score-badge">✅ ${state.score} pts</span>
-    </div>
-    <div class="question-text">${q.q}</div>
-    <div class="options">${q.opts.map((opt, i) => `<button class="option-btn" onclick="selectAnswer('${key}', ${i})">${opt}</button>`).join('')}</div>
-    <div class="quiz-feedback" id="fb-${key}"></div>
-    <div class="quiz-nav" id="nav-${key}" style="display:none;">
-      <span></span>
-      <button class="btn btn-primary" onclick="nextQuestion('${key}')">${state.current + 1 < state.total ? 'Próxima →' : 'Ver resultado →'}</button>
-    </div>`;
+  const c=document.getElementById('qc-'+key), s=quizState[key];
+  if(s.current>=s.total){renderResult(key);return;}
+  const q=quizData[key][s.current], pct=(s.current/s.total)*100;
+  c.innerHTML=`<div class="quiz-progress"><span>Questão ${s.current+1} de ${s.total}</span><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div><span class="quiz-score-badge">✅ ${s.score} pts</span></div><div class="question-text">${q.q}</div><div class="options">${q.opts.map((o,i)=>`<button class="option-btn" onclick="selectAnswer('${key}',${i})">${o}</button>`).join('')}</div><div class="quiz-feedback" id="fb-${key}"></div><div class="quiz-nav" id="nav-${key}" style="display:none;"><span></span><button class="btn btn-primary" onclick="nextQuestion('${key}')">${s.current+1<s.total?'Próxima →':'Ver resultado →'}</button></div>`;
 }
-function selectAnswer(key, idx) {
-  const state = quizState[key];
-  if (state.answered) return;
-  state.answered = true;
-  const q = quizData[key][state.current];
-  const btns = document.querySelectorAll(`#qc-${key} .option-btn`);
-  const fb = document.getElementById(`fb-${key}`);
-  const nav = document.getElementById(`nav-${key}`);
-  btns.forEach(b => b.disabled = true);
-  if (idx === q.correct) {
-    btns[idx].classList.add('correct'); state.score++;
-    fb.className = 'quiz-feedback show correct-fb';
-    fb.innerHTML = `✅ <strong>Correto!</strong> ${q.exp}`;
-  } else {
-    btns[idx].classList.add('wrong'); btns[q.correct].classList.add('correct');
-    fb.className = 'quiz-feedback show wrong-fb';
-    fb.innerHTML = `❌ <strong>Incorreto.</strong> ${q.exp}`;
-  }
-  nav.style.display = 'flex';
+function selectAnswer(key,idx) {
+  const s=quizState[key]; if(s.answered)return; s.answered=true;
+  const q=quizData[key][s.current], btns=document.querySelectorAll(`#qc-${key} .option-btn`), fb=document.getElementById(`fb-${key}`), nav=document.getElementById(`nav-${key}`);
+  btns.forEach(b=>b.disabled=true);
+  if(idx===q.correct){btns[idx].classList.add('correct');s.score++;fb.className='quiz-feedback show correct-fb';fb.innerHTML=`✅ <strong>Correto!</strong> ${q.exp}`;}
+  else{btns[idx].classList.add('wrong');btns[q.correct].classList.add('correct');fb.className='quiz-feedback show wrong-fb';fb.innerHTML=`❌ <strong>Incorreto.</strong> ${q.exp}`;}
+  nav.style.display='flex';
 }
-function nextQuestion(key) { quizState[key].current++; quizState[key].answered = false; renderQuestion(key); }
-function renderResult(key) {
-  const container = document.getElementById('qc-' + key);
-  const state = quizState[key];
-  const pct = Math.round((state.score / state.total) * 100);
-  let emoji, msg;
-  if (pct >= 90) { emoji = '🏆'; msg = 'Excelente! Você domina muito bem os critérios de qualidade do seu distrito.'; }
-  else if (pct >= 70) { emoji = '👍'; msg = 'Bom trabalho! Revise os pontos que você errou para consolidar o conhecimento.'; }
-  else if (pct >= 50) { emoji = '📚'; msg = 'Há espaço para melhorar. Recomendamos rever a documentação do scorecard do seu distrito.'; }
-  else { emoji = '💡'; msg = 'Aproveite para revisar o conteúdo desta página — preste atenção especial às categorias de impacto.'; }
-  container.innerHTML = `<div class="quiz-result"><div class="result-emoji">${emoji}</div><div class="result-score">${state.score}/${state.total}</div><div class="result-label">${pct}% de aproveitamento</div><div class="result-message">${msg}</div><button class="btn btn-primary" onclick="initQuiz('${key}')">🔄 Refazer Quiz</button></div>`;
+function nextQuestion(key){quizState[key].current++;quizState[key].answered=false;renderQuestion(key);}
+function renderResult(key){
+  const c=document.getElementById('qc-'+key), s=quizState[key], pct=Math.round((s.score/s.total)*100);
+  let emoji,msg;
+  if(pct>=90){emoji='🏆';msg='Excelente! Você domina muito bem os critérios de qualidade do seu distrito.';}
+  else if(pct>=70){emoji='👍';msg='Bom trabalho! Revise os pontos que você errou para consolidar o conhecimento.';}
+  else if(pct>=50){emoji='📚';msg='Há espaço para melhorar. Recomendamos rever a documentação do scorecard do seu distrito.';}
+  else{emoji='💡';msg='Aproveite para revisar o conteúdo desta página — preste atenção especial às categorias de impacto.';}
+  c.innerHTML=`<div class="quiz-result"><div class="result-emoji">${emoji}</div><div class="result-score">${s.score}/${s.total}</div><div class="result-label">${pct}% de aproveitamento</div><div class="result-message">${msg}</div><button class="btn btn-primary" onclick="initQuiz('${key}')">🔄 Refazer Quiz</button></div>`;
 }
-function switchQuiz(key) {
-  document.querySelectorAll('.quiz-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.quiz-panel').forEach(p => p.classList.remove('active'));
+function switchQuiz(key){
+  document.querySelectorAll('.quiz-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.quiz-panel').forEach(p=>p.classList.remove('active'));
   event.target.classList.add('active');
-  document.getElementById('quiz-' + key).classList.add('active');
-  if (!quizState[key]) initQuiz(key);
+  document.getElementById('quiz-'+key).classList.add('active');
+  if(!quizState[key])initQuiz(key);
 }
 initQuiz('geral');
 </script>
