@@ -79,6 +79,15 @@ nav{background:rgba(13,13,26,.9);backdrop-filter:blur(12px);position:sticky;top:
 .cc-r .cc-pts{background:var(--rb);color:var(--red)}.cc-a .cc-pts{background:var(--ab);color:var(--amber)}.cc-g .cc-pts{background:var(--gb);color:var(--green)}
 .cc-items{display:flex;flex-direction:column;gap:3px}
 .ci{font-size:11px;color:var(--ink2);display:flex;gap:5px;line-height:1.4}.ci::before{content:'·';color:var(--ink4);flex-shrink:0}
+.miss-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:540px){.miss-row{grid-template-columns:1fr}}
+.miss-card{border-radius:var(--r);padding:13px 15px}
+.miss-click{background:var(--alt);border:1px solid var(--ab)}
+.miss-dec{background:var(--rlt);border:1px solid var(--rb)}
+.miss-icon{font-size:16px;margin-bottom:5px}
+.miss-title{font-size:12px;font-weight:700;margin-bottom:3px}
+.miss-click .miss-title{color:var(--amber)}.miss-dec .miss-title{color:var(--red)}
+.miss-text{font-size:12px;color:var(--ink2);line-height:1.5}
 .faz-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 @media(max-width:560px){.faz-grid{grid-template-columns:1fr}}
 .faz-card{border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh)}
@@ -169,6 +178,7 @@ nav{background:rgba(13,13,26,.9);backdrop-filter:blur(12px);position:sticky;top:
 .combobadge.show{transform:translateX(-50%) scale(1);opacity:1}
 #confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
 footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:center;padding:14px;font-size:11px}
+footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:rgba(255,255,255,.85)}
 @media(max-width:520px){.main{padding:18px 14px 60px}.qbody{padding:13px 15px}}
 </style>
 </head>
@@ -184,7 +194,12 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
   <div class="hero-chip">Fraud Quality Team</div>
   <h1>Entenda sua <em>monitoria</em></h1>
   <p>O que é o scorecard, os 3 tipos de monitoria, o papel do time e o que pode impactar sua nota.</p>
-  <div class="hero-pills"><span class="hpill">📋 Scorecard</span><span class="hpill">3 tipos</span><span class="hpill">📖 Glossário</span><span class="hpill">🎮 Quiz</span></div>
+  <div class="hero-pills">
+    <span class="hpill">📋 Scorecard e cardteca</span>
+    <span class="hpill">3 tipos de monitoria</span>
+    <span class="hpill">✅ O que o time faz</span>
+    <span class="hpill">📖 Glossário</span>
+  </div>
 </div>
 
 <div class="tabs"><div class="ti">
@@ -198,29 +213,42 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
 
 <main class="main">
 
+<!-- SCORECARD -->
 <div id="sc" class="pg on">
   <div class="eye">Scorecard</div>
   <div class="ptitle">O que é e como funciona</div>
   <p class="psub">O scorecard é o formulário oficial que transforma a revisão da sua análise em uma nota objetiva.</p>
+
   <div class="sc-hero"><h2>O time de qualidade é o árbitro 🔬</h2><p>Quando uma análise é selecionada para monitoria, um qualiter a revisa com base no scorecard do seu distrito. Mas só vira apontamento — e só afeta sua nota — se o critério estiver listado na <strong>cardteca</strong>.</p></div>
+
   <div class="sc-steps">
     <div class="sc-step"><div class="sc-num">1</div><div><div class="sc-step-title">Seleção</div><div class="sc-step-text">Sua análise entra na monitoria por um dos 3 tipos: Catch &amp; Release, Apontamento Externo ou Amostra Global Aleatória.</div></div></div>
     <div class="sc-step"><div class="sc-num">2</div><div><div class="sc-step-title">Revisão pelo qualiter</div><div class="sc-step-text">Um qualiter analisa sua decisão com base no scorecard do seu distrito — métodos, indícios, etapas executadas.</div></div></div>
     <div class="sc-step"><div class="sc-num">3</div><div><div class="sc-step-title">Verificação na cardteca</div><div class="sc-step-text">O critério identificado está na cardteca? Se não estiver, o processo é encerrado sem impacto na sua nota.</div></div></div>
     <div class="sc-step"><div class="sc-num">4</div><div><div class="sc-step-title">Apontamento + dashboard</div><div class="sc-step-text">Só se o critério estiver na cardteca o apontamento é registrado. Você recebe feedback e o caso aparece no SPOT.</div></div></div>
   </div>
+
   <div class="cardteca-box"><h3>📖 O que é a cardteca?</h3><p>É o <strong>catálogo oficial de critérios válidos</strong> do distrito. Sem ela, não existe apontamento. É a fronteira entre uma observação e um impacto real na sua nota. A manutenção da cardteca é responsabilidade do distrito — não do time de qualidade.</p></div>
+
   <div class="eye" style="margin-bottom:8px">Níveis de criticidade</div>
   <div class="crit-row">
     <div class="cc cc-r"><div class="cc-icon">🔴</div><div class="cc-name">Crítico</div><div class="cc-pts">Scorecard zerado</div><div class="cc-items"><div class="ci">Decisão errada com impacto direto</div><div class="ci">Indícios claros ignorados (DICT, Rufra)</div><div class="ci">Fluxo UV + Jira não executado</div><div class="ci">Método ou matriz incorretos</div></div></div>
     <div class="cc cc-a"><div class="cc-icon">🟡</div><div class="cc-name">Médio</div><div class="cc-pts">−1,5 pts</div><div class="cc-items"><div class="ci">Etapa operacional incompleta</div><div class="ci">Comunicação no e-mail errado</div><div class="ci">Caixinha/limbo não liquidados</div><div class="ci">Sem contestação no Tristram</div></div></div>
     <div class="cc cc-g"><div class="cc-icon">🟢</div><div class="cc-name">Baixo</div><div class="cc-pts">−0,5 pts</div><div class="cc-items"><div class="ci">Detalhe de registro</div><div class="ci">Análise sem texto</div><div class="ci">Tag ausente ou incorreta</div><div class="ci">Afeta estudos, não o cliente</div></div></div>
   </div>
-  <div class="callout ca"><strong>🖱️ Miss Click vs Erro de Decisão:</strong> Miss click é julgamento certo, ação errada. Erro de decisão é o julgamento equivocado. <strong>Sem registro no SPOT, não dá para distinguir os dois.</strong></div>
+
+  <div class="eye" style="margin-bottom:8px">Miss Click vs Erro de Decisão</div>
+  <div class="miss-row">
+    <div class="miss-card miss-click"><div class="miss-icon">🖱️</div><div class="miss-title">Miss Click</div><div class="miss-text">Julgamento certo, ação errada. Você chegou à conclusão correta mas clicou na opção errada. O texto no SPOT comprova a intenção.</div></div>
+    <div class="miss-card miss-dec"><div class="miss-icon">⚠️</div><div class="miss-title">Erro de Decisão</div><div class="miss-text">O julgamento estava equivocado. A ação registrada reflete a conclusão — e ambas estavam erradas.</div></div>
+  </div>
+  <div class="callout ca" style="margin-bottom:16px"><strong>📝 Sem registro, não dá para distinguir os dois.</strong> Sempre documente seu raciocínio no SPOT. É sua proteção em qualquer contestação.</div>
+
   <div class="callout cb"><strong>🎓 Grace Period:</strong> Período combinado com os responsáveis do distrito — o ticket é avaliado, mas nenhuma nota é descontada mesmo com erros.</div>
-  <div class="callout cv"><strong>💡 Discordou?</strong> Conteste pelo formulário indicado no feedback. O processo existe para isso.</div>
+  <div class="callout cv"><strong>💡 Discordou?</strong> Conteste pelo formulário indicado no feedback. O prazo é até o 3º dia útil do mês seguinte.</div>
 </div>
 
+<!-- 3 TIPOS -->
 <div id="tipos" class="pg">
   <div class="eye">3 Tipos de Monitoria</div>
   <div class="ptitle">Como sua análise é selecionada</div>
@@ -247,6 +275,7 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
   </div>
 </div>
 
+<!-- O TIME -->
 <div id="papel" class="pg">
   <div class="eye">O time de qualidade</div>
   <div class="ptitle">O que o time faz — e o que não faz</div>
@@ -260,6 +289,7 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
   <div class="callout ca"><strong>📣 Mudanças de processo são comunicadas pelo distrito.</strong> Se um processo mudou, a comunicação vai vir do seu distrito — não do time de qualidade.</div>
 </div>
 
+<!-- EXEMPLOS -->
 <div id="ex" class="pg">
   <div class="eye">Exemplos</div>
   <div class="ptitle">Situações reais, nível a nível</div>
@@ -280,6 +310,7 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
   </div>
 </div>
 
+<!-- GLOSSÁRIO -->
 <div id="gloss" class="pg">
   <div class="eye">Glossário</div>
   <div class="ptitle">Principais termos do pack</div>
@@ -300,6 +331,7 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
   </div>
 </div>
 
+<!-- QUIZ -->
 <div id="quiz" class="pg">
   <div class="eye">Quiz</div>
   <div class="ptitle">Testou o que aprendeu? 🎮</div>
@@ -327,7 +359,7 @@ footer{background:rgba(13,13,26,.88);color:rgba(255,255,255,.4);text-align:cente
 </div>
 
 </main>
-<footer>🔬 Fraud Quality Team · Nubank · 2026</footer>
+<footer>🔬 Fraud Quality Team · Nubank · 2026 &nbsp;·&nbsp; <a href="index.html">Guia da Operação →</a></footer>
 
 <script>
 function navPage(id, btn) {
