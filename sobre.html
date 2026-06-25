@@ -7,8 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-/* TEMAS */
 :root,[data-theme="light"]{
   --ink:#0D0D1A;--ink2:#3D3D56;--ink3:#7A7A96;--ink4:#B8B8CC;
   --bg:#F0EFF8;--white:#fff;--border:#E0DEEE;
@@ -36,56 +34,45 @@
   --theme-btn-color:rgba(255,255,255,.6);
   --theme-btn-hover:rgba(255,255,255,.15);
 }
-
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
-
 nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.07)}
 .ni{max-width:820px;margin:0 auto;padding:0 20px;height:48px;display:flex;align-items:center;justify-content:flex-end}
-
-/* BOTÃO DE TEMA */
 .theme-toggle{display:flex;align-items:center;gap:4px;background:var(--theme-btn-bg);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:4px 6px;cursor:pointer}
 .theme-opt{font-size:13px;padding:3px 8px;border-radius:99px;border:none;background:transparent;cursor:pointer;color:var(--theme-btn-color);transition:all .15s;line-height:1}
 .theme-opt.on{background:rgba(255,255,255,.18);color:#fff}
 .theme-opt:hover:not(.on){background:var(--theme-btn-hover)}
-
 .hero{background:linear-gradient(140deg,#1a0533,#3b0d8a 45%,#6B3FE4);padding:32px 24px 28px;text-align:center;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 110%,rgba(196,181,253,.15),transparent);pointer-events:none}
 .hero-chip{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:12px}
 .hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,5vw,30px);font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.3px;margin-bottom:6px}
 .hero h1 em{font-style:normal;color:#C4B5FD}
 .hero p{font-size:13px;color:rgba(255,255,255,.65);max-width:400px;margin:0 auto}
-
 .tabs{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:48px;z-index:99;overflow-x:auto;scrollbar-width:none;transition:background .2s,border-color .2s}
 .tabs::-webkit-scrollbar{display:none}
 .ti{max-width:820px;margin:0 auto;padding:0 20px;display:flex}
 .tab{padding:12px 16px;font-size:12px;font-weight:700;color:var(--ink3);border:none;background:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;transition:color .15s,border-color .15s}
 .tab:hover{color:var(--v)}.tab.on{color:var(--v);border-bottom-color:var(--v)}
-
 .main{max-width:820px;margin:0 auto;padding:28px 20px 80px}
 .pg{display:none;animation:fadeup .2s ease both}.pg.on{display:block}
 @keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .eye{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--v);margin-bottom:5px}
 .ptitle{font-family:'Space Grotesk',sans-serif;font-size:clamp(17px,3.5vw,22px);font-weight:800;color:var(--ink);margin-bottom:4px;letter-spacing:-.3px}
 .psub{font-size:13px;color:var(--ink3);margin-bottom:20px;line-height:1.6}
-
-.callout{border-radius:0 var(--r) var(--r) 0;padding:12px 16px;font-size:13px;line-height:1.6;margin-bottom:12px;transition:background .2s,border-color .2s}
+.callout{border-radius:0 var(--r) var(--r) 0;padding:12px 16px;font-size:13px;line-height:1.6;margin-bottom:12px;transition:background .2s}
 .callout strong{font-weight:700}
 .cv{background:var(--vlt);border-left:3px solid var(--v);color:var(--v)}
 .ca{background:var(--alt);border-left:3px solid var(--amber);color:var(--amber)}
 .cg{background:var(--glt);border-left:3px solid var(--green);color:var(--green)}
 .cb{background:var(--blt);border-left:3px solid var(--blue);color:var(--blue)}
-
 .sc-hero{background:linear-gradient(135deg,#1a0533,#6B3FE4);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden}
 .sc-hero::after{content:'📋';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:44px;opacity:.15}
 .sc-hero h2{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:800;margin-bottom:4px}
 .sc-hero p{font-size:13px;color:rgba(255,255,255,.72);line-height:1.6;max-width:480px}
-
 .tipo-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .ttab{padding:7px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);color:var(--ink3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .ttab:hover{border-color:var(--v3);color:var(--v)}.ttab.on{background:var(--v);color:#fff;border-color:var(--v)}
 .tpanel{display:none}.tpanel.on{display:block}
-
 .tipo-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:background .2s,border-color .2s}
 .tipo-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
 .tipo-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
@@ -97,18 +84,15 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .tipo-text{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:12px}.tipo-text strong{color:var(--ink)}
 .tipo-note{font-size:12px;color:var(--ink3);padding:8px 12px;background:var(--bg);border-radius:8px;border-left:3px solid var(--border);line-height:1.55}
 .tipo-note strong{color:var(--ink2)}
-
 .cardteca-box{background:var(--vlt);border:2px solid var(--v3);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;position:relative;overflow:hidden;transition:background .2s}
 .cardteca-box::after{content:'📖';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:32px;opacity:.2}
 .cardteca-box h3{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;color:var(--v);margin-bottom:4px}
 .cardteca-box p{font-size:13px;color:var(--ink2);line-height:1.6;max-width:480px}.cardteca-box strong{color:var(--v)}
-
 .sc-steps{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
 .sc-step{display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);transition:background .2s,border-color .2s}
 .sc-num{width:24px;height:24px;border-radius:50%;background:var(--vlt);border:1.5px solid var(--v3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--v);flex-shrink:0;margin-top:2px}
 .sc-step-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
 .sc-step-text{font-size:12px;color:var(--ink3);line-height:1.5}
-
 .crit-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
 @media(max-width:580px){.crit-row{grid-template-columns:1fr}}
 .cc{border-radius:var(--r);padding:13px 15px;transition:background .2s}
@@ -119,18 +103,15 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .cc-r .cc-pts{background:var(--rb);color:var(--red)}.cc-a .cc-pts{background:var(--ab);color:var(--amber)}.cc-g .cc-pts{background:var(--gb);color:var(--green)}
 .cc-items{display:flex;flex-direction:column;gap:3px}
 .ci{font-size:11px;color:var(--ink2);display:flex;gap:5px;line-height:1.4}.ci::before{content:'·';color:var(--ink4);flex-shrink:0}
-
 .time-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .time-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start;transition:background .2s,border-color .2s}
 .time-icon{font-size:20px;flex-shrink:0;margin-top:2px}
 .time-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
 .time-text{font-size:13px;color:var(--ink3);line-height:1.55}.time-text strong{color:var(--ink2);font-weight:600}
-
 .gloss-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
 .gloss-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start;transition:background .2s,border-color .2s}
 .gloss-term{font-size:13px;font-weight:700;color:var(--v);min-width:120px;flex-shrink:0}
 .gloss-def{font-size:13px;color:var(--ink2);line-height:1.55}
-
 .exf{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .exfb{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);color:var(--ink3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .exfb:hover{border-color:var(--v3);color:var(--v)}.exfb.on{background:var(--v);color:#fff;border-color:var(--v)}
@@ -152,7 +133,6 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .ecf .eclbl{color:var(--red)}.ecd .eclbl{color:var(--green)}
 .ecol p{font-size:12px;color:var(--ink2);line-height:1.55}
 .ecimp{margin-top:7px;padding:7px 11px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--ink2);line-height:1.5}.ecimp strong{color:var(--ink)}
-
 .qwrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:background .2s,border-color .2s}
 .qtop{background:linear-gradient(135deg,#1a0533,#6B3FE4);padding:14px 18px}
 .qtop h3{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
@@ -199,11 +179,7 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .qres-stat{background:var(--white);border:1px solid var(--border);border-radius:9px;padding:7px 10px;transition:background .2s}
 .qres-stat-n{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--ink)}.qres-stat-l{font-size:10px;color:var(--ink3);margin-top:1px}
 .retrybtn{width:100%;padding:10px;background:linear-gradient(135deg,var(--v),#A855F7);color:#fff;border:none;border-radius:9px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer}.retrybtn:hover{opacity:.9}
-
-.combobadge{position:fixed;top:62px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,var(--v),#A855F7);color:#fff;padding:6px 16px;border-radius:99px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;z-index:999;white-space:nowrap;box-shadow:0 4px 16px rgba(107,63,228,.5);opacity:0;transition:transform .22s cubic-bezier(.34,1.56,.64,1),opacity .22s}
-.combobadge.show{transform:translateX(-50%) scale(1);opacity:1}
 #confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
-
 footer{background:var(--nav-bg);color:rgba(255,255,255,.4);text-align:center;padding:14px;font-size:11px;transition:background .2s}
 footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:rgba(255,255,255,.85)}
 @media(max-width:520px){.main{padding:18px 14px 60px}.qbody{padding:12px 14px}}
@@ -211,7 +187,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
 </head>
 <body>
 <canvas id="confetti-canvas"></canvas>
-<div class="combobadge" id="combobadge"></div>
 
 <nav><div class="ni">
   <div class="theme-toggle" title="Alternar tema">
@@ -360,54 +335,14 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
 <footer>🔬 Fraud Quality Team · Nubank · 2026 &nbsp;·&nbsp; <a href="index.html">Guia da Operação →</a></footer>
 
 <script>
-// TEMA
-function setTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  document.getElementById('btn-light').classList.toggle('on', t === 'light');
-  document.getElementById('btn-dark').classList.toggle('on', t === 'dark');
-  try { localStorage.setItem('fq-theme', t); } catch(e) {}
-}
-(function() {
-  var saved = null;
-  try { saved = localStorage.getItem('fq-theme'); } catch(e) {}
-  var pref = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  setTheme(pref);
-})();
-
-// NAVEGAÇÃO
-function navPage(id, btn) {
-  document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
-  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
-  document.getElementById(id).classList.add('on');
-  btn.classList.add('on');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-function navTipo(id, btn) {
-  document.querySelectorAll('.tpanel').forEach(function(p){ p.classList.remove('on'); });
-  document.querySelectorAll('.ttab').forEach(function(t){ t.classList.remove('on'); });
-  document.getElementById('tp-' + id).classList.add('on');
-  btn.classList.add('on');
-}
-function togEx(id) { document.getElementById(id).classList.toggle('open'); }
-function filtrarEx(lv, btn) {
-  document.querySelectorAll('.exfb').forEach(function(b){ b.classList.remove('on'); });
-  btn.classList.add('on');
-  document.querySelectorAll('.exc').forEach(function(c){
-    c.style.display = (lv === 'all' || c.dataset.lv === lv) ? '' : 'none';
-  });
-}
-
-// QUIZ
-var QS=[
-  {s:'O time de qualidade revisou uma análise e identificou um erro. Há um Jira aberto.',q:'O que define se esse erro vira apontamento na sua nota?',c:'card',opts:[{id:'card',l:'Se o critério está na cardteca do distrito',d:'Catálogo oficial de critérios'},{id:'jira',l:'O Jira aberto já formaliza',d:'Ticket é suficiente'},{id:'qua',l:'A confirmação do qualiter',d:'Basta ele confirmar'}],ok:'Exato! 🎯 Só vira apontamento se o critério estiver na cardteca. Sem ele, o processo é encerrado sem impacto.',err:'A cardteca é quem define! Sem critério na cardteca, o processo é encerrado sem impacto na nota.'},
-  {s:'Um analista de Mule Account arquivou como suspect_archived. 25 dias depois, a conta recebeu uma infração PIX acatada.',q:'Qual tipo de monitoria foi gerada?',c:'cr',opts:[{id:'cr',l:'Catch & Release',d:'Avalia suspect_archived que viraram fraudster'},{id:'ae',l:'Apontamento Externo',d:'Casos com impacto regulatório'},{id:'ga',l:'Amostra Global Aleatória',d:'Seleção periódica'}],ok:'Isso! 🎣 Catch & Release avalia decisões "suspect_archived" que viraram fraudster em até 30 dias.',err:'É Catch & Release! Exclusivo do Mule Account — avalia casos OK que viraram fraudster em até 30 dias.'},
-  {s:'Um analista foi monitorado sem nenhum gatilho externo — sem reclamação, sem Jira, sem sinalização.',q:'Qual tipo de monitoria é essa?',c:'ga',opts:[{id:'ga',l:'Amostra Global Aleatória',d:'Seleção periódica sem gatilho'},{id:'ae',l:'Apontamento Externo',d:'Enviado via Jira'},{id:'cr',l:'Catch & Release',d:'Exclusivo Mule Account'}],ok:'Correto! 🎲 A Amostra Global Aleatória acontece sem nenhum gatilho — qualquer análise pode ser selecionada.',err:'É Amostra Global Aleatória! O time extrai amostras periodicamente sem precisar de gatilho externo.'},
-  {s:'O analista registrou "fechar como fraudster" no SPOT, mas clicou em "suspect archived" por engano.',q:'Como esse erro é classificado?',c:'miss',opts:[{id:'miss',l:'Miss Click — o texto comprova a intenção',d:'Julgamento certo, ação errada'},{id:'dec',l:'Erro de Decisão — o que vale é a ação',d:'O sistema registrou suspect_archived'},{id:'igual',l:'São equivalentes',d:'A distinção não importa'}],ok:'Exato! O texto no SPOT comprova miss click. Sem registro, seria tratado como erro de decisão — mesmo impacto.',err:'É Miss Click! O registro no SPOT é a prova. Sem ele, não há como distinguir de erro de decisão.'},
-  {s:'O qualiter encontrou um erro, mas o critério não estava listado na cardteca do distrito.',q:'O que acontece com esse caso?',c:'enc',opts:[{id:'enc',l:'É encerrado — sem impacto na nota',d:'A cardteca define o que pode pontuar'},{id:'pont',l:'Vira apontamento mesmo assim',d:'O qualiter pode pontuar sem cardteca'},{id:'dist',l:'O time de qualidade atualiza a cardteca',d:'Eles incluem o critério e pontuam'}],ok:'Isso! Sem critério na cardteca, o processo é encerrado. E o time de qualidade não atualiza a cardteca — isso é do distrito.',err:'Sem cardteca, sem apontamento! E o time de qualidade não mantém a cardteca — quem faz isso é o distrito.'},
-  {s:'Um analista discordou de um apontamento recebido na monitoria.',q:'O que ele deve fazer e qual é o prazo?',c:'cont',opts:[{id:'cont',l:'Contestar pelo formulário — até o 3º dia útil do mês seguinte',d:'Canal oficial de contestação'},{id:'slack',l:'Entrar em contato direto com o qualiter via Slack',d:'DM é o canal correto'},{id:'lider',l:'Pedir para a liderança resolver',d:'A liderança faz a contestação'}],ok:'Correto! O formulário é o canal oficial. O prazo é o 3º dia útil do mês seguinte à data da monitoria.',err:'O canal correto é o formulário indicado no feedback. DMs e alinhamentos informais não são aceitos como contestação.'}
-];
-var qIdx=0,qPts=0,qRespondido=false,qAcertos=0,qErros=0,qShuffle=[];
-var TOT=QS.length;
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('btn-light').classList.toggle('on',t==='light');document.getElementById('btn-dark').classList.toggle('on',t==='dark');try{localStorage.setItem('fq-theme',t);}catch(e){}}
+(function(){var s=null;try{s=localStorage.getItem('fq-theme');}catch(e){}var p=s||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');setTheme(p);})();
+function navPage(id,btn){document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});document.getElementById(id).classList.add('on');btn.classList.add('on');window.scrollTo({top:0,behavior:'smooth'});}
+function navTipo(id,btn){document.querySelectorAll('.tpanel').forEach(function(p){p.classList.remove('on');});document.querySelectorAll('.ttab').forEach(function(t){t.classList.remove('on');});document.getElementById('tp-'+id).classList.add('on');btn.classList.add('on');}
+function togEx(id){document.getElementById(id).classList.toggle('open');}
+function filtrarEx(lv,btn){document.querySelectorAll('.exfb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');document.querySelectorAll('.exc').forEach(function(c){c.style.display=(lv==='all'||c.dataset.lv===lv)?'':'none';});}
+var QS=[{s:'O time de qualidade revisou uma análise e identificou um erro. Há um Jira aberto.',q:'O que define se esse erro vira apontamento na sua nota?',c:'card',opts:[{id:'card',l:'Se o critério está na cardteca do distrito',d:'Catálogo oficial de critérios'},{id:'jira',l:'O Jira aberto já formaliza',d:'Ticket é suficiente'},{id:'qua',l:'A confirmação do qualiter',d:'Basta ele confirmar'}],ok:'Exato! 🎯 Só vira apontamento se o critério estiver na cardteca. Sem ele, o processo é encerrado sem impacto.',err:'A cardteca é quem define! Sem critério na cardteca, o processo é encerrado sem impacto na nota.'},{s:'Um analista de Mule Account arquivou como suspect_archived. 25 dias depois, a conta recebeu uma infração PIX acatada.',q:'Qual tipo de monitoria foi gerada?',c:'cr',opts:[{id:'cr',l:'Catch & Release',d:'Avalia suspect_archived que viraram fraudster'},{id:'ae',l:'Apontamento Externo',d:'Casos com impacto regulatório'},{id:'ga',l:'Amostra Global Aleatória',d:'Seleção periódica'}],ok:'Isso! 🎣 Catch & Release avalia decisões "suspect_archived" que viraram fraudster em até 30 dias.',err:'É Catch & Release! Exclusivo do Mule Account — avalia casos OK que viraram fraudster em até 30 dias.'},{s:'Um analista foi monitorado sem nenhum gatilho externo — sem reclamação, sem Jira, sem sinalização.',q:'Qual tipo de monitoria é essa?',c:'ga',opts:[{id:'ga',l:'Amostra Global Aleatória',d:'Seleção periódica sem gatilho'},{id:'ae',l:'Apontamento Externo',d:'Enviado via Jira'},{id:'cr',l:'Catch & Release',d:'Exclusivo Mule Account'}],ok:'Correto! 🎲 A Amostra Global Aleatória acontece sem nenhum gatilho — qualquer análise pode ser selecionada.',err:'É Amostra Global Aleatória! O time extrai amostras periodicamente sem precisar de gatilho externo.'},{s:'O analista registrou "fechar como fraudster" no SPOT, mas clicou em "suspect archived" por engano.',q:'Como esse erro é classificado?',c:'miss',opts:[{id:'miss',l:'Miss Click — o texto comprova a intenção',d:'Julgamento certo, ação errada'},{id:'dec',l:'Erro de Decisão — o que vale é a ação',d:'O sistema registrou suspect_archived'},{id:'igual',l:'São equivalentes',d:'A distinção não importa'}],ok:'Exato! O texto no SPOT comprova miss click. Sem registro, seria tratado como erro de decisão — mesmo impacto.',err:'É Miss Click! O registro no SPOT é a prova. Sem ele, não há como distinguir de erro de decisão.'},{s:'O qualiter encontrou um erro, mas o critério não estava listado na cardteca do distrito.',q:'O que acontece com esse caso?',c:'enc',opts:[{id:'enc',l:'É encerrado — sem impacto na nota',d:'A cardteca define o que pode pontuar'},{id:'pont',l:'Vira apontamento mesmo assim',d:'O qualiter pode pontuar sem cardteca'},{id:'dist',l:'O time de qualidade atualiza a cardteca',d:'Eles incluem o critério e pontuam'}],ok:'Isso! Sem critério na cardteca, o processo é encerrado. E o time de qualidade não atualiza a cardteca — isso é do distrito.',err:'Sem cardteca, sem apontamento! E o time de qualidade não mantém a cardteca — quem faz isso é o distrito.'},{s:'Um analista discordou de um apontamento recebido na monitoria.',q:'O que ele deve fazer e qual é o prazo?',c:'cont',opts:[{id:'cont',l:'Contestar pelo formulário — até o 3º dia útil do mês seguinte',d:'Canal oficial de contestação'},{id:'slack',l:'Entrar em contato direto com o qualiter via Slack',d:'DM é o canal correto'},{id:'lider',l:'Pedir para a liderança resolver',d:'A liderança faz a contestação'}],ok:'Correto! O formulário é o canal oficial. O prazo é o 3º dia útil do mês seguinte à data da monitoria.',err:'O canal correto é o formulário indicado no feedback. DMs e alinhamentos informais não são aceitos como contestação.'}];
+var qIdx=0,qPts=0,qRespondido=false,qAcertos=0,qErros=0,qShuffle=[],TOT=QS.length;
 function shuffleArr(a){return a.slice().sort(function(){return Math.random()-.5;});}
 function iniciarQuiz(){qIdx=0;qPts=0;qRespondido=false;qAcertos=0;qErros=0;qShuffle=shuffleArr(QS);document.getElementById('qjogo').style.display='block';document.getElementById('qresultado').style.display='none';renderizarQ();}
 function renderizarQ(){qRespondido=false;var q=qShuffle[qIdx];document.getElementById('qnum').textContent=qIdx+1;document.getElementById('qbarfill').style.width=((qIdx+1)/TOT*100)+'%';document.getElementById('qpontos').textContent=qPts;document.getElementById('qcenario').innerHTML=q.s;document.getElementById('qpergunta').textContent=q.q;document.getElementById('qfeedback').className='qfb';document.getElementById('qproximo').className='qnextbtn';var w=document.getElementById('qopcoes');w.innerHTML='';q.opts.forEach(function(o){var b=document.createElement('button');b.className='qopt';b.dataset.id=o.id;b.innerHTML='<div class="qdot">○</div><div><div class="qoptl">'+o.l+'</div><div class="qoptd">'+o.d+'</div></div>';b.onclick=function(){responder(o.id);};w.appendChild(b);});}
