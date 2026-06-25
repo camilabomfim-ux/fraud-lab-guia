@@ -41,6 +41,10 @@ Página com **6 abas**, pensada para o analista que quer entender como é avalia
 | **Glossário** | 6 termos essenciais: Scorecard, Apontamento, Cardteca, SPOT, Grace Period, Fail Reason |
 | 🎮 **Quiz** | 6 questões objetivas para fixar o conteúdo |
 
+**Funcionalidades:**
+- ☀️ / 🌙 Alternância entre tema claro e escuro — preferência salva no navegador
+- Detecção automática do tema do sistema operacional na primeira visita
+
 ---
 
 ## 🛠️ Como atualizar
