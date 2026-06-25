@@ -12,8 +12,6 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
 nav{background:rgba(13,13,26,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.07)}
 .ni{max-width:820px;margin:0 auto;padding:0 20px;height:48px;display:flex;align-items:center}
-.nlogo{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:800;color:#fff;text-decoration:none}
-.nlogo:hover{color:#C4B5FD}
 .hero{background:linear-gradient(140deg,#1a0533,#3b0d8a 45%,#6B3FE4);padding:32px 24px 28px;text-align:center;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 110%,rgba(196,181,253,.15),transparent);pointer-events:none}
 .hero-chip{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.85);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:99px;margin-bottom:12px}
@@ -77,19 +75,16 @@ nav{background:rgba(13,13,26,.9);backdrop-filter:blur(12px);position:sticky;top:
 .cc-r .cc-pts{background:var(--rb);color:var(--red)}.cc-a .cc-pts{background:var(--ab);color:var(--amber)}.cc-g .cc-pts{background:var(--gb);color:var(--green)}
 .cc-items{display:flex;flex-direction:column;gap:3px}
 .ci{font-size:11px;color:var(--ink2);display:flex;gap:5px;line-height:1.4}.ci::before{content:'·';color:var(--ink4);flex-shrink:0}
-/* O TIME — versão simplificada */
 .time-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
 .time-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start}
 .time-icon{font-size:20px;flex-shrink:0;margin-top:2px}
 .time-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
 .time-text{font-size:13px;color:var(--ink3);line-height:1.55}
 .time-text strong{color:var(--ink2);font-weight:600}
-/* GLOSSÁRIO */
 .gloss-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
 .gloss-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start}
 .gloss-term{font-size:13px;font-weight:700;color:var(--v);min-width:120px;flex-shrink:0}
 .gloss-def{font-size:13px;color:var(--ink2);line-height:1.55}
-/* EXEMPLOS */
 .exf{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .exfb{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);color:var(--ink3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .exfb:hover{border-color:var(--v3);color:var(--v)}.exfb.on{background:var(--v);color:#fff;border-color:var(--v)}
@@ -112,7 +107,6 @@ nav{background:rgba(13,13,26,.9);backdrop-filter:blur(12px);position:sticky;top:
 .ecol p{font-size:12px;color:var(--ink2);line-height:1.55}
 .ecimp{margin-top:7px;padding:7px 11px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--ink2);line-height:1.5}
 .ecimp strong{color:var(--ink)}
-/* QUIZ */
 .qwrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
 .qtop{background:linear-gradient(135deg,#1a0533,#6B3FE4);padding:14px 18px}
 .qtop h3{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
@@ -171,7 +165,7 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
 <canvas id="confetti-canvas"></canvas>
 <div class="combobadge" id="combobadge"></div>
 
-<nav><div class="ni"><a href="sobre.html" class="nlogo">🔬 Fraud Lab</a></div></nav>
+<nav><div class="ni"></div></nav>
 
 <div class="hero">
   <div class="hero-chip">Fraud Quality Team</div>
@@ -190,35 +184,28 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
 
 <main class="main">
 
-<!-- SCORECARD -->
 <div id="sc" class="pg on">
   <div class="eye">Scorecard</div>
   <div class="ptitle">Como funciona sua avaliação</div>
   <p class="psub">O scorecard é o formulário oficial que transforma a revisão da sua análise em uma nota objetiva.</p>
-
   <div class="sc-hero"><h2>O time de qualidade é o árbitro 🔬</h2><p>Quando sua análise é selecionada, um qualiter a revisa com base no scorecard do seu distrito. Só vira apontamento — e só afeta sua nota — se o critério estiver na <strong>cardteca</strong>.</p></div>
-
   <div class="sc-steps">
     <div class="sc-step"><div class="sc-num">1</div><div><div class="sc-step-title">Seleção</div><div class="sc-step-text">Sua análise entra na monitoria por um dos 3 tipos: Catch &amp; Release, Apontamento Externo ou Amostra Global Aleatória.</div></div></div>
     <div class="sc-step"><div class="sc-num">2</div><div><div class="sc-step-title">Revisão pelo qualiter</div><div class="sc-step-text">O qualiter analisa sua decisão com base no scorecard do distrito — métodos, indícios, etapas executadas.</div></div></div>
     <div class="sc-step"><div class="sc-num">3</div><div><div class="sc-step-title">Verificação na cardteca</div><div class="sc-step-text">O critério está na cardteca? Se não estiver, o processo é encerrado sem impacto na sua nota.</div></div></div>
     <div class="sc-step"><div class="sc-num">4</div><div><div class="sc-step-title">Apontamento registrado</div><div class="sc-step-text">Só se o critério estiver na cardteca o apontamento é registrado. Você recebe um feedback e o caso aparece no SPOT.</div></div></div>
   </div>
-
   <div class="cardteca-box"><h3>📖 O que é a cardteca?</h3><p>É o <strong>catálogo oficial de critérios válidos</strong> do distrito. Sem ela, não existe apontamento — independente do erro identificado. Quem mantém a cardteca é o distrito, não o time de qualidade.</p></div>
-
   <div class="eye" style="margin-bottom:8px">Níveis de criticidade</div>
   <div class="crit-row">
     <div class="cc cc-r"><div class="cc-icon">🔴</div><div class="cc-name">Crítico</div><div class="cc-pts">Scorecard zerado</div><div class="cc-items"><div class="ci">Decisão errada com impacto direto</div><div class="ci">Indícios claros ignorados</div><div class="ci">Fluxo obrigatório não executado</div><div class="ci">Método ou matriz incorretos</div></div></div>
     <div class="cc cc-a"><div class="cc-icon">🟡</div><div class="cc-name">Médio</div><div class="cc-pts">−1,5 pts</div><div class="cc-items"><div class="ci">Etapa operacional incompleta</div><div class="ci">E-mail enviado errado</div><div class="ci">Caixinha/limbo não liquidados</div><div class="ci">Sem contestação no Tristram</div></div></div>
     <div class="cc cc-g"><div class="cc-icon">🟢</div><div class="cc-name">Baixo</div><div class="cc-pts">−0,5 pts</div><div class="cc-items"><div class="ci">Análise sem texto registrado</div><div class="ci">Tag ausente ou incorreta</div><div class="ci">Afeta estudos, não o cliente</div></div></div>
   </div>
-
   <div class="callout ca"><strong>🖱️ Miss Click:</strong> se você clicou errado mas o texto da análise no SPOT comprova sua intenção, é miss click — não erro de decisão. <strong>Sempre registre seu raciocínio.</strong></div>
   <div class="callout cb"><strong>🎓 Grace Period:</strong> durante adaptação a novos processos, seu case é avaliado mas sem desconto na nota.</div>
 </div>
 
-<!-- 3 TIPOS -->
 <div id="tipos" class="pg">
   <div class="eye">3 Tipos de Monitoria</div>
   <div class="ptitle">Como sua análise é selecionada</div>
@@ -242,12 +229,10 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
   </div>
 </div>
 
-<!-- O TIME -->
 <div id="papel" class="pg">
   <div class="eye">O time de qualidade</div>
   <div class="ptitle">O papel do time — e os limites dele</div>
   <p class="psub">Algumas dúvidas comuns sobre o que o time de qualidade faz e não faz.</p>
-
   <div class="time-cards">
     <div class="time-card"><div class="time-icon">📋</div><div><div class="time-title">A cardteca é do distrito, não do time de qualidade</div><div class="time-text">O time de qualidade usa a cardteca como referência, mas <strong>não a mantém e não define o que entra nela</strong>. Se um critério não está na cardteca, o processo é encerrado sem apontamento — independente do que foi encontrado.</div></div></div>
     <div class="time-card"><div class="time-icon">📣</div><div><div class="time-title">Mudanças de processo vêm do distrito</div><div class="time-text">O time de qualidade monitora se os processos são seguidos, mas <strong>não comunica mudanças de processo</strong>. Se um processo mudou, a comunicação oficial vem do seu distrito.</div></div></div>
@@ -256,7 +241,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
   </div>
 </div>
 
-<!-- EXEMPLOS -->
 <div id="ex" class="pg">
   <div class="eye">Exemplos</div>
   <div class="ptitle">Situações reais, nível a nível</div>
@@ -277,7 +261,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
   </div>
 </div>
 
-<!-- GLOSSÁRIO -->
 <div id="gloss" class="pg">
   <div class="eye">Glossário</div>
   <div class="ptitle">Termos que você precisa conhecer</div>
@@ -292,7 +275,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
   </div>
 </div>
 
-<!-- QUIZ -->
 <div id="quiz" class="pg">
   <div class="eye">Quiz</div>
   <div class="ptitle">Testou o que aprendeu? 🎮</div>
