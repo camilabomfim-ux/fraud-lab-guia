@@ -1,71 +1,90 @@
+<div align="center">
+
 # 🔬 Fraud Lab — Guia de Monitoria
 
-Site educativo do **Fraud Quality Team** (Nubank) criado para ajudar analistas de Investigative Operations a entender como funciona o processo de monitoria de qualidade.
+**Site educativo do Fraud Quality Team · Nubank**
+
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-6B3FE4?style=flat-square&logo=github)](https://camilabomfim-ux.github.io/fraud-lab-guia/sobre.html)
+[![Atualizado](https://img.shields.io/badge/atualizado-jun%202026-C4B5FD?style=flat-square)](https://github.com/camilabomfim-ux/fraud-lab-guia/commits/main)
+[![Público](https://img.shields.io/badge/acesso-público-glt?style=flat-square)](https://camilabomfim-ux.github.io/fraud-lab-guia/sobre.html)
+
+Ajuda analistas de Investigative Operations a entender como funciona o processo de monitoria de qualidade — de onde vêm os apontamentos, o que pode impactar a nota e como contestar.
+
+**→ [Acessar o site](https://camilabomfim-ux.github.io/fraud-lab-guia/sobre.html)**
+
+</div>
 
 ---
 
-## 🌐 Acesso
+## 📄 Páginas
 
-| Página | Link | Descrição |
+| Arquivo | Link | Para quem |
 |---|---|---|
-| **Monitoria** | [sobre.html](https://camilabomfim-ux.github.io/fraud-lab-guia/sobre.html) | Página principal — link compartilhado com os analistas |
-| Portal do Analista | [index.html](https://camilabomfim-ux.github.io/fraud-lab-guia/index.html) | Scorecards por distrito, feedback e contestação |
-| Quiz avançado | [quiz.html](https://camilabomfim-ux.github.io/fraud-lab-guia/quiz.html) | Quiz por distrito com mais questões |
+| `sobre.html` | **[🔗 Abrir](https://camilabomfim-ux.github.io/fraud-lab-guia/sobre.html)** | Analistas — link principal compartilhado com o time |
+| `index.html` | [🔗 Abrir](https://camilabomfim-ux.github.io/fraud-lab-guia/index.html) | Referência de scorecards por distrito, feedback e contestação |
+| `quiz.html` | [🔗 Abrir](https://camilabomfim-ux.github.io/fraud-lab-guia/quiz.html) | Quiz avançado por distrito |
 
 ---
 
-## 📁 Estrutura do repositório
+## 🗂️ Estrutura
 
 ```
 fraud-lab-guia/
-├── sobre.html       ← Página de monitoria (link compartilhado com o time)
-├── index.html       ← Portal do Analista (scorecards por distrito)
-├── quiz.html        ← Quiz avançado por distrito
-└── README.md        ← Este arquivo
+├── sobre.html    ← Página principal de monitoria (link do time)
+├── index.html    ← Portal do Analista com scorecards por distrito
+├── quiz.html     ← Quiz avançado por distrito
+└── README.md
 ```
 
 ---
 
-## 📋 O que tem na página de monitoria (`sobre.html`)
+## 📋 O que tem em `sobre.html`
 
-A página é dividida em 6 abas, pensadas para o analista que quer entender como é avaliado:
+Página dividida em **6 abas**, pensada para o analista que quer entender como é avaliado:
 
-| Aba | Conteúdo |
+| Aba | O que cobre |
 |---|---|
-| 📋 **Scorecard** | Como funciona o fluxo de avaliação, o papel da cardteca e os 3 níveis de criticidade |
-| **3 Tipos** | Catch & Release, Apontamentos Externos e Amostra Global Aleatória |
-| **O time** | O que o time de qualidade faz — e o que não faz |
-| **Exemplos** | Situações reais com filtro por nível de criticidade |
-| **Glossário** | Os 6 termos que mais geram dúvida |
-| 🎮 **Quiz** | 6 questões objetivas para fixar o conteúdo |
+| 📋 Scorecard | Fluxo de avaliação, cardteca e 3 níveis de criticidade |
+| 3 Tipos | Catch & Release · Apontamentos Externos · Amostra Global Aleatória |
+| O time | O que o time de qualidade faz — e o que não faz |
+| Exemplos | Casos reais com filtro por nível (🔴 Crítico / 🟡 Médio / 🟢 Baixo) |
+| Glossário | 6 termos essenciais do processo |
+| 🎮 Quiz | 6 questões objetivas para fixar o conteúdo |
 
 ---
 
-## 🛠️ Como atualizar
+## 🛠️ Como atualizar o site
 
-As páginas são arquivos HTML estáticos hospedados via **GitHub Pages** (branch `main`, raiz do repositório).
+O site usa **GitHub Pages** — qualquer commit na branch `main` atualiza automaticamente em ~1 minuto.
 
-**Para publicar uma alteração:**
-1. Edite o arquivo diretamente no GitHub (`sobre.html`, `index.html` ou `quiz.html`)
-2. Faça commit na branch `main`
-3. Aguarde ~1 minuto para o GitHub Pages atualizar automaticamente
+**Editar um arquivo:**
+1. Abra o arquivo no GitHub (`sobre.html`, `index.html` ou `quiz.html`)
+2. Clique no ✏️ (Edit) no canto superior direito
+3. Faça as alterações e clique em **Commit changes**
+4. Aguarde ~1 minuto e recarregue a página
 
-**Para forçar reload no navegador após atualização:**
-- Windows/Linux: `Ctrl + Shift + R`
-- Mac: `Cmd + Shift + R`
-- Celular: feche a aba e abra o link novamente
+**Forçar reload após atualização:**
 
----
-
-## 📌 Informações importantes
-
-- **Link principal compartilhado com o time:** `sobre.html`
-- O site não requer login — qualquer pessoa com o link pode acessar
-- Para adicionar colaboradores ao repositório: `Settings → Collaborators → Add people`
-- A cardteca referenciada na página pertence ao distrito, não ao time de qualidade
+| Sistema | Atalho |
+|---|---|
+| Windows / Linux | `Ctrl + Shift + R` |
+| Mac | `Cmd + Shift + R` |
+| Celular | Feche a aba e reabra o link |
 
 ---
 
-## 👤 Mantido por
+## 🔑 Pontos importantes
 
-**Camila Bomfim** — Fraud Quality Team · Nubank · 2026
+> **O link compartilhado com o time é `sobre.html`** — não é necessário atualizar o link após qualquer edição, ele sempre reflete a versão mais recente.
+
+- Acesso público — qualquer pessoa com o link pode visualizar, sem login
+- Para adicionar colaboradores: `Settings → Collaborators → Add people`
+- A cardteca é de responsabilidade do distrito, não do time de qualidade
+
+---
+
+<div align="center">
+
+Mantido por **Camila Bomfim** · Fraud Quality Team · Nubank · 2026
+
+</div>
