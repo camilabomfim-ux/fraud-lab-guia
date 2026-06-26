@@ -69,7 +69,6 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .sc-hero::after{content:'📋';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:44px;opacity:.15}
 .sc-hero h2{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:800;margin-bottom:4px}
 .sc-hero p{font-size:13px;color:rgba(255,255,255,.72);line-height:1.6;max-width:480px}
-/* SEPARAÇÃO DE IMPACTO */
 .impact-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 @media(max-width:540px){.impact-row{grid-template-columns:1fr}}
 .impact-card{border-radius:var(--r);padding:13px 15px;transition:background .2s}
@@ -87,7 +86,6 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .impact-note{font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid;line-height:1.5}
 .impact-pontua .impact-note{color:var(--red);border-color:var(--rb);opacity:.8}
 .impact-monitora .impact-note{color:var(--green);border-color:var(--gb);opacity:.8}
-/* TIPO TABS */
 .tipo-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .ttab{padding:7px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);color:var(--ink3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .ttab:hover{border-color:var(--v3);color:var(--v)}.ttab.on{background:var(--v);color:#fff;border-color:var(--v)}
@@ -265,7 +263,7 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
     <div class="sc-step"><div class="sc-num">1</div><div><div class="sc-step-title">Seleção</div><div class="sc-step-text">Sua análise entra por Catch &amp; Release ou Apontamento Externo (impactam a nota) ou pela Amostra Global Aleatória (apenas métricas).</div></div></div>
     <div class="sc-step"><div class="sc-num">2</div><div><div class="sc-step-title">Revisão pelo qualiter</div><div class="sc-step-text">O qualiter analisa sua decisão com base no scorecard do distrito — métodos, indícios, etapas executadas.</div></div></div>
     <div class="sc-step"><div class="sc-num">3</div><div><div class="sc-step-title">Verificação na cardteca</div><div class="sc-step-text">O critério está na cardteca? Se não estiver, o processo é encerrado sem impacto na sua nota.</div></div></div>
-    <div class="sc-step"><div class="sc-num">4</div><div><div class="sc-step-title">Apontamento registrado</div><div class="sc-step-text">Só se o critério estiver na cardteca o apontamento é registrado. Você recebe um feedback e o caso aparece no SPOT.</div></div></div>
+    <div class="sc-step"><div class="sc-num">4</div><div><div class="sc-step-title">Feedback + melhoria de processo</div><div class="sc-step-text">Você recebe um feedback com o apontamento registrado no SPOT. Os feedbacks também são encaminhados ao distrito para subsidiar melhorias de processo.</div></div></div>
   </div>
 
   <div class="cardteca-box"><h3>📖 O que é a cardteca?</h3><p>É o <strong>catálogo oficial de critérios válidos</strong> do distrito. Sem ela, não existe apontamento — independente do erro identificado. Quem mantém a cardteca é o distrito, não o time de qualidade.</p></div>
@@ -290,7 +288,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
     <button class="ttab" onclick="navTipo('ae',this)">📌 Apontamentos Externos</button>
     <button class="ttab" onclick="navTipo('ga',this)">🎲 Amostra Global Aleatória</button>
   </div>
-
   <div id="tp-cr" class="tpanel on">
     <div class="tipo-card">
       <div class="tipo-head"><div class="tipo-icon tic-cr">🎣</div><div><div class="tipo-name">Catch &amp; Release</div><div class="tipo-sub">Exclusivo Mule Account</div></div>
@@ -298,7 +295,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
       <div class="tipo-body"><div class="tipo-text">Avalia decisões classificadas como <strong>"suspect_archived"</strong> que, em até <strong>30 dias</strong>, receberam uma infração PIX acatada — indicando que o caso pode ter sido arquivado errado.</div><div class="tipo-text">O foco é identificar <strong>falsos negativos</strong>: casos arquivados como OK que deveriam ter sido marcados como fraudador.</div><div class="tipo-note">⚠️ <strong>Pontuação só ocorre quando há erro de decisão.</strong> Se a decisão estava correta, não há desconto na nota.</div></div>
     </div>
   </div>
-
   <div id="tp-ae" class="tpanel">
     <div class="tipo-card">
       <div class="tipo-head"><div class="tipo-icon tic-ae">📌</div><div><div class="tipo-name">Apontamentos Externos</div><div class="tipo-sub">Todos os distritos</div></div>
@@ -306,7 +302,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
       <div class="tipo-body"><div class="tipo-text">Acompanha casos com potencial <strong>impacto regulatório, reputacional ou financeiro</strong>. Abrange BKO, e-mail, chat e phone em todos os distritos.</div><div class="tipo-text">Os casos chegam via <strong>Jira</strong>, enviados pelos packs: Reputational, Regulatory, Investigative Intelligence, Money Movements e Células de Reversals.</div><div class="tipo-note">🎫 <strong>O Jira é o gatilho formal.</strong> Sem ticket aberto, a revisão não começa. E mesmo com Jira, a cardteca define se vira apontamento.</div></div>
     </div>
   </div>
-
   <div id="tp-ga" class="tpanel">
     <div class="tipo-card">
       <div class="tipo-head"><div class="tipo-icon tic-ga">🎲</div><div><div class="tipo-name">Amostra Global Aleatória</div><div class="tipo-sub">Todos os distritos</div></div>
@@ -325,6 +320,7 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
   <div class="time-cards">
     <div class="time-card"><div class="time-icon">📋</div><div><div class="time-title">A cardteca é do distrito, não do time de qualidade</div><div class="time-text">O time de qualidade usa a cardteca como referência, mas <strong>não a mantém e não define o que entra nela</strong>. Se um critério não está na cardteca, o processo é encerrado sem apontamento.</div></div></div>
     <div class="time-card"><div class="time-icon">📣</div><div><div class="time-title">Mudanças de processo vêm do distrito</div><div class="time-text">O time de qualidade monitora se os processos são seguidos, mas <strong>não comunica mudanças de processo</strong>. Se um processo mudou, a comunicação oficial vem do seu distrito.</div></div></div>
+    <div class="time-card"><div class="time-icon">📊</div><div><div class="time-title">Feedbacks viram insumo para melhoria de processo</div><div class="time-text">Os feedbacks das monitorias são encaminhados ao distrito para <strong>subsidiar melhorias de processo</strong>. O objetivo não é só pontuar — é ajudar o distrito a identificar padrões e ajustar o que precisa.</div></div></div>
     <div class="time-card"><div class="time-icon">💬</div><div><div class="time-title">Dúvidas e planos de ação ficam com a liderança</div><div class="time-text">O time de qualidade não realiza 1:1s de performance nem elabora planos de melhoria individual. Para isso, fale com sua liderança direta.</div></div></div>
     <div class="time-card"><div class="time-icon">💡</div><div><div class="time-title">Discordou? Conteste</div><div class="time-text">Se você discorda de um apontamento, conteste pelo formulário indicado no feedback. O prazo é até o <strong>3º dia útil do mês seguinte</strong> à data da monitoria.</div></div></div>
   </div>
@@ -411,7 +407,7 @@ var QS=[
   {s:'Um analista de Mule Account arquivou como suspect_archived. 25 dias depois, a conta recebeu uma infração PIX acatada.',q:'Qual tipo de monitoria foi gerada — e impacta a nota?',c:'cr',opts:[{id:'cr',l:'Catch & Release — sim, impacta a nota',d:'Avalia suspect_archived que viraram fraudster'},{id:'ga',l:'Amostra Global Aleatória — não impacta',d:'Seleção aleatória, só métricas'},{id:'ae',l:'Apontamento Externo — sim, impacta a nota',d:'Via Jira por impacto regulatório'}],ok:'Isso! 🎣 Catch & Release — e sim, pode impactar a nota se houver erro de decisão.',err:'É Catch & Release! Exclusivo do MA, e pode descontar nota quando há erro de decisão.'},
   {s:'O analista registrou "fechar como fraudster" no SPOT, mas clicou em "suspect archived" por engano.',q:'Como esse erro é classificado?',c:'miss',opts:[{id:'miss',l:'Miss Click — o texto comprova a intenção',d:'Julgamento certo, ação errada'},{id:'dec',l:'Erro de Decisão — o que vale é a ação',d:'O sistema registrou suspect_archived'},{id:'igual',l:'São equivalentes',d:'A distinção não importa'}],ok:'Exato! O texto no SPOT comprova miss click. Sem registro, seria tratado como erro de decisão — mesmo impacto.',err:'É Miss Click! O registro no SPOT é a prova. Sem ele, não há como distinguir de erro de decisão.'},
   {s:'O qualiter encontrou um erro, mas o critério não estava listado na cardteca do distrito.',q:'O que acontece com esse caso?',c:'enc',opts:[{id:'enc',l:'É encerrado — sem impacto na nota',d:'A cardteca define o que pode pontuar'},{id:'pont',l:'Vira apontamento mesmo assim',d:'O qualiter pode pontuar sem cardteca'},{id:'dist',l:'O time de qualidade atualiza a cardteca',d:'Eles incluem o critério e pontuam'}],ok:'Isso! Sem critério na cardteca, o processo é encerrado. E o time de qualidade não atualiza a cardteca — isso é do distrito.',err:'Sem cardteca, sem apontamento! E o time de qualidade não mantém a cardteca — quem faz isso é o distrito.'},
-  {s:'Um analista discordou de um apontamento recebido na monitoria.',q:'O que ele deve fazer e qual é o prazo?',c:'cont',opts:[{id:'cont',l:'Contestar pelo formulário — até o 3º dia útil do mês seguinte',d:'Canal oficial de contestação'},{id:'slack',l:'Entrar em contato direto com o qualiter via Slack',d:'DM é o canal correto'},{id:'lider',l:'Pedir para a liderança resolver',d:'A liderança faz a contestação'}],ok:'Correto! O formulário é o canal oficial. O prazo é o 3º dia útil do mês seguinte à data da monitoria.',err:'O canal correto é o formulário indicado no feedback. DMs e alinhamentos informais não são aceitos como contestação.'}
+  {s:'Um analista recebeu um feedback de monitoria com um apontamento que não concorda.',q:'O que ele deve fazer e qual é o prazo?',c:'cont',opts:[{id:'cont',l:'Contestar pelo formulário — até o 3º dia útil do mês seguinte',d:'Canal oficial de contestação'},{id:'slack',l:'Entrar em contato direto com o qualiter via Slack',d:'DM é o canal correto'},{id:'lider',l:'Pedir para a liderança resolver',d:'A liderança faz a contestação'}],ok:'Correto! O formulário é o canal oficial. O prazo é o 3º dia útil do mês seguinte à data da monitoria.',err:'O canal correto é o formulário indicado no feedback. DMs e alinhamentos informais não são aceitos como contestação.'}
 ];
 var qIdx=0,qPts=0,qRespondido=false,qAcertos=0,qErros=0,qShuffle=[],TOT=QS.length;
 function shuffleArr(a){return a.slice().sort(function(){return Math.random()-.5;});}
