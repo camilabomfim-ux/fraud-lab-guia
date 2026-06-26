@@ -125,17 +125,33 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .cc-r .cc-pts{background:var(--rb);color:var(--red)}.cc-a .cc-pts{background:var(--ab);color:var(--amber)}.cc-g .cc-pts{background:var(--gb);color:var(--green)}
 .cc-items{display:flex;flex-direction:column;gap:3px}
 .ci{font-size:11px;color:var(--ink2);display:flex;gap:5px;line-height:1.4}.ci::before{content:'·';color:var(--ink4);flex-shrink:0}
-.time-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
-.time-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start;transition:background .2s,border-color .2s}
-.time-icon{font-size:20px;flex-shrink:0;margin-top:2px}
-.time-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
-.time-text{font-size:13px;color:var(--ink3);line-height:1.55}.time-text strong{color:var(--ink2);font-weight:600}
+/* O TIME — grade de responsabilidades */
+.resp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+@media(max-width:560px){.resp-grid{grid-template-columns:1fr}}
+.resp-col{border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.resp-head{padding:11px 14px;display:flex;align-items:center;gap:8px}
+.resp-ok .resp-head{background:var(--glt);border-bottom:1px solid var(--gb)}
+.resp-nok .resp-head{background:var(--rlt);border-bottom:1px solid var(--rb)}
+.resp-head-icon{font-size:16px}
+.resp-head-title{font-size:12px;font-weight:800}
+.resp-ok .resp-head-title{color:var(--green)}
+.resp-nok .resp-head-title{color:var(--red)}
+.resp-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);padding:10px 14px;display:flex;flex-direction:column;gap:7px}
+.resp-item{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--ink2);line-height:1.5}
+.resp-item-dot{flex-shrink:0;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;margin-top:1px}
+.resp-ok .resp-item-dot{background:var(--glt);color:var(--green);border:1px solid var(--gb)}
+.resp-nok .resp-item-dot{background:var(--rlt);color:var(--red);border:1px solid var(--rb)}
+.resp-item strong{color:var(--ink);font-weight:600}
+/* links */
 .time-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;font-weight:600;color:var(--v);text-decoration:none;opacity:.85}
 .time-link:hover{opacity:1;text-decoration:underline}
+.resp-links{padding:8px 14px 12px;background:var(--white);border:1px solid var(--border);border-top:1px solid var(--border);border-radius:0 0 var(--r) var(--r);display:flex;flex-direction:column;gap:4px}
+/* GLOSSÁRIO */
 .gloss-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
 .gloss-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start;transition:background .2s,border-color .2s}
 .gloss-term{font-size:13px;font-weight:700;color:var(--v);min-width:120px;flex-shrink:0}
 .gloss-def{font-size:13px;color:var(--ink2);line-height:1.55}
+/* EXEMPLOS */
 .exf{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .exfb{padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);color:var(--ink3);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .exfb:hover{border-color:var(--v3);color:var(--v)}.exfb.on{background:var(--v);color:#fff;border-color:var(--v)}
@@ -157,6 +173,7 @@ nav{background:var(--nav-bg);backdrop-filter:blur(12px);position:sticky;top:0;z-
 .ecf .eclbl{color:var(--red)}.ecd .eclbl{color:var(--green)}
 .ecol p{font-size:12px;color:var(--ink2);line-height:1.55}
 .ecimp{margin-top:7px;padding:7px 11px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--ink2);line-height:1.5}.ecimp strong{color:var(--ink)}
+/* QUIZ */
 .qwrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:background .2s,border-color .2s}
 .qtop{background:linear-gradient(135deg,#1a0533,#6B3FE4);padding:14px 18px}
 .qtop h3{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
@@ -323,26 +340,48 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none}footer a:hover{color:r
 <!-- O TIME -->
 <div id="papel" class="pg">
   <div class="eye">O time de qualidade</div>
-  <div class="ptitle">O papel do time — e os limites dele</div>
-  <p class="psub">Algumas dúvidas comuns sobre o que o time de qualidade faz e não faz.</p>
-  <div class="time-cards">
+  <div class="ptitle">Responsabilidades do time</div>
+  <p class="psub">O que é — e o que não é — papel do Pack Quality na operação.</p>
 
-    <div class="time-card"><div class="time-icon">📋</div><div><div class="time-title">A cardteca é do distrito, não do time de qualidade</div><div class="time-text">O time de qualidade usa a cardteca como referência, mas <strong>não a mantém e não define o que entra nela</strong>. Se um critério não está na cardteca, o processo é encerrado sem apontamento.</div>
+  <div class="resp-grid">
+
+    <!-- É responsabilidade -->
+    <div class="resp-col resp-ok">
+      <div class="resp-head"><div class="resp-head-icon">✅</div><div class="resp-head-title">É responsabilidade do time</div></div>
+      <div class="resp-body">
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Realizar monitorias nos 3 tipos: <strong>Catch &amp; Release, Apontamentos Externos e Amostra Global Aleatória</strong></div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Aplicar o <strong>scorecard do distrito</strong> em cada revisão — sem desviar do que está definido</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Verificar se o critério identificado está na <strong>cardteca</strong> antes de registrar qualquer apontamento</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Registrar apontamentos e feedbacks no <strong>SPOT</strong></div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Encaminhar feedbacks ao distrito para <strong>subsidiar melhorias de processo</strong></div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Garantir consistência entre qualiters por meio de <strong>calibrações</strong> com especialistas do distrito</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Manter <strong>dashboards e relatórios</strong> de qualidade atualizados</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✓</div><div>Assegurar que os próprios qualiters sigam o <strong>processo definido pelo distrito</strong></div></div>
+      </div>
+    </div>
+
+    <!-- Não é responsabilidade -->
+    <div class="resp-col resp-nok">
+      <div class="resp-head"><div class="resp-head-icon">❌</div><div class="resp-head-title">Não é responsabilidade do time</div></div>
+      <div class="resp-body">
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div>Criar, atualizar ou fazer <strong>manutenção da cardteca</strong> — isso é do distrito</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div>Definir <strong>quais critérios entram ou saem</strong> da cardteca</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div><strong>Comunicar mudanças de processo</strong> para a operação — isso vem do distrito</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div>Elaborar <strong>planos de ação individuais</strong> ou realizar 1:1s de performance</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div><strong>Treinar ou reciclar</strong> a operação sobre processos específicos</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div>Fazer a <strong>contestação em nome do analista</strong> — o analista contesta via Jira</div></div>
+        <div class="resp-item"><div class="resp-item-dot">✕</div><div>Resolver <strong>dúvidas operacionais</strong> do dia a dia — procure sua liderança direta</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout cv"><strong>🤝 Somos aliados da operação.</strong> O Pack Quality acompanha, avalia e metrifica — fornecendo dados confiáveis para que distritos e lideranças implementem melhorias.</div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
     <a class="time-link" href="https://docs.google.com/document/d/1CI71QUlVb2iGZZpydH_r4RLkhL5vyfJ65Azv50IRibU/edit?tab=t.0#heading=h.9gjc525kgluv" target="_blank" rel="noopener">📖 Ver cardteca →</a>
-    </div></div>
-
-    <div class="time-card"><div class="time-icon">📣</div><div><div class="time-title">Mudanças de processo vêm do distrito</div><div class="time-text">O time de qualidade monitora se os processos são seguidos, mas <strong>não comunica mudanças de processo</strong>. Se um processo mudou, a comunicação oficial vem do seu distrito.</div></div></div>
-
-    <div class="time-card"><div class="time-icon">📊</div><div><div class="time-title">Feedbacks viram insumo para melhoria de processo</div><div class="time-text">Os feedbacks das monitorias são encaminhados ao distrito para <strong>subsidiar melhorias de processo</strong>. O objetivo não é só pontuar — é ajudar o distrito a identificar padrões e ajustar o que precisa.</div>
     <a class="time-link" href="https://us-east-1.quicksight.aws.amazon.com/sn/account/nu-qs-prod/dashboards/d8eff447-81e4-411c-a510-b304f1cc980f/sheets/d8eff447-81e4-411c-a510-b304f1cc980f_f2a90d9c-4ba8-42fb-990b-aaaa37dadd9f" target="_blank" rel="noopener">📈 Ver dashboard →</a>
-    </div></div>
-
-    <div class="time-card"><div class="time-icon">💬</div><div><div class="time-title">Dúvidas e planos de ação ficam com a liderança</div><div class="time-text">O time de qualidade não realiza 1:1s de performance nem elabora planos de melhoria individual. Para isso, fale com sua liderança direta.</div></div></div>
-
-    <div class="time-card"><div class="time-icon">💡</div><div><div class="time-title">Discordou? Conteste</div><div class="time-text">Se você discorda de um apontamento, conteste pelo formulário oficial. O prazo é até o <strong>3º dia útil do mês seguinte</strong> à data da monitoria.</div>
-    <a class="time-link" href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener">🎫 Abrir contestação no Jira →</a>
-    </div></div>
-
+    <a class="time-link" href="https://nubank.atlassian.net/servicedesk/customer/portal/350/group/8404/create/20552" target="_blank" rel="noopener">🎫 Abrir contestação →</a>
   </div>
 </div>
 
